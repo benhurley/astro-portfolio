@@ -31,14 +31,6 @@ interface Props {
    * @type {'primary' | 'secondary' | 'neutral' | 'gradient' | 'bordered' | undefined}
    * @default undefined - Uses the default background color
    */
-  /**
-   * The author of the page
-   */
-  author?: {
-    name: string
-    image: string
-    bio: string
-  }
   bgType?: 'primary' | 'secondary' | 'neutral' | 'gradient' | 'bordered'
   /**
    * Whether to show the breadcrumbs
@@ -46,7 +38,7 @@ interface Props {
   showBreadcrumbs?: boolean
 }
 
-const { class: className, title, subtitle, bgType, showBreadcrumbs = true, featuredImage, author } = Astro.props
+const { class: className, title, subtitle, bgType, showBreadcrumbs = true, featuredImage } = Astro.props
 
 // Sanitize subtitle HTML if present
 const sanitizedSubtitle: string = subtitle
@@ -94,26 +86,19 @@ const sanitizedSubtitle: string = subtitle
     <div class="space-content container">
       {
         featuredImage && (
-          <div class="featured-image-container mb-8">
+          <div class="featured-image-container mb-8 border-1 rounded-lg">
             <Image
               src={featuredImage}
               alt=""
               width={1200}
               height={250}
-              class="h-[250px] w-full rounded-lg object-cover"
+              class="h-[250px] w-full rounded-lg object-cover border-1"
             />
           </div>
         )
       }
       <Heading level="h1">{title}</Heading>
       {sanitizedSubtitle && <p class="text-2xl" set:html={sanitizedSubtitle} />}
-      {
-        author && (
-          <div class="mt-6 flex items-center">
-            <Avatar title={author.name} image={author.image} subtitle={author.bio} />
-          </div>
-        )
-      }
     </div>
   </div>
 </section>
@@ -142,7 +127,7 @@ const sanitizedSubtitle: string = subtitle
     }
 
     .bg-bordered {
-      border: 1px solid var(--border-color-subtle);
+      border: 2px solid var(--border-color-subtle);
       border-inline: 0;
     }
 

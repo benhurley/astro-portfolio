@@ -15,51 +15,10 @@ const staticPages = [
     description: 'Welcome to our accessible website featuring modern web development and inclusive design principles.',
   },
   {
-    title: 'Accessible components',
-    url: '/accessible-components',
-    description: 'A comprehensive showcase of accessible UI components and design patterns for modern web development.',
-  },
-  {
     title: 'Portfolio',
     url: '/portfolio',
     description: 'A collection of projects demonstrating accessible design and development practices.',
-  },
-  {
-    title: 'Blog',
-    url: '/blog',
-    description: 'Articles and insights about web accessibility, development best practices, and inclusive design.',
-  },
-  {
-    title: 'Contact',
-    url: '/contact',
-    description:
-      'Get in touch with us for accessibility consulting, development services, or collaboration opportunities.',
-  },
-  {
-    title: 'Color contrast checker',
-    url: '/color-contrast-checker',
-    description: 'An interactive tool to check color contrast ratios and ensure WCAG compliance for your designs.',
-  },
-  {
-    title: 'Accessibility statement',
-    url: '/accessibility-statement',
-    description: 'Our commitment to accessibility and information about the accessibility features of this website.',
-  },
-  {
-    title: 'Markdown page example',
-    url: '/markdown-page',
-    description: 'A demonstration of Markdown content rendering with accessible formatting and typography.',
-  },
-  {
-    title: 'MDX page example',
-    url: '/mdx-page',
-    description: 'An example of MDX content combining Markdown with interactive React components.',
-  },
-  {
-    title: 'Thank you',
-    url: '/thank-you',
-    description: 'Confirmation page for successful form submissions and user interactions.',
-  },
+  }
 ]
 ---
 
@@ -115,7 +74,7 @@ const staticPages = [
                 <p class="mb-3">{project.data.description}</p>
                 <div class="text-xs">
                   <p class="mb-1">
-                    By: <span class="font-medium">{project.data.author}</span>
+                    By: <span class="font-medium">{project.data.platform}</span>
                   </p>
                   <p>
                     URL:{' '}

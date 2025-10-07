@@ -1,11 +1,11 @@
 {
-  "name": "accessible-astro-starter",
-  "description": "An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.",
+  "name": "astro-portfolio",
+  "description": "Lets fix your website.",
   "version": "4.2.1",
-  "author": "Incluud",
+  "author": "Ben",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://accessible-astro-starter.incluud.dev/",
+  "homepage": "https://benvent.com/",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -13,9 +13,9 @@
     "preview": "astro preview"
   },
   "keywords": [
-    "astro",
-    "astro-component",
-    "astro-components",
+    "web",
+    "websites",
+    "fix",
     "accessible",
     "accessibility",
     "a11y",
@@ -23,16 +23,12 @@
     "responsive",
     "ui-library",
     "ui-components",
-    "blog",
-    "portfolio"
+    "rebuild",
+    "portfolio",
+    "new",
+    "service",
+    "freelance"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/incluud/accessible-astro-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/incluud/accessible-astro-starter/issues"
-  },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.5",
     "@astrojs/partytown": "^2.1.4",

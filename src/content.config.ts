@@ -9,8 +9,11 @@ const projects = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
-    author: z.string(),
+    platform: z.string(),
+    isFeatured: z.boolean().default(false),
+    sortOrder: z.number(),
     description: z.string(),
+    featuredImage: z.string()
   }),
 })
 

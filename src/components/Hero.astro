@@ -2,6 +2,7 @@
 import { Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
+import heroImage from '../../public/hero-image.webp'
 
 /**
  * Hero Component
@@ -10,45 +11,44 @@ import { Image } from 'astro:assets'
  */
 interface Props {
   /**
-   * The source URL for the image
+   * The image to display (imported asset)
    */
-  src?: string
+  src?: ImageMetadata
 }
 
-const { src = '/astronaut-hero-img.webp' }: Props = Astro.props
+const { src = heroImage }: Props = Astro.props
 ---
 
-<section class="hero my-24">
+<section class="hero">
   <div class="container">
-    <div class="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
-      <div class="flex flex-col items-center gap-8 md:items-start">
-        <h1 class="text-center text-6xl md:text-left lg:text-8xl">
-          <slot><span class="text-gradient">Accessible</span> Starter for Astro</slot>
+    <div class="mt-4 grid grid-cols-1 items-center gap-0 md:mt-16 md:grid-cols-2">
+      <div class="image-wrapper">
+        <Image
+          src={src}
+          alt="Hero illustration"
+          widths={[200, 400, 800]}
+          class="image mx-auto h-auto w-full max-w-[60%]"
+          loading="eager"
+          quality={100}
+        />
+      </div>
+      <div class="mt-16 flex flex-col items-center gap-8 md:mt-8 md:items-center">
+        <h1 class="text-center text-[52px] md:text-center lg:text-[80px]">
+          <slot>Let's Fix Your Website</slot>
         </h1>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row">
+        <div class="mb-16 flex flex-col gap-3 min-[500px]:flex-row">
           <Link
-            href="https://github.com/incluud/accessible-astro-starter"
+            href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
             isButton
             type="primary"
             animateOnHover
             animationType="boop"
           >
-            <Icon aria-hidden="true" name="lucide:star" size="1.5rem" />
-            Star on GitHub
-          </Link>
-          <Link
-            href="https://accessible-astro.incluud.dev/"
-            isButton
-            type="secondary"
-            animateOnHover
-            animationType="boop"
-          >
-            <Icon aria-hidden="true" name="lucide:bookmark" size="1.5rem" />
-            Read the docs
+            <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
+            Get In Touch
           </Link>
         </div>
       </div>
-      <Image class="hidden lg:block" src={src} alt="" decoding="async" width={800} height={600} loading="eager" />
     </div>
   </div>
 </section>
@@ -58,10 +58,26 @@ const { src = '/astronaut-hero-img.webp' }: Props = Astro.props
     text-wrap: unset;
   }
 
+  .image-wrapper {
+    position: relative;
+
+    @media screen and (max-width: 90rem) {
+      display: none;
+    }
+  }
+
+  .image-wrapper::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: var(--radius-l);
+    content: '';
+  }
+
   .text-gradient {
     background: linear-gradient(
       315deg,
-      light-dark(var(--color-primary-300), var(--color-secondary-100)) 25%,
+      light-dark(var(--color-primary-300), var(--color-secondary-100)) 0%,
       light-dark(var(--color-secondary-300), var(--color-primary-200))
     );
     background-clip: border-box;

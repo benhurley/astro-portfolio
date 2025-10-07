@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
 
 const {
-  title = 'Accessible Astro',
+  title = 'Ben Ventures',
   description = 'A starter project with accessibility features using Astro static site builder. Contains accessible landmarks, skip links, a dark mode color scheme, better focus outline and keyboard menu navigation.',
   url = Astro.site,
   image = 'social-preview-image.png',
@@ -22,7 +22,7 @@ const {
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
 
@@ -39,18 +39,21 @@ const {
       @use '../assets/scss/base/mixins' as *;
 
       // sticky footer on low content pages
-      html,
-      body {
+      html {
         height: 100%;
       }
 
       body {
+        min-height: 100%;
         display: flex;
         flex-direction: column;
         overflow-x: clip;
 
         main {
           flex: 1 0 auto;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
         }
 
         footer {

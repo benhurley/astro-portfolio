@@ -1,45 +1,68 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   interpolate-size: allow-keywords;
 
-  // brand colors (change these to your own brand colors)
-  --brand-primary: #d648ff;
-  --brand-secondary: #00d1b7;
-  --brand-neutral: #b9bec4;
+  // Vintage Newport Folk Festival colors for light mode
+  --brand-folk-blue: #5A8DB0;    // Medium folk blue - works for both modes
+  --brand-deep-blue: #1E3A5F;    // Deep navy blue
+  --brand-light-blue: #a0bed0;   // Light blue
+  --brand-accent: #C8956D;       // Warm tan/gold
+  --brand-cream: #F4EBD9;        // Vintage cream
+  --brand-charcoal: #2B2B2B;     // Soft black
+  
+  // Space Race colors for dark mode
+  --brand-nasa-blue: #1e3a5f;    // Deep space blue for dark bg
+  --brand-space-silver: #E8EDF4; // Bright silver
+  --brand-moon-white: #F0F3F7;   // Cool white
+  --brand-sky-blue: #7DB3D5;     // Light blue for text
 
   // pallet brand
-  --color-primary-100: oklch(from var(--brand-primary) 90% c h);
-  --color-primary-200: oklch(from var(--brand-primary) 80% c h);
-  --color-primary-300: oklch(from var(--brand-primary) 70% c h);
-  --color-primary-400: oklch(from var(--brand-primary) 60% c h);
-  --color-primary-500: oklch(from var(--brand-primary) 50% c h);
-  --color-secondary-100: oklch(from var(--brand-secondary) 90% c h);
-  --color-secondary-200: oklch(from var(--brand-secondary) 80% c h);
-  --color-secondary-300: oklch(from var(--brand-secondary) 70% c h);
-  --color-secondary-400: oklch(from var(--brand-secondary) 60% c h);
-  --color-secondary-500: oklch(from var(--brand-secondary) 50% c h);
+  --color-primary-100: oklch(from var(--brand-folk-blue) 90% c h);
+  --color-primary-200: oklch(from var(--brand-folk-blue) 80% c h);
+  --color-primary-300: oklch(from var(--brand-folk-blue) 70% c h);
+  --color-primary-400: oklch(from var(--brand-folk-blue) 60% c h);
+  --color-primary-500: var(--brand-folk-blue);
+  --color-secondary-100: oklch(from var(--brand-deep-blue) 90% c h);
+  --color-secondary-200: oklch(from var(--brand-deep-blue) 80% c h);
+  --color-secondary-300: oklch(from var(--brand-deep-blue) 70% c h);
+  --color-secondary-400: oklch(from var(--brand-deep-blue) 60% c h);
+  --color-secondary-500: var(--brand-deep-blue);
 
   // pallet neutral
-  --color-neutral-100: oklch(from var(--brand-neutral) 100% 0 0);
-  --color-neutral-200: oklch(from var(--brand-neutral) 95% c h);
-  --color-neutral-300: oklch(from var(--brand-neutral) 90% c h);
-  --color-neutral-400: oklch(from var(--brand-neutral) 85% c h);
-  --color-neutral-500: oklch(from var(--brand-neutral) 80% c h);
-  --color-neutral-600: oklch(from var(--brand-neutral) 60% c h);
-  --color-neutral-700: oklch(from var(--brand-neutral) 40% c h);
-  --color-neutral-800: oklch(from var(--brand-neutral) 30% c h);
-  --color-neutral-900: oklch(from var(--brand-neutral) 15% c h);
+  --color-neutral-100: #FAFAFA;   // Almost white
+  --color-neutral-200: #F5F5F5;   // Very light gray
+  --color-neutral-300: #E5E5E5;   // Light gray
+  --color-neutral-400: #D4D4D4;   // Medium-light gray
+  --color-neutral-500: #A3A3A3;   // Gray
+  --color-neutral-600: #737373;   // Medium-dark gray
+  --color-neutral-700: #404040;   // Dark gray
+  --color-neutral-800: #262626;   // Very dark gray
+  --color-neutral-900: #171717;   // Almost black
 
-  // color scheme
-  --foreground-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --background-color: light-dark(var(--color-neutral-100), var(--color-neutral-900));
-  --icon-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --link-color: light-dark(var(--color-primary-400), var(--color-secondary-100));
-  --link-hover-color: light-dark(var(--color-primary-300), var(--color-secondary-200));
-  --border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
-  --border-color-subtle: light-dark(var(--color-neutral-300), var(--color-neutral-800));
-  --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
-  --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
+  // warm vintage grays for light mode only
+  --color-warm-100: #FFFEF8;   // Warm off-white
+  --color-warm-200: #F9F6EE;   // Light warm gray
+  --color-warm-300: #E8E3D6;   // Warm gray
+  --color-warm-400: #D4CBBF;   // Medium warm gray
+
+  // color scheme - balanced for both modes
+  --foreground-color: light-dark(var(--brand-charcoal), var(--brand-space-silver));
+  --background-color: light-dark(var(--brand-cream), var(--brand-nasa-blue));
+  --icon-color: light-dark(var(--brand-deep-blue), var(--brand-space-silver));
+  --link-color: light-dark(var(--brand-folk-blue), var(--brand-sky-blue));
+  --link-hover-color: light-dark(var(--brand-deep-blue), var(--brand-space-silver));
+  --border-color: light-dark(var(--brand-light-blue), var(--brand-sky-blue));
+  --border-color-subtle: light-dark(var(--color-warm-300), rgba(125, 179, 213, 0.2));
+  --text-decoration-color: light-dark(var(--brand-folk-blue), var(--brand-sky-blue));
+  --text-decoration-color-hover: light-dark(var(--brand-deep-blue), var(--brand-moon-white));
+
+// CTA/Button colors
+  --button-primary-bg: light-dark(var(--brand-deep-blue), var(--brand-space-silver));
+  --button-primary-text: light-dark(white, var(--brand-nasa-blue));
+  --button-primary-hover: light-dark(var(--brand-folk-blue), var(--brand-moon-white));
+
+  // Grid pattern for backgrounds
+  --grid-color: light-dark(rgba(90, 141, 176, 0.12), rgba(125, 179, 213, 0.12));
 
   // theme settings
   --radius-small: 3px;
@@ -54,7 +77,6 @@
   --font-body: var(--font-family-default);
 
   // font sizes
-  // @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
   --font-size--2: clamp(0.6944rem, 0.6855rem + 0.0446vw, 0.72rem);
   --font-size--1: clamp(0.8331rem, 0.8099rem + 0.1163vw, 0.9rem);
   --font-size-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
@@ -68,7 +90,6 @@
   --font-size-8: clamp(4.2999rem, 3.5601rem + 3.6935vw, 6.6856rem);
 
   // space
-  // @link https://utopia.fyi/space/calculator?c=320,16,1.2,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12
   --space-5xs: clamp(0.1rem, 0.0931rem + 0.1087vw, 0.125rem);
   --space-4xs: clamp(0.125rem, 0.1131rem + 0.1087vw, 0.1563rem);
   --space-3xs: clamp(0.25rem, 0.2283rem + 0.1087vw, 0.3125rem);
@@ -84,7 +105,6 @@
   --space-5xl: clamp(10rem, 9.5652rem + 2.1741vw, 10.5rem);
 
   // grid
-  // https://utopia.fyi/grid/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l&g=s,l,xl,12
   --grid-max-width: 90rem;
   --grid-gutter: var(--space-s-l, clamp(1.125rem, 0.6467rem + 2.3913vw, 2.5rem));
   --grid-columns: 12;
@@ -139,12 +159,25 @@
   --backdrop-blur: blur(3px);
 
   // kbd
-  --kbd-color-text: light-dark(var(--color-gray-200), var(--color-gray-800));
-  --kbd-color-border: light-dark(var(--color-gray-700), var(--color-gray-300));
-  --kbd-color-background: light-dark(var(--color-gray-1000), var(--color-gray-200));
+  --kbd-color-text: light-dark(var(--brand-deep-blue), var(--brand-sky-blue));
+  --kbd-color-border: light-dark(var(--brand-light-blue), var(--brand-space-silver));
+  --kbd-color-background: light-dark(var(--color-warm-100), rgba(125, 179, 213, 0.1));
+
+  // logo filter
+  --logo-filter: brightness(0.2) sepia(0.3);
 }
 
 // dark color scheme overrides
 .darkmode {
   color-scheme: dark;
+  --logo-filter: brightness(1);
+}
+
+// Figma-style grid pattern on body
+body {
+  background-image: 
+    linear-gradient(var(--grid-color) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--grid-color) 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-position: -1px -1px;
 }

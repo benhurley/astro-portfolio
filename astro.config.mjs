@@ -10,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://accessible-astro-starter.incluud.dev',
+  site: 'https://benvent.com',
   integrations: [mdx(), icon(), compress(), sitemap()],
   vite: {
     css: {

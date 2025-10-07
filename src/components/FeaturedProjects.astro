@@ -2,11 +2,7 @@
 import { Card, Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
-
-// Import images directly for optimization
-import projectImage1 from '@assets/images/projects/project-image-1.png'
-import projectImage2 from '@assets/images/projects/project-image-2.png'
-import projectImage3 from '@assets/images/projects/project-image-3.png'
+import CardWrapper from './CardWrapper.astro'
 
 /**
  * FeaturedProjects Component
@@ -25,47 +21,61 @@ interface Props {
   limit?: number
   /**
    * The title for the section
-   * @default "Featured projects"
+   * @default "Featured Projects"
    */
   title?: string
 }
 
-const { class: className, limit = 3, title = 'Featured projects' } = Astro.props
+const { class: className, limit = 3, title = 'Featured Projects' } = Astro.props
 
 // Get projects from content collection
 const projects = await getCollection('projects')
-const projectImages = [projectImage1, projectImage2, projectImage3]
 
-// Limit projects and add featured images
-const featuredProjects = projects.slice(0, limit).map((project, index) => ({
-  ...project,
-  featuredImage: projectImages[index % projectImages.length],
-}))
+// Dynamically import all images from the projects folder
+const images = import.meta.glob('/src/assets/images/projects/*.{png,jpg,jpeg,webp}', { eager: true })
+
+// Filter featured projects and sort them
+const featuredProjects = projects
+  .filter((project) => project.data.isFeatured)
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder)
+  .slice(0, limit)
+  .map((project) => {
+    // Get the image based on the featuredImage field from frontmatter
+    const imagePath = `/src/assets/images/projects/${project.data.featuredImage}`
+    const imageModule = images[imagePath]
+
+    return {
+      ...project,
+      imageComponent: imageModule?.default
+    }
+  })
 ---
 
-<section class:list={[className, 'my-64']}>
+<section class:list={[className, 'my-16']}>
   <div class="container">
     <Heading level="h2" class="mb-6">{title}</Heading>
     <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
       {
         featuredProjects.map((project) => (
-          <Card
-            imageComponent={project.featuredImage}
-            url={'/portfolio/' + project.id}
-            headingLevel="h2"
-            title={project.data.title}
-            footer={'Author: ' + project.data.author}
-          >
-            {project.data.description}
-          </Card>
+          <CardWrapper>
+            <Card
+              imageComponent={project.imageComponent}
+              url={'/portfolio/' + project.id.replace(/\.mdx?$/, '')}
+              headingLevel="h2"
+              title={project.data.title}
+              footer={'Made with ' + project.data.platform}
+            >
+              {project.data.description}
+            </Card>
+          </CardWrapper>
         ))
       }
     </div>
-    <div class="mt-12">
+    <!-- <div class="mt-12">
       <Link href="/portfolio/" isButton animateOnHover animationType="nudge">
         View all projects
         <Icon aria-hidden="true" name="lucide:arrow-right" size="1.5rem" />
       </Link>
-    </div>
+    </div> -->
   </div>
 </section>

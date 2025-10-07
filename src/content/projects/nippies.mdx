@@ -1,0 +1,74 @@
+---
+title: The Nippies
+platform: React
+isFeatured: true
+description: A boutique collection of hand-drawn cartoons.
+sortOrder: 3
+featuredImage: 'nippies.png'
+---
+
+## Project Overview
+
+Originally launched as an NFT art project, The Nippies needed a web directory that showcased each collector’s X account and immersed visitors in their playful universe. Every asset was hand-drawn by artist Scuba Steve, giving the site a unique, handcrafted character.
+
+import BlockQuote from '@components/BlockQuote.astro'
+import BreakoutImage from '@components/BreakoutImage.astro'
+import { Image } from 'astro:assets'
+
+## Technical Challenges
+
+The most complex challenge was implementing sorting, pagination, and a “shuffle” feature within the main grid—while supporting two distinct artwork collections. The solution had to balance advanced functionality with seamless performance and fluid UI transitions.
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+  <Image
+    src="/projects/nippies/project-image-1.png"
+    alt="To The Moon homepage featuring animated starfield background"
+    width={1200}
+    height={600}
+    class="h-[250px] w-full rounded-lg object-cover border-1"
+  />
+  <Image
+    src="/projects/nippies/project-image-2.png"
+    alt="Product collection page showcasing streetwear merchandise"
+    width={1200}
+    height={600}
+    class="h-[250px] w-full rounded-lg object-cover border-1"
+  />
+  <Image
+    src="/projects/nippies/project-image-3.png"
+    alt="Individual product page with custom design elements"
+    width={1200}
+    height={600}
+    class="h-[250px] w-full rounded-lg object-cover border-1"
+  />
+  <Image
+    src="/projects/nippies/project-image-4.png"
+    alt="Mobile responsive view of the To The Moon storefront"
+    width={1200}
+    height={600}
+    class="h-[250px] w-full rounded-lg object-cover border-1"
+  />
+</div>
+
+The directory launched to widespread acclaim within the Solana ecosystem and served the community for several years.
+
+<div class="mt-8">
+  <a 
+    href="https://nippies.netlify.app" 
+    target="_blank" 
+    rel="noopener noreferrer"
+  >
+    Visit Website
+  </a>
+</div>
+
+{/* 
+
+## Testimonial
+
+<BlockQuote platform="Lisa Chen, Director of Digital Accessibility, Global Tech Solutions">
+  AccessGuard has transformed how we approach web security. We no longer have to choose between robust security and
+  accessibility - we get both in one solution, and our compliance scores have never been better.
+</BlockQuote>
+Maria Rodriguez, Beta Tester
+
+*/}

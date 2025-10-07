@@ -1,0 +1,97 @@
+---
+/**
+ * CardWrapper Component
+ *
+ * @description A wrapper that applies consistent styling to Card components
+ */
+---
+
+<div class="card-wrapper">
+  <slot />
+</div>
+
+<style lang="scss">
+  .card-wrapper {
+    position: relative;
+    inline-size: 100%;
+    transition: transform 0.3s ease;
+
+    > :global(.card) {
+      position: relative;
+      z-index: 2;
+      border: 2px solid var(--brand-charcoal) !important;
+      border-radius: var(--radius-l);
+      background-color: white !important;
+      box-shadow: 0.5rem 0.5rem 0 0 var(--brand-folk-blue);
+      padding: 1rem !important;
+    }
+
+    > :global(.card:hover),
+    > :global(.card:focus),
+    > :global(.card:focus-within) {
+      outline: none !important;
+    }
+
+    > :global(.card img) {
+      transition: none !important;
+      transform: none !important;
+      border-radius: var(--radius-m);
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+
+    &:hover > :global(.card) {
+      border-color: var(--brand-folk-blue) !important;
+    }
+  }
+
+  :global(.darkmode) .card-wrapper > :global(.card) {
+    background-color: var(--color-neutral-800) !important;
+    border-color: var(--brand-sky-blue) !important;
+    box-shadow: 0.5rem 0.5rem 0 0 var(--brand-sky-blue);
+  }
+
+  :global(.darkmode) .card-wrapper > :global(.card img) {
+    border-color: var(--color-neutral-700);
+  }
+
+  .card-wrapper :global(.card h2),
+  .card-wrapper :global(.card h3) {
+    color: var(--brand-charcoal);
+  }
+
+  :global(.darkmode) .card-wrapper :global(.card h2),
+  :global(.darkmode) .card-wrapper :global(.card h3) {
+    color: var(--brand-space-silver);
+  }
+
+  .card-wrapper :global(.card a) {
+    color: var(--brand-folk-blue);
+    text-decoration: none;
+  }
+
+  .card-wrapper :global(.card a:hover) {
+    text-decoration: underline;
+    text-decoration-color: var(--brand-folk-blue);
+  }
+
+  :global(.darkmode) .card-wrapper :global(.card a) {
+    color: var(--brand-sky-blue);
+    text-decoration: none;
+  }
+
+  :global(.darkmode) .card-wrapper :global(.card a:hover) {
+    text-decoration: underline;
+    text-decoration-color: var(--brand-sky-blue);
+  }
+
+  .card-wrapper :global(.card p) {
+    color: var(--brand-charcoal);
+  }
+
+  :global(.darkmode) .card-wrapper :global(.card p) {
+    color: var(--brand-space-silver);
+  }
+</style>
