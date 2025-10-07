@@ -21,7 +21,7 @@ const { src = heroImage }: Props = Astro.props
 
 <section class="hero">
   <div class="container">
-    <div class="mt-4 grid grid-cols-1 items-center gap-0 md:mt-16 md:grid-cols-2">
+    <div class="grid grid-cols-1 items-center gap-0 md:mt-16 md:grid-cols-2">
       <div class="image-wrapper">
         <Image
           src={src}
@@ -34,9 +34,9 @@ const { src = heroImage }: Props = Astro.props
       </div>
       <div class="mt-16 flex flex-col items-center gap-8 md:mt-8 md:items-center">
         <h1 class="text-center text-[52px] md:text-center lg:text-[80px]">
-          <slot>Let's Fix Your Website</slot>
+          <slot>Let's Fix Your Website.</slot>
         </h1>
-        <div class="mb-16 flex flex-col gap-3 min-[500px]:flex-row">
+        <div class="md:mb-16 flex flex-col gap-3 min-[500px]:flex-row">
           <Link
             href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
             isButton
@@ -61,7 +61,7 @@ const { src = heroImage }: Props = Astro.props
   .image-wrapper {
     position: relative;
 
-    @media screen and (max-width: 90rem) {
+    @media screen and (max-width: 48rem) {
       display: none;
     }
   }
