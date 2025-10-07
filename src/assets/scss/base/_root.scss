@@ -180,4 +180,8 @@ body {
     linear-gradient(90deg, var(--grid-color) 0.5px, transparent 0.5px);
   background-size: 20px 20px;
   background-position: -1px -1px;
+
+  .external-link {
+    text-underline-offset: 6px !important;
+  }
 }

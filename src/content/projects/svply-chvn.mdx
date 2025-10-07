@@ -16,6 +16,7 @@ According to Daramola, "Last year, I celebrated 50.7 million streams across all 
 import BlockQuote from '@components/BlockQuote.astro'
 import BreakoutImage from '@components/BreakoutImage.astro'
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 
 ## Technical Challenges
 
@@ -56,8 +57,14 @@ A previous version of this site featured a record spinning inside one of Daramol
 The website successfully launched in 2023 and continues to support the collectors.
 
 <div class="mt-8">
-  <a href="https://svplychvn.com" target="_blank" rel="noopener noreferrer">
+  <a 
+    href="https://svplychvn.com" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 external-link"
+  >
     Visit Website
+    <Icon name="lucide:external-link" size="1.25rem" />
   </a>
 </div>
 

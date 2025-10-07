@@ -13,6 +13,7 @@ To The Moon needed a new website and storefront to power their merch drops.
 
 import BreakoutImage from '@components/BreakoutImage.astro'
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 
 ## Technical Challenges
 
@@ -57,7 +58,9 @@ The storefront successfully launched in 2025 and continues to support the brand'
     href="https://uptothemoon.com" 
     target="_blank" 
     rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 external-link"
   >
     Visit Website
+    <Icon name="lucide:external-link" size="1.25rem" />
   </a>
 </div>

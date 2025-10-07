@@ -9,15 +9,16 @@ featuredImage: 'nippies.png'
 
 ## Project Overview
 
-Originally launched as an NFT art project, The Nippies needed a web directory that showcased each collector’s X account and immersed visitors in their playful universe. Every asset was hand-drawn by artist Scuba Steve, giving the site a unique, handcrafted character.
+Originally launched as an NFT art project, The Nippies needed a web directory that showcased each collector's X account and immersed visitors in their playful universe. Every asset was hand-drawn by artist Scuba Steve, giving the site a unique, handcrafted character.
 
 import BlockQuote from '@components/BlockQuote.astro'
 import BreakoutImage from '@components/BreakoutImage.astro'
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 
 ## Technical Challenges
 
-The most complex challenge was implementing sorting, pagination, and a “shuffle” feature within the main grid—while supporting two distinct artwork collections. The solution had to balance functionality with performance and fluid UI transitions.
+The most complex challenge was implementing sorting, pagination, and a "shuffle" feature within the main grid—while supporting two distinct artwork collections. The solution had to balance functionality with performance and fluid UI transitions.
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
   <Image
     src="/projects/nippies/project-image-1.png"
@@ -56,8 +57,10 @@ The directory launched to widespread acclaim within the Solana ecosystem and ser
     href="https://nippies.netlify.app" 
     target="_blank" 
     rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 external-link"
   >
     Visit Website
+    <Icon name="lucide:external-link" size="1.25rem" />
   </a>
 </div>
 
