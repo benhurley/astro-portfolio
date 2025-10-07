@@ -24,7 +24,7 @@ const { icon = 'mdi:rocket', title = 'Title' }: Props = Astro.props
 <div class="feature flex flex-col gap-4">
   <Icon aria-hidden="true" name={icon} />
   <div class="content">
-    <Heading level="h3" size="h6" class="mb-2">{title}</Heading>
+    <Heading level="h3" size="h6" class="title mb-2">{title}</Heading>
     <p>
       <slot>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, corporis.</slot>
     </p>
@@ -38,6 +38,10 @@ const { icon = 'mdi:rocket', title = 'Title' }: Props = Astro.props
     position: relative;
     padding: var(--space-l);
     inline-size: calc(100% - var(--space-l));
+
+    .title {
+      font-weight: 800;
+    }
 
     > * {
       position: relative;

@@ -20,15 +20,15 @@ const { loading = 'eager' }: Props = Astro.props
 ---
 
 <Link href="/" class="flex items-center gap-2">
-    <Image 
-      src={logo} 
-      alt="Ben Ventures Logo" 
-      width={logo.width}
-      height={logo.height}
-      class="logo w-[80px] h-auto"
-      loading={loading} 
-      quality={100}
-    />
+  <Image
+    src={logo}
+    alt="Ben Ventures Logo"
+    width={logo.width}
+    height={logo.height}
+    class="logo h-auto w-[80px]"
+    loading={loading}
+    quality={100}
+  />
 </Link>
 
 <style>

@@ -13,16 +13,16 @@
 <style lang="scss">
   .card-wrapper {
     position: relative;
-    inline-size: 100%;
     transition: transform 0.3s ease;
+    inline-size: 100%;
 
     > :global(.card) {
       position: relative;
       z-index: 2;
+      box-shadow: 0.5rem 0.5rem 0 0 var(--brand-folk-blue);
       border: 2px solid var(--brand-charcoal) !important;
       border-radius: var(--radius-l);
       background-color: white !important;
-      box-shadow: 0.5rem 0.5rem 0 0 var(--brand-folk-blue);
       padding: 1rem !important;
     }
 
@@ -33,8 +33,8 @@
     }
 
     > :global(.card img) {
-      transition: none !important;
       transform: none !important;
+      transition: none !important;
       border-radius: var(--radius-m);
     }
 
@@ -48,13 +48,17 @@
   }
 
   :global(.darkmode) .card-wrapper > :global(.card) {
-    background-color: var(--color-neutral-800) !important;
-    border-color: var(--brand-sky-blue) !important;
     box-shadow: 0.5rem 0.5rem 0 0 var(--brand-sky-blue);
+    border-color: var(--brand-sky-blue) !important;
+    background-color: var(--color-neutral-900) !important;
   }
 
   :global(.darkmode) .card-wrapper > :global(.card img) {
     border-color: var(--color-neutral-700);
+  }
+
+  .card-wrapper :global(.card a) {
+    font-weight: bold;
   }
 
   .card-wrapper :global(.card h2),
@@ -68,13 +72,14 @@
   }
 
   .card-wrapper :global(.card a) {
-    color: var(--brand-folk-blue);
+    color: light-dark(var(--color-neutral-900), var(--color-neutral-100)) !important;
     text-decoration: none;
   }
 
   .card-wrapper :global(.card a:hover) {
     text-decoration: underline;
-    text-decoration-color: var(--brand-folk-blue);
+    text-decoration-color: light-dark(var(--color-neutral-900), var(--color-neutral-100)) !important;
+    text-underline-offset: 6px !important;
   }
 
   :global(.darkmode) .card-wrapper :global(.card a) {

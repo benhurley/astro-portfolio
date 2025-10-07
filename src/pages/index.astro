@@ -10,21 +10,19 @@ import { Icon } from 'astro-icon/components'
 <DefaultLayout title="Home">
   <Hero />
   <section class="mt-24 mb-32">
-<div class="container">
-  <Heading level="h2" class="mb-8">What I Can Offer
-  </Heading>
-  <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-    <Feature icon="lucide:paintbrush" title="Design">
-Wireframes, mockups, and design systems crafted for your unique brand identity.
-    </Feature>
-    <Feature icon="lucide:sparkles" title="UX">
-      Simplify your website and remove friction so visitors can find what they need instantly.
-    </Feature>
-    <Feature icon="lucide:code" title="Development">
-      Clean, fast, and accessible code from a senior developer with over a decade of experience.
-    </Feature>
-  </div>
-</div>
+    <div class="container">
+      <Heading level="h2" class="mb-8">Opportunities</Heading>
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <Feature icon="lucide:paintbrush" title="Design">
+          Wireframes, mockups, and design systems crafted for your unique brand identity.
+        </Feature>
+        <Feature icon="lucide:sparkles" title="UX">
+          Simplify your website and remove friction so visitors can find what they need instantly.
+        </Feature>
+        <Feature icon="lucide:code" title="Development">
+          Clean, fast, and accessible code from a senior developer with over a decade of experience.
+        </Feature>
+      </div>
     </div>
   </section>
   <!-- <ContentMedia imgSrc="/accessible-components.webp">
@@ -46,15 +44,21 @@ Wireframes, mockups, and design systems crafted for your unique brand identity.
     </p>
   </ContentMedia> -->
   <FeaturedProjects />
-  <section class="mb-32 mt-24 md:mt-32">
+  <section class="mt-24 mb-32 md:mt-32">
     <div class="container grid grid-cols-1 gap-12">
-    <div class="flex flex-col items-center gap-4">
-      <Heading class="text-center mb-8" level="h2">Ready For Something New?</Heading>
-      <Link href="mailto:ben@benvent.com" isButton type="primary" animateOnHover animationType="boop">
-        <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
-        Get In Touch
-      </Link>
-    </div>
+      <div class="flex flex-col items-center gap-4">
+        <Heading class="mb-8 text-center" level="h2">Let's Begin.</Heading>
+        <Link
+          href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
+          isButton
+          type="primary"
+          animateOnHover
+          animationType="boop"
+        >
+          <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
+          Get In Touch
+        </Link>
+      </div>
       <!-- <div class="space-content">
         <Accordion>
           <AccordionItem name="exclusive" title="What is WCAG and why is it important?" open>
@@ -103,7 +107,6 @@ Wireframes, mockups, and design systems crafted for your unique brand identity.
       </div> -->
     </div>
   </section>
-
 </DefaultLayout>
 
 <style>
