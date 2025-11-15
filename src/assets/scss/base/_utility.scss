@@ -196,10 +196,10 @@ $font-map: (
   }
 
   > h2 {
-    margin-block-start: var(--space-l);
+    margin-block-start: var(--space-2xl);
 
     @include breakpoint(xl) {
-      margin-block-start: var(--space-xl);
+      margin-block-start: var(--space-2xl);
     }
   }
 

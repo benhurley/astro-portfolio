@@ -13,15 +13,43 @@ interface Props {
    * @default Current page URL
    */
   url?: string
+  
+  /**
+   * Text/title to share alongside the URL
+   * @default undefined
+   */
+  text?: string
 }
 
-const { url = Astro.url.href } = Astro.props
+const { url = Astro.url.href, text } = Astro.props
+
+// Helper function to build share URLs
+const buildShareUrl = (platform: string, url: string, text?: string) => {
+  const encodedUrl = encodeURIComponent(url)
+  const message = text ? `${text} ${url}` : url
+  const encodedMessage = encodeURIComponent(message)
+  
+  switch (platform) {
+    case 'facebook':
+      return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+    case 'x':
+      return text 
+        ? `https://x.com/share?url=${encodedUrl}&text=${encodeURIComponent(text)}`
+        : `https://x.com/share?url=${encodedUrl}`
+    case 'linkedin':
+      return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+    case 'sms':
+      return `sms:?body=${encodedMessage}`
+    default:
+      return ''
+  }
+}
 ---
 
 <ul class="flex flex-wrap gap-2">
   <li>
     <Link
-      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+      href={buildShareUrl('facebook', url, text)}
       isButton
       isExternal
       hideIcon
@@ -34,7 +62,7 @@ const { url = Astro.url.href } = Astro.props
   </li>
   <li>
     <Link
-      href={`https://x.com/share?url=${encodeURIComponent(url)}`}
+      href={buildShareUrl('x', url, text)}
       isButton
       isExternal
       hideIcon
@@ -42,12 +70,12 @@ const { url = Astro.url.href } = Astro.props
       animationType="boop"
     >
       <Icon aria-hidden="true" name="lucide:twitter" size={32} />
-      <span class="sr-only">Share on Twitter, opens in a new tab</span>
+      <span class="sr-only">Share on X, opens in a new tab</span>
     </Link>
   </li>
-  <li>
+  <!-- <li>
     <Link
-      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
+      href={buildShareUrl('linkedin', url, text)}
       isButton
       isExternal
       hideIcon
@@ -57,5 +85,74 @@ const { url = Astro.url.href } = Astro.props
       <Icon aria-hidden="true" name="lucide:linkedin" size={32} />
       <span class="sr-only">Share on LinkedIn, opens in a new tab</span>
     </Link>
+  </li> -->
+  <li>
+    <Link
+      href={buildShareUrl('sms', url, text)}
+      isButton
+      isExternal
+      hideIcon
+      animateOnHover
+      animationType="boop"
+    >
+      <Icon aria-hidden="true" name="lucide:message-square" size={32} />
+      <span class="sr-only">Share via text message</span>
+    </Link>
+  </li>
+  <li>
+    <Link
+      href="#"
+      isButton
+      hideIcon
+      animateOnHover
+      animationType="boop"
+      data-copy-link={url}
+    >
+      <Icon aria-hidden="true" name="lucide:link" size={32} class="copy-icon" />
+      <Icon aria-hidden="true" name="lucide:check" size={32} class="check-icon hidden" />
+      <span class="sr-only">Copy link to clipboard</span>
+    </Link>
   </li>
 </ul>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyButtons = document.querySelectorAll('[data-copy-link]')
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        e.preventDefault()
+        const url = button.getAttribute('data-copy-link')
+        
+        if (url) {
+          try {
+            await navigator.clipboard.writeText(url)
+            
+            // Show feedback to user
+            const copyIcon = button.querySelector('.copy-icon')
+            const checkIcon = button.querySelector('.check-icon')
+            
+            if (copyIcon && checkIcon) {
+              copyIcon.classList.add('hidden')
+              checkIcon.classList.remove('hidden')
+              
+              setTimeout(() => {
+                copyIcon.classList.remove('hidden')
+                checkIcon.classList.add('hidden')
+              }, 2000)
+            }
+          } catch (err) {
+            console.error('Failed to copy link:', err)
+            alert('Failed to copy link to clipboard')
+          }
+        }
+      })
+    })
+  })
+</script>

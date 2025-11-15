@@ -3,7 +3,7 @@ title: The Nippies
 platform: React
 isFeatured: true
 description: A boutique collection of hand-drawn cartoons.
-sortOrder: 2
+sortOrder: 3
 featuredImage: 'nippies.png'
 ---
 
@@ -20,56 +20,64 @@ import { Icon } from 'astro-icon/components'
 ## Technical Challenges
 
 The most complex challenge was implementing sorting, pagination, and a "shuffle" feature within the main grid—while supporting two distinct artwork collections. The solution had to balance functionality with performance and fluid UI transitions.
+
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-  <Image
-    src="/projects/nippies/project-image-1.png"
-    alt="To The Moon homepage featuring animated starfield background"
-    width={1200}
-    height={600}
-    class="h-[250px] w-full rounded-lg object-cover border-1"
-  />
-  <Image
-    src="/projects/nippies/project-image-2.png"
-    alt="Product collection page showcasing streetwear merchandise"
-    width={1200}
-    height={600}
-    class="h-[250px] w-full rounded-lg object-cover border-1"
-  />
-  <Image
-    src="/projects/nippies/project-image-3.png"
-    alt="Individual product page with custom design elements"
-    width={1200}
-    height={600}
-    class="h-[250px] w-full rounded-lg object-cover border-1"
-  />
-  <Image
-    src="/projects/nippies/project-image-4.png"
-    alt="Mobile responsive view of the To The Moon storefront"
-    width={1200}
-    height={600}
-    class="h-[250px] w-full rounded-lg object-cover border-1"
-  />
+  <a href="#img1" class="cursor-zoom-in">
+    <Image
+      src="/projects/nippies/project-image-1.png"
+      alt="To The Moon homepage featuring animated starfield background"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg border-1 object-cover"
+    />
+  </a>
+  <a href="#img2" class="cursor-zoom-in">
+    <Image
+      src="/projects/nippies/project-image-2.png"
+      alt="Product collection page showcasing streetwear merchandise"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg border-1 object-cover"
+    />
+  </a>
+  <a href="#img3" class="cursor-zoom-in">
+    <Image
+      src="/projects/nippies/project-image-3.png"
+      alt="Individual product page with custom design elements"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg border-1 object-cover"
+    />
+  </a>
+  <a href="#img4" class="cursor-zoom-in">
+    <Image
+      src="/projects/nippies/project-image-4.png"
+      alt="Mobile responsive view of the To The Moon storefront"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg border-1 object-cover"
+    />
+  </a>
 </div>
 
 The directory launched to widespread acclaim within the Solana ecosystem and served the community for several years.
 
 <div class="mt-8">
-  <a 
-    href="https://nippies.netlify.app" 
-    target="_blank" 
+  <a
+    href="https://nippies.netlify.app"
+    target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-2 external-link"
+    class="external-link inline-flex items-center gap-2"
   >
     Visit Website
     <Icon name="lucide:external-link" size="1.25rem" />
   </a>
 </div>
 
-
 ## Testimonial
 
 <BlockQuote author="Scuba Steve, Founder of The Nippies">
-Working with Ben was a serious treat! 
-He translated our word salad of an idea into executable steps that made sense to a code-illiterate person. He had a speedy response time and professional attitude keeping up with our frequent needs to update copy and images. 10/10 would hire again!
+  Working with Ben was a serious treat! He translated our word salad of an idea into executable steps that made sense to
+  a code-illiterate person. He had a speedy response time and professional attitude keeping up with our frequent needs
+  to update copy and images. 10/10 would hire again!
 </BlockQuote>
-

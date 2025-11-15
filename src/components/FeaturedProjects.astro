@@ -46,7 +46,7 @@ const featuredProjects = projects
 
     return {
       ...project,
-      imageComponent: imageModule?.default
+      imageComponent: imageModule?.default,
     }
   })
 ---
@@ -70,6 +70,9 @@ const featuredProjects = projects
           </CardWrapper>
         ))
       }
+    </div>
+    <div class="mt-12 flex justify-center">
+      <a href="/portfolio" class="text-xl decoration-white hover:underline">See More</a>
     </div>
     <!-- <div class="mt-12">
       <Link href="/portfolio/" isButton animateOnHover animationType="nudge">

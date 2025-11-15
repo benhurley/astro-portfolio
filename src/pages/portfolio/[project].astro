@@ -29,6 +29,15 @@ interface Props {
 
 const { project } = Astro.props
 const { Content } = await render(project)
+
+// Generate lightbox modals for project images dynamically
+const projectImageCount = 4 // Or detect this dynamically if needed
+const projectImages = Array.from({ length: projectImageCount }, (_, i) => ({
+  id: `img${i + 1}`,
+  src: `/projects/${project.id}/project-image-${i + 1}.png`,
+  alt: `Project image ${i + 1}`
+}))
+
 ---
 
 <DefaultLayout title={project.data.title} description={project.data.description} url={`/portfolio/${project.id}`}>
@@ -50,11 +59,60 @@ const { Content } = await render(project)
       <SocialShares />
     </div>
   </section>
+
+  <!-- Dynamic lightbox modals -->
+  {projectImages.map((image) => (
+    <div id={image.id} class="lightbox">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img src={image.src} alt={image.alt} />
+    </div>
+  ))}
 </DefaultLayout>
 
 <style lang="scss" is:global>
   .narrow {
     margin-inline: auto;
     max-width: 65ch;
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: 100%;
+
+    &:target {
+      display: flex;
+    }
+
+    img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    cursor: pointer;
+    color: white;
+    font-size: 40px;
+    text-decoration: none;
+
+    &:hover {
+      color: #ccc;
+    }
+  }
+
+  .cursor-zoom-in {
+    cursor: zoom-in;
   }
 </style>
