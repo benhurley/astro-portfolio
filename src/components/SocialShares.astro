@@ -101,7 +101,7 @@ const buildShareUrl = (platform: string, url: string, text?: string) => {
   </li>
   <li>
     <Link
-      href="#"
+      href="javascript:void(0)"
       isButton
       hideIcon
       animateOnHover
@@ -122,37 +122,39 @@ const buildShareUrl = (platform: string, url: string, text?: string) => {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const copyButtons = document.querySelectorAll('[data-copy-link]')
-    
-    copyButtons.forEach(button => {
-      button.addEventListener('click', async (e) => {
-        e.preventDefault()
-        const url = button.getAttribute('data-copy-link')
-        
-        if (url) {
-          try {
-            await navigator.clipboard.writeText(url)
+  const copyButtons = document.querySelectorAll('[data-copy-link]')
+  
+  copyButtons.forEach(button => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      
+      const url = button.getAttribute('data-copy-link')
+      
+      if (url) {
+        try {
+          await navigator.clipboard.writeText(url)
+          
+          // Show feedback to user
+          const copyIcon = button.querySelector('.copy-icon')
+          const checkIcon = button.querySelector('.check-icon')
+          
+          if (copyIcon && checkIcon) {
+            copyIcon.classList.add('hidden')
+            checkIcon.classList.remove('hidden')
             
-            // Show feedback to user
-            const copyIcon = button.querySelector('.copy-icon')
-            const checkIcon = button.querySelector('.check-icon')
-            
-            if (copyIcon && checkIcon) {
-              copyIcon.classList.add('hidden')
-              checkIcon.classList.remove('hidden')
-              
-              setTimeout(() => {
-                copyIcon.classList.remove('hidden')
-                checkIcon.classList.add('hidden')
-              }, 2000)
-            }
-          } catch (err) {
-            console.error('Failed to copy link:', err)
-            alert('Failed to copy link to clipboard')
+            setTimeout(() => {
+              copyIcon.classList.remove('hidden')
+              checkIcon.classList.add('hidden')
+            }, 2000)
           }
+          
+          console.log('Link copied successfully!')
+        } catch (err) {
+          console.error('Failed to copy link:', err)
+          alert('Failed to copy link to clipboard')
         }
-      })
+      }
     })
   })
 </script>

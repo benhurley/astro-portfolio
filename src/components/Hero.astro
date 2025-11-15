@@ -17,6 +17,11 @@ interface Props {
 }
 
 const { src = heroImage }: Props = Astro.props
+const heroMessages = [
+  "Is Your Website Stuck in 2010? Let's Rescue It.",
+  "Website Looking Like MySpace? We Should Talk.",
+]
+const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.length)]
 ---
 
 <section class="hero">
@@ -34,9 +39,9 @@ const { src = heroImage }: Props = Astro.props
       </div>
       <div class="mt-16 mb-8 flex flex-col items-center gap-8 md:mt-8 md:items-center">
         <h1 class="text-center text-[44px] md:text-center lg:text-[70px]">
-          <slot>Website Woes? You're Not Alone.</slot>
+          {randomMessage}
         </h1>
-        <div class="md:mb-16 flex flex-col gap-3 min-[500px]:flex-row">
+        <div class="flex flex-col gap-3 min-[500px]:flex-row md:mb-16">
           <Link
             href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
             isButton

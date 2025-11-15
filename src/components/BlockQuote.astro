@@ -10,9 +10,17 @@ interface Props {
    * The name of the person who said the quote
    */
   author?: string
+  /**
+   * URL to the author's avatar image
+   */
+  avatar?: string
+  /**
+   * Link to the author's website or profile
+   */
+  link?: string
 }
 
-const { author } = Astro.props
+const { author, avatar, link } = Astro.props
 ---
 
 <blockquote class="border-primary-500 border-l-4 pl-4">
@@ -21,7 +29,20 @@ const { author } = Astro.props
     <slot />
     <Icon aria-hidden="true" name="lucide:quote" size="2rem" />
   </div>
-  {author && <cite class="block text-sm font-medium">{author}</cite>}
+  {author && (
+    <div class="author-section">
+      {avatar && <img src={avatar} alt={author} class="author-avatar" />}
+      <cite class="block text-sm font-medium">
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" class="author-link">
+            {author}
+          </a>
+        ) : (
+          author
+        )}
+      </cite>
+    </div>
+  )}
 </blockquote>
 
 <style lang="scss" is:global>
@@ -41,9 +62,31 @@ const { author } = Astro.props
       }
     }
 
-    cite {
+    .author-section {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
       margin-block-start: var(--space-s);
+    }
+
+    .author-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    cite {
       font-size: var(--font-size-1);
+    }
+
+    .author-link {
+      color: inherit;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>
