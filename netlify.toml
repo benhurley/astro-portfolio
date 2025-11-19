@@ -1,0 +1,11 @@
+[[redirects]]
+from = "http://benvent.com/*"
+to = "https://benvent.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.benvent.com/*"
+to = "https://benvent.com/:splat"
+status = 301
+force = true
