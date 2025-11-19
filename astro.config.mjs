@@ -10,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://benvent.com',
+  site: 'https://www.benvent.com',
   integrations: [mdx(), icon(), compress(), sitemap()],
   vite: {
     css: {

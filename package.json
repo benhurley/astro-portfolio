@@ -5,7 +5,7 @@
   "author": "Ben",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://benvent.com/",
+  "homepage": "https://www.benvent.com/",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
