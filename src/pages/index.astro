@@ -5,13 +5,14 @@ import Feature from '@components/Feature.astro'
 import FeaturedProjects from '@components/FeaturedProjects.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
+import ContentMedia from '@components/ContentMedia.astro'
 ---
 
 <DefaultLayout title="Home">
   <Hero />
-  <section class="mt-24 mb-32">
+  <section class="my-24">
     <div class="container">
-      <Heading level="h2" class="mb-8">My Services</Heading>
+      <Heading level="h2" class="mb-8">My Offerings</Heading>
       <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
         <Feature icon="lucide:code" title="Development">
           Clean, fast, and accessible code from a product engineer trusted by companies of all sizes.
@@ -25,29 +26,25 @@ import { Icon } from 'astro-icon/components'
       </div>
     </div>
   </section>
-  <!-- <ContentMedia imgSrc="/accessible-components.webp">
-    <Heading level="h2">Maintaining an old website?</Heading>
+  <ContentMedia imgSrc="/coming-soon.webp">
+    <Heading level="h2">Starting a New Company?</Heading>
     <p class="text-2xl">
-      This theme provides plenty of tried and tested Accessible Astro Components. Some are native to this theme and a
-      lot of others are integrated using a <Link
-        isExternal
-        href="https://github.com/incluud/accessible-astro-components">separate package</Link
-      >. They'll get you up and running in building an accessible solution for your visitors.
+      Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain,
+      landing page, company email, and everything else you need to start collecting customers from day one.
     </p>
   </ContentMedia>
-  <ContentMedia imgSrc="/wcag-compliant.webp" reverseImg={true}>
-    <Heading level="h2">Want a new website?</Heading>
+  <ContentMedia imgSrc="/advisor.webp" reverseImg={true}>
+    <Heading level="h2">Need Advising?</Heading>
     <p class="text-2xl">
-      Using semantic HTML, landmarks, skip links, screen reader friendly content, aria-labels, keyboard accessible
-      navigation and components, clear outlines and tab indicators and the right color contrast, you're more certain of
-      reaching WCAG AA compliance.
+      New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system, brand kit,
+      and source code are built on a foundation for growth and consistency.
     </p>
-  </ContentMedia> -->
+  </ContentMedia>
   <FeaturedProjects />
-  <section class="mt-24 mb-32 md:mt-32">
+  <section class="mt-12 mb-32">
     <div class="container grid grid-cols-1 gap-12">
       <div class="flex flex-col items-center gap-4">
-        <Heading class="mb-8 text-center" level="h2">Let's Begin.</Heading>
+        <Heading class="mb-8 text-center" level="h2">Let's Get to Work.</Heading>
         <Link
           href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
           isButton
@@ -56,7 +53,7 @@ import { Icon } from 'astro-icon/components'
           animationType="boop"
         >
           <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
-          Get In Touch
+          Email Ben
         </Link>
       </div>
       <!-- <div class="space-content">
