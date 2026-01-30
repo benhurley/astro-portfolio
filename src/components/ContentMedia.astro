@@ -24,7 +24,7 @@ const { imgSrc, reverseImg = false }: Props = Astro.props
 <section class="my-12 md:my-18">
   <div class="container">
     <div class="grid grid-cols-1 gap-12 md:gap-18 md:grid-cols-2">
-      {!reverseImg ? <Media class="rounded-xl" src={imgSrc} /> : ''}
+      {!reverseImg ? <Media class="rounded"  src={imgSrc} /> : ''}
       <div class="space-content flex flex-col justify-center">
         <slot />
       </div>

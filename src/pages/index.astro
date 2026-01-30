@@ -33,12 +33,41 @@ import ContentMedia from '@components/ContentMedia.astro'
       landing page, company email, and everything else you need to start collecting customers from day one.
     </p>
   </ContentMedia>
-  <ContentMedia imgSrc="/advisor.webp" reverseImg={true}>
+  <ContentMedia imgSrc="/advisor.webp">
     <Heading level="h2">Need Advising?</Heading>
     <p class="text-2xl">
-      New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system, brand kit,
-      and source code are built on a foundation for growth and consistency.
+      New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system,
+      brand kit, and source code are built on a foundation for growth and consistency.
     </p>
+  </ContentMedia>
+  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
+    <p class="mb-2 text-sm font-medium tracking-wide text-neutral-400 uppercase">Featured Project</p>
+
+<Heading level="h2" class="mt-1">Exposure Tracker</Heading>
+
+    <p class="mt-4 pb-4 text-2xl">
+      A cross-platform application built for firefighters and first responders to securely document exposures,
+      incidents, and long-term health risks.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <Link href="/projects/exposure-tracker" isButton type="primary" animateOnHover animationType="boop">
+        View Case Study
+      </Link>
+
+      <Link
+        href="https://i-psdi.org/exposure"
+        target="_blank"
+        rel="noopener noreferrer"
+        isButton
+        type="secondary"
+        animateOnHover
+        animationType="boop"
+      >
+        <Icon aria-hidden="true" name="lucide:external-link" size="1.25rem" />
+        Live Product
+      </Link>
+    </div>
   </ContentMedia>
   <FeaturedProjects />
   <section class="mt-12 mb-32">

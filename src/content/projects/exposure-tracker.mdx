@@ -2,89 +2,116 @@
 title: IPSDI Exposure Tracker
 platform: Ionic
 isFeatured: true
-description: A secure way to record exposures, since firefighting isn't getting any easier...
+description: A secure way to record exposures, since firefighting isn't getting any easier.
 sortOrder: 1
-featuredImage: 'exposure-tracker.png'
+featuredImage: "exposure-tracker.png"
 ---
+
+import BlockQuote from "@components/BlockQuote.astro";
+import BreakoutImage from "@components/BreakoutImage.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 ## Project Overview
 
-The IPSDI Exposure Tracker empowers you to take control of your exposure history with a comprehensive, secure record that stays with you. 
+The IPSDI Exposure Tracker empowers firefighters and first responders to take control of their exposure history with a comprehensive, secure record that stays with them over the course of their career.
 
-Leadership at IPSDI tasked me with designing and building the Exposure Tracker frontends for web, iOS, and Android.
-
-import BlockQuote from '@components/BlockQuote.astro'
-import BreakoutImage from '@components/BreakoutImage.astro'
-import { Image } from 'astro:assets'
-import { Icon } from 'astro-icon/components'
+Leadership at IPSDI tasked me with designing and building the Exposure Tracker frontends for **iOS, Android, and web**.
 
 ## Technical Challenges
 
-The app needed to be <b>easy to learn</b> and <b>simple to use</b>. This meant auto-saving, minimizing taps/clicks, and providing clear UI feedback would be paramount.
+The app needed to be **easy to learn** and **simple to use**. That meant auto-saving by default, minimizing taps and clicks, and providing clear, immediate UI feedback at every step.
 
-We built with Ionic React to deploy the same app across web, iOS, and Android from a single codebase. While this saved significant development time, it required solving platform-specific challenges around navigation, native features, and UI consistency.
+We built the product using **Ionic React**, allowing us to deploy the same application across iOS, Android, and web from a single codebase. While this significantly reduced development time, it required solving platform-specific challenges around navigation paradigms, native feature access, and UI consistency.
 
-The app also integrates live analytics data from IPSDI Analytics via API. I designed a simple interface that automatically suggests incidents using existing exposure data without requiring additional user input (see example below).
+The app also integrates live analytics data from **IPSDI Analytics** via API. I designed an interface that automatically suggests incidents using existing exposure data, reducing user input and speeding up documentation (examples below).
+
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
   <a href="#img1" class="cursor-zoom-in">
     <Image
       src="/projects/exposure-tracker/project-image-1.png"
-      alt="To The Moon homepage featuring animated starfield background"
+      alt="Exposure Tracker dashboard showing incident suggestions"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="h-[250px] w-full rounded-lg object-cover border"
     />
   </a>
   <a href="#img2" class="cursor-zoom-in">
     <Image
       src="/projects/exposure-tracker/project-image-2.png"
-      alt="Product collection page showcasing streetwear merchandise"
+      alt="Exposure entry flow with auto-saved fields"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="h-[250px] w-full rounded-lg object-cover border"
     />
   </a>
   <a href="#img3" class="cursor-zoom-in">
     <Image
       src="/projects/exposure-tracker/project-image-3.png"
-      alt="Individual product page with custom design elements"
+      alt="Incident detail view with linked exposure data"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="h-[250px] w-full rounded-lg object-cover border"
     />
   </a>
   <a href="#img4" class="cursor-zoom-in">
     <Image
       src="/projects/exposure-tracker/project-image-4.png"
-      alt="Mobile responsive view of the To The Moon storefront"
+      alt="Mobile view of the Exposure Tracker app"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="h-[250px] w-full rounded-lg object-cover border"
     />
   </a>
 </div>
 
-The new apps launched at the end of 2025, and are helping figherfighters and first responders accurately self-document their exposures.
+The new apps launched at the end of **2025** and are helping firefighters and first responders accurately self-document their exposures.
 
 <div class="mt-8">
-  <a 
-    href="https://i-psdi.org/exposure" 
-    target="_blank" 
+  <a
+    href="https://i-psdi.org/exposure"
+    target="_blank"
     rel="noopener noreferrer"
     class="inline-flex items-center gap-2 external-link"
   >
-    Visit Website
+    More about Exposure Tracker
     <Icon name="lucide:external-link" size="1.25rem" />
   </a>
 </div>
 
+## Press & Podcasts
+
+In **January 2026**, Chief John Oates joined the *Better Every Shift Podcast* to explain why personal exposure tracking matters — not just for immediate reporting, but as a **career-long personal record** that can support long-term health, legal, and insurance needs.
+
+The episode highlights how the *IPSDI Exposure Tracker* enables firefighters to document fireground exposures, traumatic calls, hazmat incidents, and unique situations independently of departmental systems — ensuring critical information isn’t lost over time.
+
+<div class="mt-6 aspect-video">
+  <iframe
+    src="https://www.youtube.com/embed/y2BSxccic8Y"
+    title="IPSDI Exposure Tracker on the Better Every Shift Podcast"
+    loading="lazy"
+    allowfullscreen
+    class="h-full w-full rounded-lg"
+  ></iframe>
+</div>
+
+<p class="text-sm text-neutral-500 mt-2">
+  Featured on <em>FireRescue1</em>:{" "}
+  <a
+    href="https://www.firerescue1.com/fire-department-management/its-time-to-track-your-incidents-chief-oates-explains-how-and-why"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="underline"
+  >
+    “It’s time to track your incidents. Chief Oates explains how and why.”
+  </a>
+</p>
+
 ## Testimonial
 
 <BlockQuote
-  author="Mat, Lead Developer"
+  author="Mat, Lead Backend Developer"
   avatar="/projects/exposure-tracker/mat_avi.png"
 >
   Ben? Yeah, he's alright.
 </BlockQuote>
-
-
