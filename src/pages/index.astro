@@ -6,6 +6,8 @@ import FeaturedProjects from '@components/FeaturedProjects.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import ContentMedia from '@components/ContentMedia.astro'
+
+const currentYear = new Date().getFullYear()
 ---
 
 <DefaultLayout title="Home">
@@ -26,28 +28,33 @@ import ContentMedia from '@components/ContentMedia.astro'
       </div>
     </div>
   </section>
-  <ContentMedia imgSrc="/coming-soon.webp" reverseImg>
+  <ContentMedia imgSrc="/coming-soon.webp">
     <Heading level="h2">Starting a New Company?</Heading>
     <p class="text-2xl">
       Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain,
       landing page, company email, and everything else you need to start collecting customers from day one.
     </p>
   </ContentMedia>
-  <ContentMedia imgSrc="/advisor.webp" reverseImg>
+  <ContentMedia imgSrc="/advisor.webp">
     <Heading level="h2">Need Advising?</Heading>
     <p class="text-2xl">
       New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system,
       brand kit, and source code are built on a foundation for growth and consistency.
     </p>
   </ContentMedia>
-  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png" reverseImg>
-    <p class="mb-2 text-sm font-medium tracking-wide text-neutral-400 uppercase">Featured Project</p>
-
-<Heading level="h2" class="mt-1">Exposure Tracker</Heading>
-
+  <section class="relative my-8">
+<div class="absolute inset-0" style="background-color: var(--section-bg);" aria-hidden="true"></div>
+    <div class="relative container py-8">
+      <p class="text-foreground-color text-sm font-medium tracking-wide uppercase">Guiding Principle</p>
+      <Heading level="h2" class="text-foreground-color mt-2"> Intuitive Design </Heading>
+      <p class="text-foreground-color mt-2">Every product is unique and every interaction is intuitive.</p>
+    </div>
+  </section>
+  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
+    <Heading level="h2" class="mt-1">New in {currentYear}</Heading>
     <p class="mt-4 pb-4 text-2xl">
-      A cross-platform application built for firefighters and first responders to securely document exposures,
-      incidents, and long-term health risks.
+      IPSDI Exposure Tracker is a cross-platform application built for firefighters and first responders to securely
+      document exposures, incidents, and long-term health risks.
     </p>
 
     <div class="flex flex-wrap gap-4">

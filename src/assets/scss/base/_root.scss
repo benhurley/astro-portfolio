@@ -56,6 +56,9 @@
   --text-decoration-color: light-dark(var(--brand-folk-blue), var(--brand-sky-blue));
   --text-decoration-color-hover: light-dark(var(--brand-deep-blue), var(--brand-moon-white));
 
+  // Sections
+  --section-bg: light-dark(var(--color-primary-bg), var(--color-neutral-900));
+
 // CTA/Button colors
   --button-primary-bg: light-dark(var(--brand-deep-blue), var(--brand-space-silver));
   --button-primary-text: light-dark(white, var(--brand-nasa-blue));
