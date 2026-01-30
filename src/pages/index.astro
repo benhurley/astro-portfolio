@@ -28,6 +28,28 @@ const currentYear = new Date().getFullYear()
       </div>
     </div>
   </section>
+    <section class="relative my-8">
+    <div class="absolute inset-0" style="background-color: var(--section-bg);" aria-hidden="true"></div>
+    <div class="relative container py-8">
+      <p class="text-foreground-color text-sm font-medium tracking-wide uppercase">Guiding Principle</p>
+      <Heading level="h2" class="text-foreground-color mt-2"> Instinctive Design </Heading>
+      <p class="text-foreground-color mt-2">Every product is unique and every interaction is intuitive.</p>
+    </div>
+  </section>
+  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
+    <Heading level="h2" class="mt-1">Latest Release: Exposure Tracker</Heading>
+    <p class="mt-4 pb-4 text-2xl">
+      A cross-platform application built for firefighters and first responders to securely
+      document exposures, incidents, and long-term health risks.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <Link href="/portfolio/exposure-tracker" isButton type="primary" animateOnHover animationType="boop">
+        View Case Study
+      </Link>
+    </div>
+  </ContentMedia>
+  <FeaturedProjects />
   <ContentMedia imgSrc="/coming-soon.webp">
     <Heading level="h2">Starting a New Company?</Heading>
     <p class="text-2xl">
@@ -42,28 +64,6 @@ const currentYear = new Date().getFullYear()
       brand kit, and source code are built on a foundation for growth and consistency.
     </p>
   </ContentMedia>
-  <section class="relative my-8">
-<div class="absolute inset-0" style="background-color: var(--section-bg);" aria-hidden="true"></div>
-    <div class="relative container py-8">
-      <p class="text-foreground-color text-sm font-medium tracking-wide uppercase">Guiding Principle</p>
-      <Heading level="h2" class="text-foreground-color mt-2"> Intuitive Design </Heading>
-      <p class="text-foreground-color mt-2">Every product is unique and every interaction is intuitive.</p>
-    </div>
-  </section>
-  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
-    <Heading level="h2" class="mt-1">New in {currentYear}</Heading>
-    <p class="mt-4 pb-4 text-2xl">
-      IPSDI Exposure Tracker is a cross-platform application built for firefighters and first responders to securely
-      document exposures, incidents, and long-term health risks.
-    </p>
-
-    <div class="flex flex-wrap gap-4">
-      <Link href="/portfolio/exposure-tracker" isButton type="primary" animateOnHover animationType="boop">
-        View Case Study
-      </Link>
-    </div>
-  </ContentMedia>
-  <FeaturedProjects />
   <section class="mt-12 mb-32">
     <div class="container grid grid-cols-1 gap-12">
       <div class="flex flex-col items-center gap-4">
