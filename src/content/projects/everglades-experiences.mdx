@@ -1,0 +1,76 @@
+---
+title: Everglades Experiences
+platform: Shopify
+isFeatured: true
+description: A South Florida wildlife outfitter for luxury outdoor exploration.
+sortOrder: 1
+featuredImage: "everglades-experiences.png"
+---
+
+import BlockQuote from "@components/BlockQuote.astro";
+import BreakoutImage from "@components/BreakoutImage.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+## Project Overview
+
+Everglades Experiences is a South Florida wildlife outfitter led by wildlife biologist and TV host Rosie K. Moore. They run guided night hunts for invasive Burmese pythons and a hands-on herpetology field program, sell fine art wildlife prints, and offer lodging and luxury hospitality for guests.
+
+## Technical Challenges
+
+I customized a Liquid theme to match the client's design system and extended it with an anchored sub-navigation pattern that works on any page. Sections become anchor targets, so visitors can jump straight to pricing, schedule, or FAQ. We also took full advantage of the built-in CDN edge server that Shopify provides to serve a high-resolution video in the homepage hero banner, with no concerns over load time or SEO issues.
+
+As their business grows, they can add new pages and configure new products for sale without needing a developer.
+
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+  <a href="#img1" class="cursor-zoom-in">
+    <Image
+      src="/projects/everglades-experiences/project-image-1.png"
+      alt="Exposure Tracker dashboard showing incident suggestions"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg object-cover border"
+    />
+  </a>
+  <a href="#img2" class="cursor-zoom-in">
+    <Image
+      src="/projects/everglades-experiences/project-image-2.png"
+      alt="Exposure entry flow with auto-saved fields"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg object-cover border"
+    />
+  </a>
+  <a href="#img3" class="cursor-zoom-in">
+    <Image
+      src="/projects/everglades-experiences/project-image-3.png"
+      alt="Incident detail view with linked exposure data"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg object-cover border"
+    />
+  </a>
+  <a href="#img4" class="cursor-zoom-in">
+    <Image
+      src="/projects/everglades-experiences/project-image-4.png"
+      alt="Mobile view of the Exposure Tracker app"
+      width={1200}
+      height={600}
+      class="h-[250px] w-full rounded-lg object-cover border"
+    />
+  </a>
+</div>
+
+The website launched in September of 2026.
+
+<div class="mt-8">
+  <a
+    href="https://everglades-experiences.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 external-link"
+  >
+    Visit Everglades Experiences
+    <Icon name="lucide:external-link" size="1.25rem" />
+  </a>
+</div>
