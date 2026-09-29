@@ -1,0 +1,321 @@
+/*
+ * Site-specific components, built only from the brand tokens in ./brand/tokens.css.
+ * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
+ * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
+ */
+
+/* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+main:focus {
+  outline: none; /* the skip link target; focus is programmatic only */
+}
+
+/* ---- Highlighter emphasis: the reserved yellow ink, always with Ink text ----------- */
+mark {
+  background: var(--color-selection-bg);
+  padding-inline: 0.08em;
+  color: var(--color-selection-fg);
+}
+
+/* ---- Icons: outline set with square caps and mitred joins, to match the logo's cuts --- */
+svg[data-icon] {
+  display: inline-block;
+  flex-shrink: 0;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+/* ---- Section heading block ------------------------------------------------------- */
+.section-head {
+  margin-bottom: var(--space-6);
+}
+
+.section-head h2 {
+  margin-bottom: 0;
+}
+
+.section-foot {
+  margin-top: var(--space-7);
+}
+
+/* Lists laid out on the brand grid: each item spans 4 columns (1 / 2 / 3 per row) */
+ul.grid {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  list-style: none;
+}
+
+.grid > li {
+  display: flex;
+  grid-column: span 4;
+}
+
+.grid > li > .card {
+  flex: 1;
+}
+
+/* ---- Work card: a card with a full-bleed image on top ------------------------------ */
+.work-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.work-card img {
+  border-bottom: var(--border-width) solid var(--color-rule);
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  object-fit: cover;
+}
+
+.work-card__body {
+  padding: var(--space-5);
+}
+
+.work-card__body p {
+  color: var(--color-fg-muted);
+}
+
+/* ---- Split: media beside text ------------------------------------------------------- */
+.split {
+  display: grid;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.split__media img {
+  border: var(--border-width) solid var(--color-rule);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+}
+
+/* ---- Page header and breadcrumbs ------------------------------------------------------ */
+.page-header {
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.page-header .lead {
+  margin-bottom: 0;
+}
+
+.page-header__banner {
+  margin-bottom: var(--space-7);
+  border: var(--border-width) solid var(--color-rule);
+  aspect-ratio: 24 / 5;
+  width: 100%;
+  min-height: 10rem;
+  object-fit: cover;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.breadcrumbs li + li::before {
+  margin-right: var(--space-2);
+  content: '/';
+  font-family: var(--font-mono);
+}
+
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}
+
+.breadcrumbs [aria-current='page'] {
+  color: var(--color-fg);
+}
+
+/* ---- Long-form content (project write-ups) -------------------------------------------- */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose h2 {
+  margin-top: var(--space-8);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose strong {
+  font-weight: var(--weight-medium);
+}
+
+.gallery {
+  display: grid;
+  gap: var(--space-4);
+  margin-block: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.gallery__link {
+  display: block;
+  cursor: zoom-in;
+}
+
+.gallery__img {
+  transition: border-color var(--duration-fast) var(--ease);
+  border: var(--border-width) solid var(--color-rule);
+  aspect-ratio: 2 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.gallery__link:hover .gallery__img {
+  border-color: var(--color-fg);
+}
+
+.video {
+  margin-block: var(--space-6) var(--space-4);
+  aspect-ratio: 16 / 9;
+}
+
+.video iframe {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.link-row {
+  margin-block: var(--space-6);
+}
+
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---- Quote --------------------------------------------------------------------------- */
+.quote {
+  margin: var(--space-6) 0;
+  border-left: 2px solid var(--color-underline);
+  padding-left: var(--space-5);
+}
+
+.quote__text {
+  margin: 0;
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+}
+
+.quote__text p:last-child {
+  margin-bottom: 0;
+}
+
+.quote__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  color: var(--color-fg-muted);
+  font-style: normal;
+  font-size: var(--text-sm);
+}
+
+.quote__avatar {
+  border-radius: var(--radius-round); /* avatars are the only round things */
+  width: var(--space-7);
+  height: var(--space-7);
+  object-fit: cover;
+}
+
+/* ---- Lightbox (CSS :target) -------------------------------------------------------------- */
+.lightbox {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-menu);
+  inset: 0;
+  background: var(--color-codeblock-bg);
+  padding: var(--space-8) var(--gutter);
+  color: var(--color-codeblock-fg);
+}
+
+.lightbox:target {
+  display: flex;
+}
+
+.lightbox img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.lightbox__close {
+  display: inline-flex;
+  position: absolute;
+  top: var(--space-4);
+  right: var(--gutter);
+  align-items: center;
+  min-height: var(--tap-min);
+  color: inherit;
+  font-weight: var(--weight-medium);
+}
+
+.lightbox__close:hover {
+  color: var(--color-syntax-attr); /* the dark-background magenta: 4.9:1 here */
+}
+
+/* ---- Pagination -------------------------------------------------------------------------- */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.pagination p {
+  margin: 0;
+}
+
+/* ---- Footer extras ------------------------------------------------------------------------- */
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}
+
+.site-footer__logo {
+  color: inherit;
+}
+
+.theme-toggle {
+  color: var(--color-fg);
+}

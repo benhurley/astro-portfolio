@@ -1,0 +1,162 @@
+/*
+ * Ben Ventures design tokens (v1.0)
+ * The single source of truth for colour, type, spacing and layout on the web.
+ * Components reference these variables. Never hardcode a hex value or a pixel size that a token covers.
+ *
+ * Theme: follows the OS by default. Set <html data-theme="light|dark"> to force one.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ---- Brand inks: fixed values, the same in both themes ------------------ */
+  --bv-cyan: #00aeef;     /* logo "<" only. 2.2:1 on paper: never use for text on light */
+  --bv-magenta: #ec008c;  /* logo ">", link underlines, focus ring. 3.8:1: never body text */
+  --bv-yellow: #fff200;   /* accent: text selection, highlights. Never in the logo */
+  --bv-ink: #231f20;
+  --bv-paper: #f4f1ea;
+
+  /* ---- Semantic colours: light theme ------------------------------------- */
+  --color-bg: var(--bv-paper);
+  --color-surface: #fbf9f4;          /* cards, raised panels */
+  --color-fg: var(--bv-ink);          /* 14.5:1 on bg */
+  --color-fg-muted: #67625a;          /* 5.4:1 on bg: captions, meta */
+  --color-rule: #ddd6c8;              /* decorative dividers only */
+  --color-border: #8f897c;            /* form controls: 3.1:1, meets non-text contrast */
+  --color-accent: #d4007e;            /* magenta for text-sized use: 4.5:1 on bg */
+  --color-accent-contrast: #ffffff;   /* text on --color-accent: 5.1:1 */
+  --color-underline: var(--bv-magenta);
+  --color-focus: var(--bv-magenta);
+  --color-selection-bg: var(--bv-yellow);
+  --color-selection-fg: var(--bv-ink);
+  --color-code-bg: #e9e4d8;           /* inline code */
+  --color-codeblock-bg: #1a1718;      /* code blocks are dark in both themes */
+  --color-codeblock-fg: var(--bv-paper);
+  --color-syntax-tag: var(--bv-cyan);         /* 7.0:1 on codeblock */
+  --color-syntax-attr: #f038a5;               /* 4.9:1 */
+  --color-syntax-string: var(--bv-yellow);    /* 14:1 */
+  --color-syntax-comment: #a8a294;            /* 6.4:1 */
+
+  /* Logo parts (used by the inline SVGs in web/logo/) */
+  --logo-open: var(--bv-cyan);
+  --logo-b: var(--bv-ink);
+  --logo-close: var(--bv-magenta);
+  --logo-wordmark: var(--bv-ink);
+
+  /* ---- Type ---------------------------------------------------------------- */
+  --font-sans: "Jost", Futura, "Century Gothic", "Avenir Next", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --weight-regular: 400;
+  --weight-medium: 500;               /* the only two weights */
+
+  /* Fluid sizes: min at 360px viewport, max at 1440px */
+  --text-xs: 0.8125rem;                                   /* 13px */
+  --text-sm: 0.875rem;                                    /* 14px */
+  --text-base: clamp(1.0625rem, 1.0417rem + 0.0926vw, 1.125rem);   /* 17 → 18px */
+  --text-lg: clamp(1.1875rem, 1.1458rem + 0.1852vw, 1.3125rem);     /* 19 → 21px */
+  --text-h3: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);         /* 20 → 24px */
+  --text-h2: clamp(1.625rem, 1.375rem + 1.1111vw, 2.375rem);      /* 26 → 38px */
+  --text-h1: clamp(2.125rem, 1.6667rem + 2.037vw, 3.5rem);        /* 34 → 56px */
+  --text-display: clamp(2.75rem, 1.9167rem + 3.7037vw, 5.25rem);   /* 44 → 84px */
+
+  --leading-tight: 1.05;     /* display, h1 */
+  --leading-snug: 1.2;       /* h2, h3 */
+  --leading-body: 1.6;
+  --tracking-tight: -0.02em; /* display, h1 */
+  --measure: 68ch;           /* max line length for running text */
+
+  /* ---- Space: 4px base ------------------------------------------------------ */
+  --space-1: 0.25rem;  /* 4 */
+  --space-2: 0.5rem;   /* 8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+  --space-10: 8rem;    /* 128 */
+
+  /* ---- Layout: mobile values; overridden at breakpoints below -------------- */
+  --container-max: 75rem;   /* 1200px content width */
+  --gutter: 1rem;           /* 16px side padding */
+  --grid-columns: 4;
+  --grid-gap: 1rem;
+  --header-h: 4rem;         /* 64px */
+  --logo-h: 1.625rem;       /* 26px: height of the mark inside the header lockup */
+  --section-space: var(--space-8);
+
+  /* ---- Shape, motion, interaction ----------------------------------------- */
+  --radius: 0;              /* square corners everywhere: the logo has none */
+  --radius-round: 999px;    /* avatars only */
+  --border-width: 1px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --tap-min: 2.75rem;       /* 44px minimum touch target */
+  --duration-fast: 120ms;
+  --duration: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --z-header: 10;
+  --z-menu: 20;
+  --z-skip: 30;
+}
+
+/* Breakpoints (min-width, mobile first): sm 640px · md 768px · lg 1024px · xl 1280px.
+ * Custom properties can't be used inside media queries, so these numbers are
+ * repeated in base.css; keep them in sync. */
+@media (min-width: 640px) {
+  :root {
+    --gutter: 1.5rem;
+    --grid-columns: 8;
+    --grid-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2.5rem;
+    --grid-columns: 12;
+    --header-h: 5rem;       /* 80px */
+    --logo-h: 2rem;         /* 32px */
+    --section-space: var(--space-9);
+  }
+}
+
+/* ---- Dark theme: OS preference unless the page forces light ---------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: var(--bv-ink);
+    --color-surface: #2c2827;
+    --color-fg: var(--bv-paper);
+    --color-fg-muted: #a8a294;        /* 6.4:1 */
+    --color-rule: #3a3533;
+    --color-border: #7a746a;          /* 3.5:1 */
+    --color-accent: #f038a5;          /* 4.5:1 on ink */
+    --color-accent-contrast: var(--bv-ink);
+    --color-code-bg: #2e2a28;
+    --logo-b: var(--bv-paper);
+    --logo-wordmark: var(--bv-paper);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: var(--bv-ink);
+  --color-surface: #2c2827;
+  --color-fg: var(--bv-paper);
+  --color-fg-muted: #a8a294;
+  --color-rule: #3a3533;
+  --color-border: #7a746a;
+  --color-accent: #f038a5;
+  --color-accent-contrast: var(--bv-ink);
+  --color-code-bg: #2e2a28;
+  --logo-b: var(--bv-paper);
+  --logo-wordmark: var(--bv-paper);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
