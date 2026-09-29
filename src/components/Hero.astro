@@ -1,9 +1,21 @@
 ---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import heroImage from '../../public/hero-image.webp'
+
 /**
  * Hero Component
  *
- * @description Home page hero: eyebrow, the page's one display headline, lead and actions
+ * @description Home page hero: illustration, the page's one display headline and actions
  */
+interface Props {
+  /**
+   * The image to display (imported asset)
+   */
+  src?: ImageMetadata
+}
+
+const { src = heroImage }: Props = Astro.props
 const heroMessages = [
   "Is your website stuck in 2010? Let's rescue it.",
   'Website looking like MySpace? We should talk.',
@@ -12,30 +24,42 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
 ---
 
 <section class="hero">
-  <div class="container">
-    <span class="eyebrow">design &amp; frontend development</span>
-    <h1 class="display">{randomMessage}</h1>
-    <p class="lead">
-      I'll fix your website or build a new one: clean, fast and accessible, from a product engineer trusted by companies
-      of all sizes.
-    </p>
-    <div class="btn-row">
-      <a class="btn btn--primary" href="/portfolio/">See the work</a>
-      <a
-        class="btn btn--secondary"
-        href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
-        >Get in touch</a
-      >
+  <div class="container split">
+    <div class="hero__art">
+      <Image src={src} alt="" widths={[300, 600]} sizes="(min-width: 768px) 30vw, 0px" loading="eager" />
+    </div>
+    <div>
+      <h1 class="display">{randomMessage}</h1>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/portfolio/">See the work</a>
+        <a
+          class="btn btn--secondary"
+          href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
+          >Get in touch</a
+        >
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .display {
-    max-width: 16ch;
+    margin-bottom: var(--space-6);
   }
 
-  .lead {
-    margin-bottom: var(--space-6);
+  /* The illustration accompanies the headline on wider screens only */
+  .hero__art {
+    display: none;
+  }
+
+  .hero__art :global(img) {
+    margin-inline: auto;
+    width: 75%;
+  }
+
+  @media (min-width: 768px) {
+    .hero__art {
+      display: block;
+    }
   }
 </style>

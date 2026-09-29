@@ -19,14 +19,19 @@ interface Props {
    * @default false
    */
   reverseImg?: boolean
+  /**
+   * The image is an illustration, so it gets no frame
+   * @default false
+   */
+  art?: boolean
 }
 
-const { imgSrc, imgAlt = '', reverseImg = false }: Props = Astro.props
+const { imgSrc, imgAlt = '', reverseImg = false, art = false }: Props = Astro.props
 ---
 
 <section class="section">
   <div class="container split">
-    <div class="split__media" style={reverseImg ? 'order: 1' : undefined}>
+    <div class:list={['split__media', { 'split__media--art': art }]} style={reverseImg ? 'order: 1' : undefined}>
       <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
     </div>
     <div>

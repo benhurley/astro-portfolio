@@ -17,14 +17,6 @@ const offerings = [
     title: 'Design',
     text: 'Wireframes, mockups, and design systems crafted for your unique brand identity.',
   },
-  {
-    title: 'Starting a new company?',
-    text: "Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain, landing page, company email, and everything else you need to start collecting customers from day one.",
-  },
-  {
-    title: 'Need advising?',
-    text: "New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system, brand kit, and source code are built on a foundation for growth and consistency.",
-  },
 ]
 ---
 
@@ -33,16 +25,12 @@ const offerings = [
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">01 · offerings</span>
-        <h2>What I do</h2>
-      </div>
+      <h2 class="section-head">My offerings</h2>
       <ul class="grid">
         {
-          offerings.map((offering, index) => (
+          offerings.map((offering) => (
             <li>
               <div class="card">
-                <span class="eyebrow">{String(index + 1).padStart(2, '0')}</span>
                 <h3>{offering.title}</h3>
                 <p class="muted">{offering.text}</p>
               </div>
@@ -53,17 +41,16 @@ const offerings = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section band">
     <div class="container">
-      <span class="eyebrow">02 · guiding principle</span>
+      <span class="eyebrow">guiding principle</span>
       <h2 class="principle"><mark>Instinctive</mark> design</h2>
       <p class="lead">Every product is unique and every interaction is intuitive.</p>
     </div>
   </section>
 
   <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
-    <span class="eyebrow">03 · latest release</span>
-    <h2>Exposure Tracker</h2>
+    <h2>Latest release: Exposure Tracker</h2>
     <p class="lead">
       A cross-platform application built for firefighters and first responders to securely document exposures,
       incidents, and long-term health risks.
@@ -73,13 +60,27 @@ const offerings = [
     </div>
   </ContentMedia>
 
-  <FeaturedProjects eyebrow="04 · work" />
+  <FeaturedProjects title="Portfolio" />
+
+  <ContentMedia imgSrc="/coming-soon.webp" art>
+    <h2>Starting a new company?</h2>
+    <p class="lead">
+      Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain,
+      landing page, company email, and everything else you need to start collecting customers from day one.
+    </p>
+  </ContentMedia>
+
+  <ContentMedia imgSrc="/advisor.webp" art>
+    <h2>Need advising?</h2>
+    <p class="lead">
+      New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system,
+      brand kit, and source code are built on a foundation for growth and consistency.
+    </p>
+  </ContentMedia>
 
   <section class="section">
     <div class="container">
-      <span class="eyebrow">05 · contact</span>
       <h2>Let's get to work.</h2>
-      <p class="lead">Tell me about your project and I'll get back to you.</p>
       <div class="btn-row">
         <a
           class="btn btn--accent"
