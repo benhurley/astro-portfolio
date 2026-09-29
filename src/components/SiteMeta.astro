@@ -14,9 +14,9 @@ interface Props {
    */
   description: string
   /**
-   * The URL of the page
+   * The URL (or path) of the page
    */
-  url: string
+  url: string | URL
   /**
    * The image path for social sharing
    */
@@ -27,24 +27,33 @@ interface Props {
   author?: string
 }
 
-const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
+const { title, description, url, image, author = 'Ben' } = Astro.props
 
-let subtitle = 'Ben Ventures'
+// Title format: "Page name · Ben Ventures" (docs/brand/WEB.md §9)
+const siteName = 'Ben Ventures'
+const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`
+const pageUrl = new URL(url, Astro.site)
+const imageUrl = new URL(image, Astro.site)
 ---
 
 <!-- general meta -->
-<meta name="title" content={`${title} - ${subtitle}`} />
+<meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={author} />
+<link rel="canonical" href={pageUrl} />
 
 <!-- open graph -->
-<meta property="og:title" content={`${title} - ${subtitle}`} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={url} />
-<meta property="og:image" content={`${Astro.site}${image}`} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1260" />
 
 <!-- twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
 
 <!-- page title -->
-<title>{title} - {subtitle}</title>
+<title>{fullTitle}</title>

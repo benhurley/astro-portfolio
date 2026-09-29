@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+/**
+ * WorkCard Component
+ *
+ * @description A whole-card link to a project: image, eyebrow (platform), title, muted description
+ */
+interface Props {
+  href: string
+  title: string
+  description: string
+  platform: string
+  image?: ImageMetadata
+  /**
+   * Heading level for the title; it is always styled at h3 size
+   * @default 'h3'
+   */
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { href, title, description, platform, image, headingLevel: Heading = 'h3' } = Astro.props
+---
+
+<a class="card work-card" href={href}>
+  {image && <Image src={image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 400px, 100vw" loading="lazy" />}
+  <div class="work-card__body">
+    <span class="eyebrow">{platform.toLowerCase()}</span>
+    <Heading class="work-card__title">{title}</Heading>
+    <p>{description}</p>
+  </div>
+</a>
+
+<style>
+  .work-card__title {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-h3);
+    line-height: var(--leading-snug);
+  }
+</style>

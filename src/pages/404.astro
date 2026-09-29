@@ -1,22 +1,16 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import { Heading, Link } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
 ---
 
-<DefaultLayout title="404">
-  <section class="my-12">
+<DefaultLayout title="Page not found">
+  <section class="hero">
     <div class="container">
-      <Heading level="h1">404</Heading>
-    </div>
-  </section>
-  <section class="my-12">
-    <div class="space-content container">
-      <p class="text-2xl mb-8">You seem lost, everything okay?</p>
-      <Link href="/" isButton type="primary" animateOnHover animationType="nudge">
-        Let's get you back home.
-        <Icon aria-hidden="true" name="lucide:car" size="1.5rem" />
-      </Link>
+      <span class="eyebrow">404 · not found</span>
+      <h1>You seem lost. Everything okay?</h1>
+      <p class="lead">The page you're looking for isn't here. It may have moved, or the link may be wrong.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/">Let's get you back home</a>
+      </div>
     </div>
   </section>
 </DefaultLayout>

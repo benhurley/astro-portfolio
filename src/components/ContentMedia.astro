@@ -1,10 +1,8 @@
 ---
-import { Media } from 'accessible-astro-components'
-
 /**
  * ContentMedia Component
  *
- * @description A component that displays content alongside media, with the option to reverse the image position
+ * @description A section that displays content alongside an image, with the option to reverse the image position
  */
 interface Props {
   /**
@@ -12,23 +10,27 @@ interface Props {
    */
   imgSrc: string
   /**
+   * Alt text for the image; decorative by default
+   * @default ''
+   */
+  imgAlt?: string
+  /**
    * Whether to display the image on the right side instead of the left
    * @default false
    */
   reverseImg?: boolean
 }
 
-const { imgSrc, reverseImg = false }: Props = Astro.props
+const { imgSrc, imgAlt = '', reverseImg = false }: Props = Astro.props
 ---
 
-<section class="my-12 md:my-18">
-  <div class="container">
-    <div class="grid grid-cols-1 gap-12 md:gap-18 md:grid-cols-2">
-      {!reverseImg ? <Media class="rounded"  src={imgSrc} /> : ''}
-      <div class="space-content flex flex-col justify-center">
-        <slot />
-      </div>
-      {reverseImg ? <Media class="rounded-xl" src={imgSrc} /> : ''}
+<section class="section">
+  <div class="container split">
+    <div class="split__media" style={reverseImg ? 'order: 1' : undefined}>
+      <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+    </div>
+    <div>
+      <slot />
     </div>
   </div>
 </section>

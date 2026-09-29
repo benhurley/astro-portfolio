@@ -1,136 +1,100 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import Hero from '@components/Hero.astro'
-import Feature from '@components/Feature.astro'
 import FeaturedProjects from '@components/FeaturedProjects.astro'
-import { Heading, Link } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
 import ContentMedia from '@components/ContentMedia.astro'
 
-const currentYear = new Date().getFullYear()
+const offerings = [
+  {
+    title: 'Development',
+    text: 'Clean, fast, and accessible code from a product engineer trusted by companies of all sizes.',
+  },
+  {
+    title: 'UX',
+    text: 'Simplify your website and remove friction so visitors can find what they need instantly.',
+  },
+  {
+    title: 'Design',
+    text: 'Wireframes, mockups, and design systems crafted for your unique brand identity.',
+  },
+  {
+    title: 'Starting a new company?',
+    text: "Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain, landing page, company email, and everything else you need to start collecting customers from day one.",
+  },
+  {
+    title: 'Need advising?',
+    text: "New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system, brand kit, and source code are built on a foundation for growth and consistency.",
+  },
+]
 ---
 
-<DefaultLayout title="Home">
+<DefaultLayout title="Ben Ventures">
   <Hero />
-  <section class="my-24">
-    <div class="container">
-      <Heading level="h2" class="mb-8">My Offerings</Heading>
-      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-        <Feature icon="lucide:code" title="Development">
-          Clean, fast, and accessible code from a product engineer trusted by companies of all sizes.
-        </Feature>
-        <Feature icon="lucide:sparkles" title="UX">
-          Simplify your website and remove friction so visitors can find what they need instantly.
-        </Feature>
-        <Feature icon="lucide:paintbrush" title="Design">
-          Wireframes, mockups, and design systems crafted for your unique brand identity.
-        </Feature>
-      </div>
-    </div>
-  </section>
-    <section class="relative my-8">
-    <div class="absolute inset-0" style="background-color: var(--section-bg);" aria-hidden="true"></div>
-    <div class="relative container py-8">
-      <p class="text-foreground-color text-sm font-medium tracking-wide uppercase">Guiding Principle</p>
-      <Heading level="h2" class="text-foreground-color mt-2"> Instinctive Design </Heading>
-      <p class="text-foreground-color mt-2">Every product is unique and every interaction is intuitive.</p>
-    </div>
-  </section>
-  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
-    <Heading level="h2" class="mt-1">Latest Release: Exposure Tracker</Heading>
-    <p class="mt-4 pb-4 text-2xl">
-      A cross-platform application built for firefighters and first responders to securely
-      document exposures, incidents, and long-term health risks.
-    </p>
 
-    <div class="flex flex-wrap gap-4">
-      <Link href="/portfolio/exposure-tracker" isButton type="primary" animateOnHover animationType="boop">
-        View Case Study
-      </Link>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">01 · offerings</span>
+        <h2>What I do</h2>
+      </div>
+      <ul class="grid">
+        {
+          offerings.map((offering, index) => (
+            <li>
+              <div class="card">
+                <span class="eyebrow">{String(index + 1).padStart(2, '0')}</span>
+                <h3>{offering.title}</h3>
+                <p class="muted">{offering.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">02 · guiding principle</span>
+      <h2 class="principle"><mark>Instinctive</mark> design</h2>
+      <p class="lead">Every product is unique and every interaction is intuitive.</p>
+    </div>
+  </section>
+
+  <ContentMedia imgSrc="/projects/exposure-tracker/project-image-5.png">
+    <span class="eyebrow">03 · latest release</span>
+    <h2>Exposure Tracker</h2>
+    <p class="lead">
+      A cross-platform application built for firefighters and first responders to securely document exposures,
+      incidents, and long-term health risks.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="/portfolio/exposure-tracker/">View case study</a>
     </div>
   </ContentMedia>
-  <FeaturedProjects />
-  <ContentMedia imgSrc="/coming-soon.webp">
-    <Heading level="h2">Starting a New Company?</Heading>
-    <p class="text-2xl">
-      Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain,
-      landing page, company email, and everything else you need to start collecting customers from day one.
-    </p>
-  </ContentMedia>
-  <ContentMedia imgSrc="/advisor.webp">
-    <Heading level="h2">Need Advising?</Heading>
-    <p class="text-2xl">
-      New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system,
-      brand kit, and source code are built on a foundation for growth and consistency.
-    </p>
-  </ContentMedia>
-  <section class="mt-12 mb-32">
-    <div class="container grid grid-cols-1 gap-12">
-      <div class="flex flex-col items-center gap-4">
-        <Heading class="mb-8 text-center" level="h2">Let's Get to Work.</Heading>
-        <Link
+
+  <FeaturedProjects eyebrow="04 · work" />
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">05 · contact</span>
+      <h2>Let's get to work.</h2>
+      <p class="lead">Tell me about your project and I'll get back to you.</p>
+      <div class="btn-row">
+        <a
+          class="btn btn--accent"
           href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
-          isButton
-          type="primary"
-          animateOnHover
-          animationType="boop"
+          >Email Ben</a
         >
-          <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
-          Email Ben
-        </Link>
       </div>
-      <!-- <div class="space-content">
-        <Accordion>
-          <AccordionItem name="exclusive" title="What is WCAG and why is it important?" open>
-            <p>
-              WCAG (Web Content Accessibility Guidelines) is a set of internationally recognized standards for web
-              accessibility. Following WCAG ensures your website is usable by people with various disabilities,
-              including visual, auditory, physical, and cognitive impairments. It's important not just for
-              accessibility, but also for legal compliance, SEO, and reaching a wider audience.
-            </p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="What's the difference between ARIA labels and alt text?">
-            <p>
-              Alt text is specifically for describing images to screen reader users, while ARIA labels (aria-label,
-              aria-labelledby) can describe any element on a page. Alt text is HTML's native way to provide alternative
-              text for images, while ARIA labels are part of the ARIA specification that helps make dynamic content and
-              advanced UI controls more accessible.
-            </p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="Why is keyboard navigation important?">
-            <p>
-              Keyboard navigation is essential for users who can't use a mouse, including people with motor
-              disabilities, visual impairments, or those who simply prefer keyboard controls. A website should be fully
-              operable using only a keyboard, with visible focus indicators and logical tab order. This includes being
-              able to access all interactive elements and navigate through content efficiently.
-            </p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="What is a sufficient color contrast ratio?">
-            <p>
-              According to WCAG 2.2 AA standards, text should have a minimum contrast ratio of 4.5:1 against its
-              background for regular text, and 3:1 for large text (18pt or 14pt bold). For non-text elements like icons
-              or buttons, a minimum ratio of 3:1 is required. This ensures content is readable for users with visual
-              impairments or color blindness.
-            </p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="How do I make custom components accessible?">
-            <p>
-              To make custom components accessible, focus on these key aspects: use semantic HTML where possible,
-              implement proper keyboard support, add appropriate ARIA attributes, manage focus when needed, and ensure
-              adequate color contrast. Always test with screen readers and keyboard navigation. Consider using
-              established design patterns from the <Link href="https://www.w3.org/WAI/ARIA/apg/patterns/"
-                >ARIA Authoring Practices Guide</Link
-              >.
-            </p>
-          </AccordionItem>
-        </Accordion>
-      </div> -->
     </div>
   </section>
 </DefaultLayout>
 
 <style>
-  .avatar {
-    padding: var(--space-s);
+  .principle {
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
   }
 </style>

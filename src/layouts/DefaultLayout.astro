@@ -1,16 +1,17 @@
 ---
-import '../styles/tailwind.css'
-import '../assets/scss/index.scss'
+import '../styles/fonts.css'
+import '../styles/brand/tokens.css'
+import '../styles/brand/base.css'
+import '../styles/site.css'
 import SiteMeta from '../components/SiteMeta.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import { ClientRouter } from 'astro:transitions'
 
 const {
   title = 'Ben Ventures',
   description = `Is Your Website Stuck in 2010? Let's Rescue It. Reach out to Ben today to fix your website or build a new one.`,
-  url = Astro.site,
-  image = 'social-preview-image.png',
+  url = Astro.url.pathname,
+  image = '/og-image.png',
   author = 'Ben',
 } = Astro.props
 ---
@@ -18,61 +19,36 @@ const {
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      /* Apply a saved theme before first paint so the page doesn't flash (docs/brand/WEB.md §2) */
+      ;(function () {
+        var t = null
+        try {
+          t = localStorage.getItem('bv-theme')
+        } catch (e) {}
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+      })()
+    </script>
+    <link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- favicons, manifest, theme colour (brand kit favicon/head-snippet.html) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#F4F1EA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#231F20" media="(prefers-color-scheme: dark)" />
 
     <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
-
-    <!-- Enable Astro View Transitions for all browsers -->
-    <ClientRouter />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <Header />
-    <main id="main-content" transition:animate="fade">
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer />
-    <style lang="scss" is:global>
-      @use '../assets/scss/base/mixins' as *;
-
-      // sticky footer on low content pages
-      html {
-        height: 100%;
-      }
-
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-        overflow-x: clip;
-
-        main {
-          display: flex;
-          flex: 1 0 auto;
-          flex-direction: column;
-          width: 100%;
-        }
-
-        footer {
-          flex-shrink: 0;
-        }
-      }
-
-      pre {
-        border: 2px solid var(--link-color);
-        border-radius: 0.35rem;
-        padding: 1rem;
-      }
-
-      .card {
-        a {
-          @include text-decoration(transparent, var(--foreground-color), 4px, 2px);
-        }
-      }
-    </style>
   </body>
 </html>

@@ -1,11 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components'
-
+/**
+ * BlockQuote Component
+ *
+ * @description A pull quote or testimonial with an optional author, avatar and link
+ */
 interface Props {
-  /**
-   * The quote content that will be displayed
-   */
-  children: any
   /**
    * The name of the person who said the quote
    */
@@ -23,70 +22,30 @@ interface Props {
 const { author, avatar, link } = Astro.props
 ---
 
-<blockquote class="border-primary-500 border-l-4 pl-4">
-  <div>
-    <Icon aria-hidden="true" name="lucide:quote" size="2rem" />
+<figure class="quote">
+  <blockquote class="quote__text">
     <slot />
-    <Icon aria-hidden="true" name="lucide:quote" size="2rem" />
-  </div>
-  {author && (
-    <div class="author-section">
-      {avatar && <img src={avatar} alt={author} class="author-avatar" />}
-      <cite class="block text-sm font-medium">
-        {link ? (
-          <a href={link} target="_blank" rel="noopener noreferrer" class="author-link">
-            {author}
-          </a>
-        ) : (
-          author
-        )}
-      </cite>
-    </div>
-  )}
-</blockquote>
+  </blockquote>
+  {
+    author && (
+      <figcaption class="quote__author">
+        {avatar && <img src={avatar} alt="" class="quote__avatar" width="48" height="48" loading="lazy" />}
+        <cite>
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {author}
+            </a>
+          ) : (
+            author
+          )}
+        </cite>
+      </figcaption>
+    )
+  }
+</figure>
 
-<style lang="scss" is:global>
-  blockquote {
-    font-size: var(--font-size-2);
-
-    p {
-      display: inline;
-    }
-
-    svg {
-      display: inline;
-      margin-block-start: calc(var(--space-s) * -1);
-
-      &:first-child {
-        scale: -1 1;
-      }
-    }
-
-    .author-section {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xs);
-      margin-block-start: var(--space-s);
-    }
-
-    .author-avatar {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    cite {
-      font-size: var(--font-size-1);
-    }
-
-    .author-link {
-      color: inherit;
-      text-decoration: none;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+<style>
+  cite {
+    font-style: normal;
   }
 </style>
