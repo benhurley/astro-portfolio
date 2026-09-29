@@ -7,7 +7,7 @@ sortOrder: 3
 featuredImage: 'nippies.png'
 ---
 
-## Project Overview
+## Project overview
 
 Originally launched as an NFT art project, The Nippies needed a web directory that showcased each collector's X account and immersed visitors in their playful universe. Every asset was hand-drawn by artist <a href="https://scubasteveart.com/"     target="_blank" 
     rel="noopener noreferrer">Scuba Steve</a>, giving the site a unique, handcrafted character.
@@ -17,60 +17,60 @@ import BreakoutImage from '@components/BreakoutImage.astro'
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 
-## Technical Challenges
+## Technical challenges
 
 The most complex challenge was implementing sorting, pagination, and a "shuffle" feature within the main grid—while supporting two distinct artwork collections. The solution had to balance functionality with performance and fluid UI transitions.
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-  <a href="#img1" class="cursor-zoom-in">
+<div class="gallery">
+  <a href="#img1" class="gallery__link">
     <Image
       src="/projects/nippies/project-image-1.png"
       alt="To The Moon homepage featuring animated starfield background"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg border-1 object-cover"
+      class="gallery__img"
     />
   </a>
-  <a href="#img2" class="cursor-zoom-in">
+  <a href="#img2" class="gallery__link">
     <Image
       src="/projects/nippies/project-image-2.png"
       alt="Product collection page showcasing streetwear merchandise"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg border-1 object-cover"
+      class="gallery__img"
     />
   </a>
-  <a href="#img3" class="cursor-zoom-in">
+  <a href="#img3" class="gallery__link">
     <Image
       src="/projects/nippies/project-image-3.png"
       alt="Individual product page with custom design elements"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg border-1 object-cover"
+      class="gallery__img"
     />
   </a>
-  <a href="#img4" class="cursor-zoom-in">
+  <a href="#img4" class="gallery__link">
     <Image
       src="/projects/nippies/project-image-4.png"
       alt="Mobile responsive view of the To The Moon storefront"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg border-1 object-cover"
+      class="gallery__img"
     />
   </a>
 </div>
 
 The directory launched to widespread acclaim within the Solana ecosystem and served the community for several years.
 
-<div class="mt-8">
+<div class="link-row">
   <a
     href="https://nippies.netlify.app"
     target="_blank"
     rel="noopener noreferrer"
-    class="external-link inline-flex items-center gap-2"
+    class="external-link"
   >
-    Visit Website
-    <Icon name="lucide:external-link" size="1.25rem" />
+    Visit website
+    <Icon aria-hidden="true" name="lucide:external-link" size="1.25rem" />
   </a>
 </div>
 
