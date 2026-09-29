@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
-import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath } from 'url'
 
 import sitemap from '@astrojs/sitemap';
@@ -13,16 +12,6 @@ export default defineConfig({
   site: 'https://www.benvent.com',
   integrations: [mdx(), icon(), compress(), sitemap()],
   vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          logger: {
-            warn: () => {},
-          },
-        },
-      },
-    },
-    plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
