@@ -36,7 +36,7 @@ const projectImages = Array.from({ length: projectImageCount }, (_, i) => ({
   <PageHeader
     title={project.data.title}
     subtitle={project.data.description}
-    eyebrow={project.data.platform.toLowerCase()}
+    meta={`Made with ${project.data.platform}`}
     featuredImage={`/projects/${project.id}/banner.png`}
   />
 

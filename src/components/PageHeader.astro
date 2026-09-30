@@ -26,16 +26,16 @@ interface Props {
    */
   subtitle?: string
   /**
-   * Eyebrow label above the title
+   * A small line under the subtitle, e.g. "Made with Ionic"
    */
-  eyebrow?: string
+  meta?: string
   /**
    * Whether to show the breadcrumbs
    */
   showBreadcrumbs?: boolean
 }
 
-const { class: className, title, subtitle, eyebrow, showBreadcrumbs = true, featuredImage } = Astro.props
+const { class: className, title, subtitle, meta, showBreadcrumbs = true, featuredImage } = Astro.props
 
 // Sanitize subtitle HTML if present
 const sanitizedSubtitle: string = subtitle
@@ -84,8 +84,8 @@ const crumbs = segments.map((segment, index) => ({
         <Image src={featuredImage} alt="" width={1200} height={250} class="page-header__banner" loading="eager" />
       )
     }
-    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
     <h1>{title}</h1>
     {sanitizedSubtitle && <p class="lead" set:html={sanitizedSubtitle} />}
+    {meta && <p class="made-with page-header__meta">{meta}</p>}
   </div>
 </section>

@@ -72,8 +72,8 @@ ul.grid {
   line-height: var(--leading-snug);
 }
 
-/* The platform line at the foot of a work card */
-.work-card__meta {
+/* The "Made with …" platform line, on work cards and project page headers */
+.made-with {
   color: var(--color-fg-muted);
   font-size: var(--text-sm);
 }
@@ -121,6 +121,10 @@ ul.grid {
 /* The first section's top padding supplies the gap below the header (one shared gap, WEB.md §4) */
 .page-header {
   padding-top: var(--space-6);
+}
+
+.page-header__meta {
+  margin: var(--space-4) 0 0;
 }
 
 .page-header .lead {
