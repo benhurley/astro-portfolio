@@ -32,7 +32,7 @@ const { imgSrc, imgAlt = '', reverseImg = false, art = false }: Props = Astro.pr
 <section class="section">
   <div class="container split">
     <div class:list={['split__media', { 'split__media--art': art }]} style={reverseImg ? 'order: 1' : undefined}>
-      <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+      <img src={imgSrc} alt={imgAlt} class:list={[{ 'asset-outline': !art }]} loading="lazy" decoding="async" />
     </div>
     <div>
       <slot />

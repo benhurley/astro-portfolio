@@ -21,11 +21,12 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. Never
   white/Paper shadows.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. (None open at v1.3.)
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.3: image assets
+  get a 2px `.asset-outline` (no shadow) on screenshots, photos, banners and embeds, never on spot illustrations.
 - Follow the kit for sections (one shared gap, no lines), the guiding-principle `.band`, `.badge` and `.bg-grid`
-  (hero only). Site-specific choices on top of the kit: the band's label is a `.badge` (Ben's request; the kit
-  reference uses an eyebrow) with a `.band__note` line under the statement, and the project write-up is a centred
-  `.prose` column, as on the original site.
+  (hero only; the fade is the kit's design, and Ben is keeping it). Site-specific choices on top of the kit: a
+  `.band__note` line under the band statement (copy doesn't have to come from the kit), and the project write-up is a
+  centred `.prose` column, as on the original site.
 - Keep `main`'s last child a real section: the kit pads `main > :last-child` for the closing gap.
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
