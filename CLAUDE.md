@@ -21,7 +21,11 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   and shadow come from tokens only: Ink in light; tonal in dark (quiet `#57504D` line + near-black shadow, and
   coloured buttons drop the outline for a deep shade of their own fill). Never white or light shadows. Spots are flat.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. (None open at v1.15.)
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.15: 32px band padding (kit 48px), spots shrink to
+  160px on phones, and Title Case copy (below).
+- Copy: Title Case for headings, buttons, nav and link labels (major words capitalised; a, an, the, and, or, to, in,
+  of, on, for, with lowercase unless first). Running text (descriptions, leads, the band note) stays sentence case.
+  Eyebrows and badges stay lowercase mono. WEB.md §3 says sentence case; Ben prefers Title Case.
 - Images, video and iframes in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow).
   Video embeds use `.embed-16x9`, a `title`, `loading="lazy"` and `youtube-nocookie.com`. Use
   `.media-round` for square files with circular art (the quote avatars), `.media-bare` to opt an image out.

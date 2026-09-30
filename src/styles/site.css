@@ -316,3 +316,24 @@ ul.grid {
 .site-footer__logo {
   color: inherit;
 }
+
+/* ============================================================================================
+ * Site overrides to brand kit v1.15 (Ben's calls). If they stick, add them to the kit's base.css and WEB.md,
+ * re-copy, and delete this block. Headings, buttons and nav in Title Case (WEB.md §3 says sentence case) are a
+ * copy decision, so they live in the markup, not here.
+ * ========================================================================================== */
+
+/* 1. The guiding-principle band pads 32px top and bottom, not the kit's 48px (--space-7), to match the original
+   site's band. */
+.band {
+  padding-block: var(--space-6);
+}
+
+/* 2. Spot illustrations shrink on phones. Below 768px the split stacks the spot above its text, and at full size
+   (up to 400px) it pushes the copy a screen down; here it's a small spot aligned with the heading. */
+@media (max-width: 767.98px) {
+  .split__media--spot .spot {
+    margin-inline: 0;
+    max-width: 10rem;
+  }
+}

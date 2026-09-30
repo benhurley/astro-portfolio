@@ -71,13 +71,13 @@ const buildShareUrl = (platform: string, url: string, text?: string) => {
   <li>
     <a class="btn btn--secondary btn--sm" href={buildShareUrl('sms', url, text)}>
       <Icon aria-hidden="true" name="lucide:message-square" size="1.25rem" />
-      Text message
+      Text Message
     </a>
   </li>
   <li>
     <button class="btn btn--secondary btn--sm" type="button" data-copy-link={url}>
       <Icon aria-hidden="true" name="lucide:link" size="1.25rem" />
-      <span data-copy-label>Copy link</span>
+      <span data-copy-label>Copy Link</span>
     </button>
     <span class="visually-hidden" role="status" data-copy-status></span>
   </li>
@@ -105,12 +105,12 @@ const buildShareUrl = (platform: string, url: string, text?: string) => {
         label.textContent = 'Copied'
         if (status) status.textContent = 'Link copied to clipboard'
       } catch {
-        label.textContent = 'Copy failed'
+        label.textContent = 'Copy Failed'
         if (status) status.textContent = 'Could not copy the link'
       }
 
       setTimeout(() => {
-        label.textContent = 'Copy link'
+        label.textContent = 'Copy Link'
         if (status) status.textContent = ''
       }, 2000)
     })

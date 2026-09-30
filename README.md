@@ -39,7 +39,7 @@ The rules that matter most:
   unblurred offset shadow from the scale (`--shadow-sm|md|lg`), always dark. Images and other media never do; in a
   card they fill the `.card__media` slot. Hover changes colour only; nothing moves.
 - **Space, not lines.** Sections are separated by spacing alone. A section's closing CTA is centred (`.section-cta`).
-- **Square corners, two weights (400/500), sentence case.** Cyan is the action colour (link underlines, focus, the one
+- **Square corners, two weights (400/500), Title Case headings, buttons and nav** (Ben's call; the kit says sentence case). Cyan is the action colour (link underlines, focus, the one
   `.btn--cta` per page); magenta appears only in the logo's `<` and in code.
 - **The logo is artwork.** Use `src/components/Logo.astro` (inline, theme-aware SVG), never an `<img>` or a font.
 - **Light and dark.** The theme follows the OS; the footer toggle stores an override in `localStorage` (`bv-theme`).
