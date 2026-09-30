@@ -1,5 +1,23 @@
 # Web design system changelog
 
+## 1.13
+
+- **Outline and shadow always match:** Ink in light mode, **Paper in dark mode**, the exact mirror. The grey (`#7A746A`) outline and shadow are gone from dark mode. `--color-shadow-hover` and `--shadow-*-hover` removed.
+- **Cyan is now the primary button** (`.btn--primary`). The Ink-filled primary is retired. `.btn--cta` remains as an alias.
+- **New magenta button** (`.btn--magenta`, `--color-alt` `#D4007E` with white text): a second call to action beside the primary.
+- **Hover changes only the fill**, away from the text colour: cyan → `#66CFF5`, magenta → `#B8006D`, secondary buttons and linked cards → `--color-hover-tint`. Outline, shadow and text never change.
+- Because outlines are Paper in dark mode, images, embeds and the header edge are Paper there too.
+
+## 1.12
+
+From the site build. The site's button-text override can be deleted after re-copying `base.css`.
+
+- **Fixed: button and card text changed colour on hover.** The plain-link rule `a:hover` also matched `a.btn` and `a.card`; until 1.10 the per-button hover colours hid it. On a cyan CTA in dark mode the text turned cyan on cyan and vanished. Now `a:not(.btn, .card):hover`.
+- **`colors/tokens.json` is generated** from `tokens.css` on every build (brand inks with CMYK/Pantone, every colour token for light and dark, and all non-colour tokens). It had not been updated since 1.2. The build also fails if the two dark-theme blocks in `tokens.css` differ.
+- **coming-soon has one cyan element:** the phone's button is outlined, per the spot rules.
+- **Unused spot styles removed** from `base.css` (`sp-glyph`, `sp-join`, `sp-magenta`, `sp-screen*`, `sp-stroke-cyan`, `sp-wrench*`, `sp-yellow`). Spot classes now live only in `spot.py` and are injected into `base.css` by the build, which fails on any unused or undefined class.
+- The fixed spot exports read their colours from `tokens.css` instead of a copy inside `spot.py`.
+
 ## 1.11
 
 - **Badges are magenta**, not yellow: `--color-badge` `#D4007E` with white text (5.1:1, both themes). The logo magenta `#EC008C` can't carry small text (every pairing is under 4.5:1), so the badge uses this slightly deeper shade. Magenta gets a small, repeated UI job that balances cyan; yellow stays as text selection.

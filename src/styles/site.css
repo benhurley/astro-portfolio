@@ -72,7 +72,17 @@ ul.grid {
   line-height: var(--leading-snug);
 }
 
-/* ---- Guiding-principle band: a supporting line under the kit's statement ---- */
+/* ---- Guiding-principle band: a badge label above the kit's statement, a supporting line below ---- */
+.band .badge {
+  margin-bottom: var(--space-4);
+}
+
+/* A badge after a title sits a little away from it */
+.work-card__title .badge {
+  vertical-align: middle;
+  margin-left: var(--space-2);
+}
+
 .band__note {
   margin: var(--space-4) 0 0;
   color: var(--color-band-muted);
@@ -293,24 +303,4 @@ ul.grid {
 
 .site-footer__logo {
   color: inherit;
-}
-
-/* ============================================================================================
- * Site overrides to brand kit v1.11. Delete once the kit fixes them, after re-copying base.css.
- * ========================================================================================== */
-
-/* 1. Kit bug: `a:hover { color: var(--color-accent) }` (0,1,1) outranks `.btn--primary` etc. (0,1,0), so a button
-   built as a link turns its text accent-coloured on hover. Until 1.10 each variant's own :hover colour masked it.
-   It fails contrast on four of six buttons (the dark-mode CTA goes cyan on cyan, 1.00:1). WEB.md §6 says hover
-   never changes the text, so this holds each variant's text colour. Kit fix: `a:not(.btn):hover` in base.css. */
-.btn--primary:hover {
-  color: var(--color-bg);
-}
-
-.btn--secondary:hover {
-  color: var(--color-fg);
-}
-
-.btn--cta:hover {
-  color: var(--color-cta-fg);
 }

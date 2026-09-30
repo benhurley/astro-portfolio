@@ -13,7 +13,8 @@ const projects = defineCollection({
     isFeatured: z.boolean().default(false),
     sortOrder: z.number(),
     description: z.string(),
-    featuredImage: z.string()
+    featuredImage: z.string(),
+    badge: z.string().optional(), // a short label shown as the kit's magenta .badge, e.g. "latest"
   }),
 })
 

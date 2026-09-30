@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.11). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.13). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -172,7 +172,9 @@ a {
   transition: color var(--duration-fast) var(--ease);
 }
 
-a:hover {
+/* Plain links only. Buttons and cards are links too, and their text must never change
+   colour on hover (a cyan button's text would turn cyan on its own cyan fill). */
+a:not(.btn, .card):hover {
   color: var(--color-accent);
 }
 
@@ -199,31 +201,20 @@ a:hover {
   max-width: 25rem;
   height: auto;
 }
+/* spot-classes:start (generated from spot.py CLASS_CSS by the kit build; edit there, not here) */
 .spot .sp-disc { fill: var(--color-code-bg); }
-.spot .sp-track { fill: none; stroke: var(--color-rule); stroke-width: 12; }
-.spot .sp-stroke-ink { fill: none; stroke: var(--bv-ink); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
-
 .spot .sp-fill { fill: var(--color-surface); }
 .spot .sp-tint { fill: var(--color-code-bg); }
 .spot .sp-shadow { fill: var(--color-shadow); }
 .spot .sp-line { stroke: var(--color-outline); stroke-width: 4; stroke-linejoin: miter; }
-.spot .sp-join { stroke-linejoin: round; }
 .spot .sp-muted { fill: var(--color-fg-muted); }
 .spot .sp-strong { fill: var(--color-fg); }
 .spot .sp-cyan { fill: var(--bv-cyan); }
-.spot .sp-magenta { fill: var(--bv-magenta); }
-.spot .sp-yellow { fill: var(--bv-yellow); }
-.spot .sp-stroke-cyan, .spot .sp-stroke-magenta { fill: none; stroke-width: 12; stroke-linejoin: miter; stroke-linecap: butt; }
-.spot .sp-stroke-cyan { stroke: var(--bv-cyan); }
-.spot .sp-stroke-magenta { stroke: var(--bv-magenta); }
+.spot .sp-track { fill: none; stroke: var(--color-rule); stroke-width: 12; }
+.spot .sp-stroke-magenta { fill: none; stroke: var(--bv-magenta); stroke-width: 12; stroke-linecap: butt; }
 .spot .sp-stroke-strong { fill: none; stroke: var(--color-fg); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
-.spot .sp-glyph { fill: var(--color-fg); stroke: var(--color-fg); }
-/* screens are dark in both themes, like code blocks */
-.spot .sp-screen { fill: var(--color-codeblock-bg); }
-.spot .sp-screen-muted { fill: var(--color-syntax-comment); }
-.spot .sp-screen-line { fill: none; stroke: var(--color-syntax-comment); stroke-width: 3; }
-.spot .sp-wrench-edge { fill: none; stroke: var(--color-outline); stroke-width: 24; stroke-linecap: butt; }
-.spot .sp-wrench { fill: none; stroke: var(--bv-cyan); stroke-width: 16; stroke-linecap: butt; }
+.spot .sp-stroke-ink { fill: none; stroke: var(--bv-ink); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
+/* spot-classes:end */
 
 /* ---- Code ------------------------------------------------------------------------ */
 code,
@@ -457,18 +448,32 @@ main > :last-child {
   font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
   text-decoration: none;
   cursor: pointer;
-  transition: box-shadow var(--duration-fast) var(--ease);
+  transition: background-color var(--duration-fast) var(--ease);
 }
 
-/* Hover: the shadow darkens (grey → Ink, or black in dark mode). Fill, outline and text
-   never change, and nothing moves. The same rule applies to every button and linked card. */
-.btn:hover {
-  box-shadow: var(--shadow-md-hover);
+/* Hover changes only the fill, one step away from the text colour so contrast rises.
+   Outline, shadow and text never change, and nothing moves. */
+
+/* Primary: cyan. .btn--cta is kept as an alias so existing markup keeps working. */
+.btn--primary,
+.btn--cta {
+  background: var(--color-cta);
+  color: var(--color-cta-fg);
 }
 
-.btn--primary {
-  background: var(--color-fg);
-  color: var(--color-bg);
+.btn--primary:hover,
+.btn--cta:hover {
+  background: var(--color-cta-hover);
+}
+
+/* Magenta: the alternate primary, for a second call to action beside a cyan one */
+.btn--magenta {
+  background: var(--color-alt);
+  color: var(--color-alt-fg);
+}
+
+.btn--magenta:hover {
+  background: var(--color-alt-hover);
 }
 
 .btn--secondary {
@@ -476,9 +481,8 @@ main > :last-child {
   color: var(--color-fg);
 }
 
-.btn--cta {
-  background: var(--color-cta);
-  color: var(--color-cta-fg);
+.btn--secondary:hover {
+  background: var(--color-hover-tint);
 }
 
 .btn--sm {
@@ -486,10 +490,6 @@ main > :last-child {
   padding: 0 var(--space-3);
   font-size: var(--text-sm);
   box-shadow: var(--shadow-sm);
-}
-
-.btn--sm:hover {
-  box-shadow: var(--shadow-sm-hover);
 }
 
 
@@ -519,7 +519,7 @@ main > :last-child {
   box-shadow: var(--shadow-lg);
   color: inherit;
   text-decoration: none;
-  transition: box-shadow var(--duration-fast) var(--ease);
+  transition: background-color var(--duration-fast) var(--ease);
 }
 
 /* Optional media slot: 16:10, edge to edge at the top of the card */
@@ -557,9 +557,9 @@ main > :last-child {
   margin-bottom: 0;
 }
 
-/* Linked cards: the same hover as buttons. The shadow darkens; nothing else changes. */
+/* Linked cards: the same hover as outlined buttons. The fill tints; nothing else changes. */
 a.card:hover {
-  box-shadow: var(--shadow-lg-hover);
+  background: var(--color-hover-tint);
   color: inherit;
 }
 

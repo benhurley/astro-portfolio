@@ -5,8 +5,9 @@ import type { ImageMetadata } from 'astro'
 /**
  * WorkCard Component
  *
- * @description A whole-card link to a project, in the kit's order: media slot, eyebrow (platform), title, muted
- * description. The image fills the card's 16:10 media slot and has no frame or shadow of its own.
+ * @description A whole-card link to a project, in the kit's order: media slot, eyebrow (platform), title (with an
+ * optional badge), muted description. The image fills the card's 16:10 media slot and has no frame or shadow of its
+ * own.
  */
 interface Props {
   href: string
@@ -15,13 +16,17 @@ interface Props {
   platform: string
   image?: ImageMetadata
   /**
+   * A short label shown as the kit's magenta badge after the title, e.g. "latest"
+   */
+  badge?: string
+  /**
    * Heading level for the title; it is always styled at h3 size
    * @default 'h3'
    */
   headingLevel?: 'h2' | 'h3'
 }
 
-const { href, title, description, platform, image, headingLevel: Heading = 'h3' } = Astro.props
+const { href, title, description, platform, image, badge, headingLevel: Heading = 'h3' } = Astro.props
 ---
 
 <a class="card" href={href}>
@@ -35,6 +40,9 @@ const { href, title, description, platform, image, headingLevel: Heading = 'h3' 
     }
   </div>
   <span class="eyebrow">{platform.toLowerCase()}</span>
-  <Heading class="work-card__title">{title}</Heading>
+  <Heading class="work-card__title">
+    {title}
+    {badge && <span class="badge">{badge}</span>}
+  </Heading>
   <p class="muted">{description}</p>
 </a>
