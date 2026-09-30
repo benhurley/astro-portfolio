@@ -18,7 +18,9 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   `section`, `section-cta`, `grid`, `card` + `card__media`, `btn btn--primary|secondary|cta`, `btn-row`, `link-button`,
   `eyebrow`, `lead`, `muted`, `display`).
 - Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
-  in `--color-outline`, shadow in `--color-shadow` (always dark, never coloured), sized from `--shadow-sm|md|lg`.
+  in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. In dark mode
+  the site overrides the kit's black shadow with the outline grey (Ben's call; see the override block at the end of
+  `site.css`). Never white/Paper.
 - No lines or alternating backgrounds between sections. The one exception is the home page's single "guiding
   principle" band, modelled on the old site's: always dark (code-block colours), plain (the page grid stops at it),
   with a cyan `.badge` label and a normal h2. Ben rejected a Paper band in dark mode, a full cyan band and the yellow

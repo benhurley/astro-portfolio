@@ -348,3 +348,19 @@ a.card:hover .work-card__title {
 .site-footer__logo {
   color: inherit;
 }
+
+/* ============================================================================================
+ * Site override to brand kit: dark-mode shadows
+ * Ben prefers a lighter shadow in dark mode than the kit's black (WEB.md §6 rule 4 says "never light").
+ * Shadows use the outline grey, not Paper/white, so a raised element is one colour. If this sticks,
+ * update --color-shadow in the kit's tokens.css and WEB.md, re-copy them, and delete this block.
+ * ========================================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-shadow: var(--color-outline);
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-shadow: var(--color-outline);
+}
