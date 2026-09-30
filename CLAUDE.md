@@ -20,8 +20,10 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
   in `--color-outline`, shadow in `--color-shadow` (always dark, never coloured), sized from `--shadow-sm|md|lg`.
 - No lines or alternating backgrounds between sections. The one exception is the home page's single "guiding
-  principle" band: cyan (`--color-cta`) with Ink text, the same in both themes, which Ben asked for. Ben rejected a
-  white/Paper band in dark mode and the yellow highlight on one word.
+  principle" band, modelled on the old site's: always dark (code-block colours), plain (the page grid stops at it),
+  with a cyan `.badge` label and a normal h2. Ben rejected a Paper band in dark mode, a full cyan band and the yellow
+  highlight.
+- Stacked sections share one `--section-space` gap (site.css "Section rhythm"); don't let their padding double.
 - The page has a faint drafting-grid texture (`--grid-line`, `--grid-size` in `site.css`), restoring the old site's
   grid in brand colours. Keep it subtle; raised elements have solid fills over it.
 - If the brand kit changes, re-copy `web/tokens.css`, `web/base.css` and `web/WEB.md` verbatim, diff them first, and

@@ -30,8 +30,7 @@ main:focus {
   --grid-size: var(--space-5);
 }
 
-body,
-.band {
+body {
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -82,17 +81,36 @@ ul.grid {
   flex: 1;
 }
 
-/* ---- Band: one full-width statement in cyan with Ink text (--color-cta / --color-cta-fg, 6.4:1), the same in both
-   themes. Used once on the page, so it isn't the alternating section backgrounds WEB.md §4 rules out. ---- */
+/* ---- Band: one full-width statement, always dark (the code-block colours, so it sits darker than the page in both
+   themes) and plain, so the page's grid stops at its edges. Used once, so it isn't the alternating section
+   backgrounds WEB.md §4 rules out. ------------------------------------------------------------------------ */
 .band {
-  --grid-line: color-mix(in srgb, var(--color-cta-fg) 10%, transparent); /* the page's grid, carried across in Ink */
-  background-color: var(--color-cta);
-  color: var(--color-cta-fg);
+  background: var(--color-codeblock-bg);
+  padding-block: var(--space-7);
+  color: var(--color-codeblock-fg);
 }
 
-.band .eyebrow,
 .band .lead {
+  margin-bottom: 0;
   color: inherit;
+}
+
+/* ---- Badge: a small static label (not interactive, so not raised). Cyan fill with Ink text, the kit's CTA pairing */
+.badge {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  background: var(--color-cta);
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-cta-fg);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  font-family: var(--font-mono);
+}
+
+/* ---- Section rhythm: stacked sections share one gap (--section-space) instead of doubling it, the way the old
+   site's collapsing margins did. The band keeps its own padding because it has a fill. -------------------------- */
+:is(.hero, .page-header, .section:not(.band)) + .section:not(.band) {
+  padding-top: 0;
 }
 
 /* ---- Work card: a linked card with the kit's media slot. On the portfolio page the title is an h2 styled
@@ -135,11 +153,6 @@ a.card:hover .work-card__title {
 /* ---- Page header and breadcrumbs ------------------------------------------------------ */
 .page-header {
   padding-block: var(--space-6) var(--space-8);
-}
-
-/* The header's own bottom padding separates it from the first section */
-.page-header + .section {
-  padding-top: 0;
 }
 
 .page-header .lead {
