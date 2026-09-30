@@ -330,10 +330,9 @@ ul.grid {
 }
 
 /* 2. Spot illustrations shrink on phones. Below 768px the split stacks the spot above its text, and at full size
-   (up to 400px) it pushes the copy a screen down; here it's a small spot aligned with the heading. */
+   (up to 400px) it pushes the copy a screen down; here it's a small spot, centred above the left-aligned text. */
 @media (max-width: 767.98px) {
   .split__media--spot .spot {
-    margin-inline: 0;
     max-width: 10rem;
   }
 }
