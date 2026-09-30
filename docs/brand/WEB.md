@@ -1,4 +1,6 @@
-# Ben Ventures: website design system (v1.0)
+# Ben Ventures: website design system (v1.3)
+
+What changed in each version is in `CHANGELOG.md`.
 
 The spec for building and maintaining the Ben Ventures website on desktop and mobile.
 It is implemented, not just described, in this folder:
@@ -50,15 +52,19 @@ Components use these, never the brand inks directly (except the logo and link un
 | `--color-fg` | `#231F20` | `#F4F1EA` | 14.5:1 | Text, primary button fill |
 | `--color-fg-muted` | `#67625A` | `#A8A294` | 5.4:1 / 6.4:1 | Captions, dates, eyebrows |
 | `--color-rule` | `#DDD6C8` | `#3A3533` | decorative | Mobile menu separators only. **No lines between page sections** |
-| `--color-shadow` | `#231F20` | `#000000` | — | Hard offset shadows. **Always dark, never light**, in both themes |
+| `--color-shadow` | `#231F20` | `#7A746A` | — / 3.5:1 | Hard offset shadows. Ink on light; on dark they share the outline grey. Never white, Paper or a brand colour |
 | `--color-outline` | `#231F20` | `#7A746A` | 14.5:1 / 3.5:1 | The 2px outline of raised elements and the header edge |
-| `--color-border` | `#8F897C` | `#7A746A` | 3.1:1 / 3.5:1 | Reserved: a lighter control border if one is ever needed. Unused in v1.0 |
+| `--color-border` | `#8F897C` | `#7A746A` | 3.1:1 / 3.5:1 | Reserved: a lighter control border if one is ever needed. Currently unused |
 | `--color-accent` | `#0076A3` | `#00AEEF` | 4.5:1 / 6.4:1 | Cyan when it's text-sized: link and nav hover text |
 | `--color-cta` | `#00AEEF` | `#00AEEF` | — | Call-to-action button fill, primary button hover |
 | `--color-cta-fg` | `#231F20` | `#231F20` | 6.4:1 | Text on a cyan fill. **Never white** (2.5:1) |
+| `--color-cta-hover` | `#66CFF5` | `#66CFF5` | 9.2:1 with Ink text | CTA button fill on hover (a lighter cyan) |
 | `--color-underline` | `#00AEEF` | `#00AEEF` | decorative | Link underlines |
 | `--color-focus` | `#0076A3` | `#00AEEF` | 4.5:1 / 6.4:1 | Focus ring (needs 3:1) |
 | `--color-codeblock-bg` | `#1A1718` | `#1A1718` | — | Code blocks are dark in both themes |
+| `--color-band-bg` | `#231F20` | `#151213` | — | The guiding-principle band. On dark it's *darker* than the page, never lighter |
+| `--color-band-fg` / `-muted` | `#F4F1EA` / `#A8A294` | same | 14.5:1 / 6.4:1 | Text on the band |
+| `--color-grid` | `#E6E0D3` | `#2C2829` | decorative | Background grid lines |
 
 **Two cyans, and why.** Pure cyan `#00AEEF` is 2.2:1 on Paper: fine as a fill with Ink text on it (6.4:1), but too faint to be text or a focus ring on a light background. `#0076A3` is the same hue, darkened just enough to pass AA (4.5:1), and takes over wherever cyan must be *read* in the light theme. On dark backgrounds pure cyan passes (6.4:1), so the dark theme uses it everywhere. Rule of thumb: **cyan fills get Ink text; cyan text on light uses the dark cyan.**
 
@@ -87,7 +93,7 @@ Sizes are fluid: they scale smoothly from the first value at a 360px viewport to
 
 | Token | Mobile → desktop | Weight | Line height | Letter spacing | Use |
 |---|---|---|---|---|---|
-| `--text-display` | 44 → 96px | 500 | 1.05 | −0.03em | Home page headline only, once per page |
+| `--text-display` | 44 → 72px | 500 | 1.05 | −0.03em | Home page headline only, once per page |
 | `--text-h1` | 34 → 56px | 500 | 1.05 | −0.02em | Page titles |
 | `--text-h2` | 26 → 38px | 500 | 1.2 | 0 | Section titles |
 | `--text-h3` | 20 → 24px | 500 | 1.2 | 0 | Card and sub-section titles |
@@ -126,9 +132,11 @@ CSS variables can't be used inside media queries, so these numbers are repeated 
 | Column gap | 16px | 24px | 24px |
 | Side gutter | 16px | 24px | 40px |
 | Max content width | — | — | 1200px |
-| Section padding (top/bottom) | 64px | 64px | 96px |
+| Gap between sections (one shared gap) | 64px | 64px | 96px |
 
-**Sections are separated by space alone.** No rules, borders or alternating background colours between sections; a line between two sections reads as a colour change that isn't there.
+**Section spacing is ONE shared gap, not padding on both sides.** 64px (mobile) / 96px (desktop) is the total distance from the end of one section's content to the start of the next. `base.css` does this by giving `.section` top padding only, plus bottom padding on the last block in `<main>`. Never pad sections top *and* bottom: adjacent sections would double to 128 / 192px.
+
+**Sections are separated by space alone.** No rules or borders between sections, and no alternating background colours: a line or colour change between two sections reads as a pattern that isn't there. **The one exception is the guiding-principle band** (§7): a single full-width Ink band, at most once per page.
 
 **Spacing scale (4px base):** `--space-1` 4 · `-2` 8 · `-3` 12 · `-4` 16 · `-5` 24 · `-6` 32 · `-7` 48 · `-8` 64 · `-9` 96 · `-10` 128. Use only these.
 
@@ -161,7 +169,7 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 1. **Every raised element gets both parts:** a `--border-strong` (2px) outline in `--color-outline` and a hard shadow in `--color-shadow`. An outline without a shadow, or a shadow without an outline, is wrong.
 2. **Solid, never blurred.** The shadow's blur radius is always `0`. No soft or "realistic" drop shadows, no glows, no `filter: drop-shadow()` with blur.
 3. **Always down and to the right, at 45°.** Light comes from the top left. X and Y offsets are always equal.
-4. **Never coloured, never light.** Shadows are Ink on light and black on dark (`--color-shadow` switches automatically). Never white or Paper, never cyan, magenta or yellow, never semi-transparent.
+4. **Never coloured.** Shadows are Ink on light and the outline grey `#7A746A` on dark (`--color-shadow` switches automatically). Never white or Paper, never cyan, magenta or yellow, never semi-transparent.
 5. **Never inset.** Depth goes out from the page, not in.
 6. **Use the scale, not a new number.**
 
@@ -180,10 +188,10 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 ### What stays flat
 - **Assets never get shadows or frames:** images, video, illustrations, screenshots, embeds, the logo. Media inside a card fills the card's media slot edge to edge; the card is raised, the image isn't.
 - Text, links, icons, navigation, the mobile menu panel, the header and the footer.
-- The header has no edge at the top of the page. Once the page scrolls, a 2px `--color-outline` line appears under it (a line, not a shadow).
+- The header: a 2px `--color-outline` line underneath at all times (a line, not a shadow).
 
 ### Dark theme
-Surfaces are the same Ink as the page; there is no lighter charcoal. A raised element is drawn by its grey outline (`#7A746A`, 3.5:1) and a black shadow. The shadow is subtle on a near-black page, and that's deliberate: a light shadow would be the wrong fix.
+Surfaces are the same Ink as the page; there is no lighter charcoal. A raised element is drawn by its grey outline and a hard shadow in the same grey (`#7A746A`, 3.5:1 on the page), so depth reads clearly without anything turning white.
 
 ---
 
@@ -192,7 +200,7 @@ Surfaces are the same Ink as the page; there is no lighter charcoal. A raised el
 All are in `base.css` and on `reference.html`.
 
 ### Header
-- Sticky, `--color-bg` background. No bottom edge at the top of the page; a 2px `--color-outline` line fades in once the page scrolls (`data-scrolled`, set by an `IntersectionObserver` on `.scroll-sentinel`; see `reference.html`). Without JavaScript it simply has no line.
+- Sticky, `--color-bg` background, 2px `--color-outline` bottom edge, always visible.
 - Height 64px mobile, 80px desktop. Logo left, navigation right.
 
 ### Navigation
@@ -209,8 +217,8 @@ All are in `base.css` and on `reference.html`.
 | Variant | Fill | Text | Hover | Use |
 |---|---|---|---|---|
 | Primary | Ink / Paper (fg) | bg | Cyan fill, Ink text | Main action. One per view. |
-| Secondary | `--color-surface` | fg | Fills with fg | Other actions |
-| CTA (`.btn--cta`) | `--color-cta` (cyan) | `--color-cta-fg` (Ink) | Fills with fg | The one conversion action: contact, hire, submit. At most one per page |
+| Secondary | `--color-surface` | fg | Fill stays; outline and text turn `--color-accent` | Other actions |
+| CTA (`.btn--cta`) | `--color-cta` (cyan) | `--color-cta-fg` (Ink) | Fill lightens to `--color-cta-hover`; text stays Ink | The one conversion action: contact, hire, submit. At most one per page |
 
 All buttons: 2px `--color-outline` outline, `--shadow-md` (small buttons `--shadow-sm`), 48px tall (44px small), 24px side padding, Jost 500, square corners. Hover changes colour only (§6). Below 640px, buttons in a `.btn-row` go full width.
 
@@ -221,7 +229,20 @@ Inherit the text colour, with a **2px cyan underline** offset 0.2em. On hover th
 Every interactive element shows a **3px cyan outline (`--color-focus`), 2px offset**, on keyboard focus (`:focus-visible`). Never remove it without a visible replacement.
 
 ### Cards
-`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover turns its outline and title `--color-accent`. Content order: media → eyebrow → h3 → muted description.
+`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover turns its outline and title `--color-accent`. The title can be any heading level (`h2`, `h3`, `h4`), or add `.card__title` to whatever element holds it; hover works on all of them. Content order: media → eyebrow → title → muted description. A `.badge` can sit inline after the title.
+
+### Guiding-principle band (`.band`)
+One short statement on a full-width Ink band: `--color-band-bg`, Paper text, the statement at h1 size (`.band__statement`, max 22 characters per line), with an optional mono eyebrow. It spans the full viewport width; its content sits in the normal `.container`.
+- **At most one per page.** It's the one exception to "no alternating section backgrounds".
+- It's a statement, not a section to fill: one sentence, no cards, no grid, no buttons (a single text link at most).
+- It takes one `--section-space` of margin above and pads `--section-space` inside; the next section's normal top padding gives the gap below.
+- In dark mode it's darker than the page (`#151213`), never lighter.
+
+### Badge (`.badge`)
+A small label: "case study", "new", a status. Cyan fill, Ink text (6.4:1), JetBrains Mono 13px, 2px × 8px padding, square corners. **Flat**: badges never get an outline or shadow. Use one per item at most, and never as a button: if it's clickable, it's a link or a button instead.
+
+### Background grid (`.bg-grid`)
+A faint 32px grid (`--grid-cell`, 1px lines in `--color-grid`) that fades out towards the bottom. **Decorative, and only behind the hero.** Never behind running text longer than a paragraph, never on the band, never on cards. It's drawn on a `::before` layer so its fade never touches the content, and a gridded hero keeps the single section gap.
 
 ### Section calls to action
 A CTA that closes a section, after a grid or list ("View all work"), is **centred** under it with `.section-cta`, 48px below. CTAs inside a block of text (the hero, a paragraph) align with that text.
@@ -242,7 +263,7 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 
 ## 8. Motion
 
-- Colour transitions only (fill, text, outline): 120ms, `cubic-bezier(0.2, 0, 0, 1)`. The header line fades in over 200ms.
+- Colour transitions only (fill, text, outline): 120ms, `cubic-bezier(0.2, 0, 0, 1)`.
 - Nothing moves on hover or press.
 - No parallax, scroll-jacking or animated logo.
 - `prefers-reduced-motion: reduce` switches transitions off (already in `base.css`).
@@ -272,7 +293,7 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour), check its contrast, document it in this file, and mirror it in `colors/tokens.json`.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.0). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.3). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
@@ -284,7 +305,8 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 - [ ] Raised elements have the 2px outline **and** a hard shadow from the scale: nothing flat, nothing blurred, nothing light in dark mode
 - [ ] Images and media have no shadow or frame
 - [ ] Hover changes colour only: nothing moves
-- [ ] No lines between sections; closing section CTAs centred
+- [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
+- [ ] At most one guiding-principle band per page; background grid only behind the hero
 - [ ] New colour pairings pass contrast (4.5:1 text, 3:1 UI)
 - [ ] Nothing below 44px tap size, no input text below 16px
 - [ ] Logo is the inline SVG, at a specified size, with its clear space

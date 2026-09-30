@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.0). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.3). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -184,8 +184,14 @@ pre {
   grid-column: span 4;
 }
 
+/* Sections are separated by ONE gap of --section-space: each section pads its
+   top only, and the last block in <main> pads its bottom */
 .section {
-  padding-block: var(--section-space);
+  padding-top: var(--section-space);
+}
+
+main > :last-child {
+  padding-bottom: var(--section-space);
 }
 
 /* A section's closing call to action (after a grid or list) is centred */
@@ -230,20 +236,7 @@ pre {
   top: 0;
   z-index: var(--z-header);
   background: var(--color-bg);
-  border-bottom: var(--border-strong) solid transparent;
-  transition: border-color var(--duration) var(--ease);
-}
-
-/* The header's edge appears only once content scrolls under it (set by a small script) */
-.site-header[data-scrolled] {
-  border-bottom-color: var(--color-outline);
-}
-
-.scroll-sentinel {
-  position: absolute;
-  top: 0;
-  width: 1px;
-  height: 1px;
+  border-bottom: var(--border-strong) solid var(--color-outline);
 }
 
 .site-header__inner {
@@ -395,8 +388,8 @@ pre {
 }
 
 .btn--secondary:hover {
-  background: var(--color-fg);
-  color: var(--color-bg);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .btn--cta {
@@ -405,8 +398,7 @@ pre {
 }
 
 .btn--cta:hover {
-  background: var(--color-fg);
-  color: var(--color-bg);
+  background: var(--color-cta-hover);
 }
 
 .btn--sm {
@@ -446,45 +438,7 @@ pre {
   transition: border-color var(--duration-fast) var(--ease);
 }
 
-/* Linked cards: hover recolours the outline and the title. Nothing moves. */
-a.card:hover {
-  border-color: var(--color-accent);
-  color: inherit;
-}
-
-a.card__media {
-  aspect-ratio: 16 / 10;
-  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
-  overflow: hidden;
-  background: var(--color-code-bg);
-  border-bottom: var(--border-strong) solid var(--color-outline);
-}
-
-/* Media is an asset: it fills the slot and never gets its own shadow or frame */
-.card__media img,
-.card__media video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card__placeholder {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--color-fg-muted);
-}
-
-.card h3 {
-  transition: color var(--duration-fast) var(--ease);
-}
-
-a.card:hover h3 {
-  color: var(--color-accent);
-}
-
+/* Optional media slot: 16:10, edge to edge at the top of the card */
 .card__media {
   aspect-ratio: 16 / 10;
   margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
@@ -510,12 +464,24 @@ a.card:hover h3 {
   color: var(--color-fg-muted);
 }
 
-.card h3 {
+/* The card's title: any heading level, or anything marked .card__title */
+.card :is(h2, h3, h4, .card__title) {
   margin-bottom: var(--space-2);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .card p:last-child {
   margin-bottom: 0;
+}
+
+/* Linked cards: hover recolours the outline and the title. Nothing moves. */
+a.card:hover {
+  border-color: var(--color-accent);
+  color: inherit;
+}
+
+a.card:hover :is(h2, h3, h4, .card__title) {
+  color: var(--color-accent);
 }
 
 /* ---- Forms --------------------------------------------------------------------------------- */
@@ -551,7 +517,80 @@ a.card:hover h3 {
 
 /* ---- Hero ---------------------------------------------------------------------------------- */
 .hero {
-  padding-block: var(--space-8) var(--section-space);
+  padding-top: var(--space-8);
+}
+
+/* ---- Guiding-principle band ----------------------------------------------------------------
+   The one full-bleed coloured section allowed on a page. One statement, nothing interactive
+   except an optional link. */
+.band {
+  margin-top: var(--section-space);
+  padding-block: var(--section-space);
+  background: var(--color-band-bg);
+  color: var(--color-band-fg);
+}
+
+.band .eyebrow {
+  color: var(--color-band-muted);
+}
+
+.band__statement {
+  max-width: 22ch;
+  margin: 0;
+  font-size: var(--text-h1);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* ---- Badge -----------------------------------------------------------------------------------
+   Small cyan label: "new", "case study", a status. Flat: badges are never raised. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--space-2);
+  background: var(--color-cta);
+  color: var(--color-cta-fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+/* ---- Background grid ---------------------------------------------------------------------------
+   Faint 32px grid behind a hero. Decorative only: never behind running text longer than a
+   paragraph, never on the band. */
+.bg-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The grid is drawn on a layer behind the content, so the fade never touches the content */
+.bg-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: -1px -1px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent); /* fades out: no hard bottom edge */
+}
+
+/* A gridded hero pads its own bottom so the grid can fade; the next section
+   gives back the same amount, keeping the single --section-space gap */
+.hero.bg-grid {
+  padding-bottom: var(--space-8);
+}
+
+.hero.bg-grid + .section {
+  padding-top: max(0px, calc(var(--section-space) - var(--space-8)));
 }
 
 /* ---- Footer ---------------------------------------------------------------------------------- */

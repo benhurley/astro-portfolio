@@ -39,21 +39,9 @@ const projectImages = Array.from({ length: projectImageCount }, (_, i) => ({
     eyebrow={project.data.platform.toLowerCase()}
     featuredImage={`/projects/${project.id}/banner.png`}
   />
-  <section class="section">
-    <div class="container">
-      <div class="prose">
-        <Content />
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <h2>Share this project</h2>
-      <SocialShares text={project.data.title} />
-    </div>
-  </section>
 
-  <!-- Lightboxes for the gallery images (opened with #imgN links) -->
+  <!-- Lightboxes for the gallery images (opened with #imgN links). Kept before the sections so the last
+       section stays main's last child and gets the kit's closing padding. -->
   {
     projectImages.map((image) => (
       <div id={image.id} class="lightbox">
@@ -64,4 +52,19 @@ const projectImages = Array.from({ length: projectImageCount }, (_, i) => ({
       </div>
     ))
   }
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <h2>Share this project</h2>
+        <SocialShares text={project.data.title} />
+      </div>
+    </div>
+  </section>
 </DefaultLayout>

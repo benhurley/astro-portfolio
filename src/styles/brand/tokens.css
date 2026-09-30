@@ -1,5 +1,5 @@
 /*
- * Ben Ventures design tokens (v1.0)
+ * Ben Ventures design tokens (v1.3)
  * The single source of truth for colour, type, spacing and layout on the web.
  * Components reference these variables. Never hardcode a hex value or a pixel size that a token covers.
  *
@@ -28,11 +28,16 @@
   --color-accent: #0076a3;            /* cyan for text-sized use (hover text): 4.5:1 on bg */
   --color-cta: var(--bv-cyan);        /* call-to-action fill, primary button hover */
   --color-cta-fg: var(--bv-ink);      /* text on --color-cta: 6.4:1. White fails (2.5:1) */
+  --color-cta-hover: #66cff5;         /* lighter cyan on hover, Ink text 9.2:1. Same in both themes */
   --color-underline: var(--bv-cyan);  /* decorative: the underline itself marks the link */
   --color-focus: #0076a3;             /* 4.5:1 on bg (needs 3:1); pure cyan is only 2.2:1 */
   --color-selection-bg: var(--bv-yellow);
   --color-selection-fg: var(--bv-ink);
   --color-code-bg: #e9e4d8;           /* inline code */
+  --color-grid: #e6e0d3;              /* faint background grid lines: decorative */
+  --color-band-bg: var(--bv-ink);     /* the guiding-principle band */
+  --color-band-fg: var(--bv-paper);   /* 14.5:1 */
+  --color-band-muted: #a8a294;        /* 6.4:1 on the band */
   --color-codeblock-bg: #1a1718;      /* code blocks are dark in both themes */
   --color-codeblock-fg: var(--bv-paper);
   --color-syntax-tag: #f038a5;                /* magenta, lifted: 4.9:1 on codeblock */
@@ -60,7 +65,7 @@
   --text-h3: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);         /* 20 → 24px */
   --text-h2: clamp(1.625rem, 1.375rem + 1.1111vw, 2.375rem);      /* 26 → 38px */
   --text-h1: clamp(2.125rem, 1.6667rem + 2.037vw, 3.5rem);        /* 34 → 56px */
-  --text-display: clamp(2.75rem, 1.6667rem + 4.8148vw, 6rem);   /* 44 → 96px */
+  --text-display: clamp(2.75rem, 2.1667rem + 2.5926vw, 4.5rem);   /* 44 → 72px */
 
   --leading-tight: 1.05;     /* display, h1 */
   --leading-snug: 1.2;       /* h2, h3 */
@@ -88,17 +93,18 @@
   --grid-gap: 1rem;
   --header-h: 4rem;         /* 64px */
   --logo-h: 1.625rem;       /* 26px: height of the mark inside the header lockup */
-  --section-space: var(--space-8);
+  --section-space: var(--space-8);   /* the ONE gap between sections (not doubled) */
 
   /* ---- Shape, motion, interaction ----------------------------------------- */
   --radius: 0;              /* square corners everywhere: the logo has none */
   --radius-round: 999px;    /* avatars only */
+  --grid-cell: 2rem;        /* 32px background grid */
   --border-width: 1px;      /* dividers */
   --border-strong: 2px;     /* the outline on every raised element */
 
   /* ---- Depth: hard offset shadows ------------------------------------------
    * Solid, unblurred, always down and to the right at 45° (light from the top
-   * left). Never blurred, never coloured, never inset, never light. Shadows are
+   * left). Never blurred, never coloured, never inset. Ink on light, outline grey on dark. Shadows are
    * for interface elements only: never on images or other media. A raised
    * element always has a --border-strong outline. Hover changes colour only. */
   --elev-sm: 3px;           /* inputs, small buttons */
@@ -147,12 +153,14 @@
     --color-fg: var(--bv-paper);
     --color-fg-muted: #a8a294;        /* 6.4:1 */
     --color-rule: #3a3533;
-    --color-shadow: #000000;          /* shadows are always dark */
+    --color-shadow: #7a746a;          /* on dark, shadows share the outline grey */
     --color-outline: #7a746a;         /* 3.5:1 on ink: the outline carries the edge in dark mode */
     --color-border: #7a746a;          /* 3.5:1 */
     --color-accent: var(--bv-cyan);   /* 6.4:1 on ink */
     --color-focus: var(--bv-cyan);
     --color-code-bg: #1a1718;
+    --color-grid: #2c2829;
+    --color-band-bg: #151213;         /* darker than the page, never lighter */
     --logo-b: var(--bv-paper);
     --logo-wordmark: var(--bv-paper);
   }
@@ -164,12 +172,14 @@
   --color-fg: var(--bv-paper);
   --color-fg-muted: #a8a294;
   --color-rule: #3a3533;
-  --color-shadow: #000000;
+  --color-shadow: #7a746a;
   --color-outline: #7a746a;
   --color-border: #7a746a;
   --color-accent: var(--bv-cyan);
   --color-focus: var(--bv-cyan);
   --color-code-bg: #1a1718;
+  --color-grid: #2c2829;
+  --color-band-bg: #151213;
   --logo-b: var(--bv-paper);
   --logo-wordmark: var(--bv-paper);
 }

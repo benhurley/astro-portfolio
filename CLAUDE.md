@@ -20,18 +20,13 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
   in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. Never
   white/Paper shadows.
-- Ben's deliberate departures from the kit live in the numbered "Site overrides" block at the end of `site.css`
-  (dark shadows in outline grey, secondary button hover, always-on header edge, 44–72px display type). When a kit
-  update covers one, delete it from the block.
-- No lines or alternating backgrounds between sections. The one exception is the home page's single "guiding
-  principle" band, modelled on the old site's: always dark (code-block colours), plain (the page grid stops at it),
-  with a cyan `.badge` label and a normal h2. Ben rejected a Paper band in dark mode, a full cyan band and the yellow
-  highlight.
-- Stacked sections share one `--section-space` gap (site.css "Section rhythm"); don't let their padding double.
-- The page has a faint drafting-grid texture (`--grid-line`, `--grid-size` in `site.css`), restoring the old site's
-  grid in brand colours. Keep it subtle; raised elements have solid fills over it.
-- If the brand kit changes, re-copy `web/tokens.css`, `web/base.css` and `web/WEB.md` verbatim, diff them first, and
-  adapt the site to them. Don't patch the kit's rules in `site.css`.
+- If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. (None open at v1.3.)
+- Follow the kit for sections (one shared gap, no lines), the guiding-principle `.band`, `.badge` and `.bg-grid`
+  (hero only). Site-specific choices on top of the kit: the band's label is a `.badge` (Ben's request; the kit
+  reference uses an eyebrow) with a `.band__note` line under the statement, and the project write-up is a centred
+  `.prose` column, as on the original site.
+- Keep `main`'s last child a real section: the kit pads `main > :last-child` for the closing gap.
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
   `site.css` squares off the line caps.
