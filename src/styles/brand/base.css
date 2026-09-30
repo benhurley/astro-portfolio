@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.8). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.11). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -43,8 +43,10 @@ video {
   height: auto;
 }
 
-iframe {
-  border: 0; /* drop the browser's default inset border; content iframes get the outline below */
+/* Drop the browser's default inset border. Zero specificity (:where) so the media outline
+   below can win: a plain `iframe` selector here would beat it and embeds would lose their outline. */
+:where(iframe) {
+  border: 0;
 }
 
 /* Video embeds (YouTube, Vimeo): full width, 16:9, sized by the container */
@@ -455,22 +457,18 @@ main > :last-child {
   font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
   text-decoration: none;
   cursor: pointer;
-  transition:
-    background-color var(--duration-fast) var(--ease),
-    color var(--duration-fast) var(--ease),
-    border-color var(--duration-fast) var(--ease);
+  transition: box-shadow var(--duration-fast) var(--ease);
 }
 
-/* Hover and press change colour only. Nothing moves. */
+/* Hover: the shadow darkens (grey → Ink, or black in dark mode). Fill, outline and text
+   never change, and nothing moves. The same rule applies to every button and linked card. */
+.btn:hover {
+  box-shadow: var(--shadow-md-hover);
+}
 
 .btn--primary {
   background: var(--color-fg);
   color: var(--color-bg);
-}
-
-.btn--primary:hover {
-  background: var(--color-cta);
-  color: var(--color-cta-fg);
 }
 
 .btn--secondary {
@@ -478,18 +476,9 @@ main > :last-child {
   color: var(--color-fg);
 }
 
-.btn--secondary:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
 .btn--cta {
   background: var(--color-cta);
   color: var(--color-cta-fg);
-}
-
-.btn--cta:hover {
-  background: var(--color-cta-hover);
 }
 
 .btn--sm {
@@ -497,6 +486,10 @@ main > :last-child {
   padding: 0 var(--space-3);
   font-size: var(--text-sm);
   box-shadow: var(--shadow-sm);
+}
+
+.btn--sm:hover {
+  box-shadow: var(--shadow-sm-hover);
 }
 
 
@@ -526,7 +519,7 @@ main > :last-child {
   box-shadow: var(--shadow-lg);
   color: inherit;
   text-decoration: none;
-  transition: border-color var(--duration-fast) var(--ease);
+  transition: box-shadow var(--duration-fast) var(--ease);
 }
 
 /* Optional media slot: 16:10, edge to edge at the top of the card */
@@ -558,21 +551,16 @@ main > :last-child {
 /* The card's title: any heading level, or anything marked .card__title */
 .card :is(h2, h3, h4, .card__title) {
   margin-bottom: var(--space-2);
-  transition: color var(--duration-fast) var(--ease);
 }
 
 .card p:last-child {
   margin-bottom: 0;
 }
 
-/* Linked cards: hover recolours the outline and the title. Nothing moves. */
+/* Linked cards: the same hover as buttons. The shadow darkens; nothing else changes. */
 a.card:hover {
-  border-color: var(--color-accent);
+  box-shadow: var(--shadow-lg-hover);
   color: inherit;
-}
-
-a.card:hover :is(h2, h3, h4, .card__title) {
-  color: var(--color-accent);
 }
 
 /* ---- Forms --------------------------------------------------------------------------------- */
@@ -618,8 +606,10 @@ a.card:hover :is(h2, h3, h4, .card__title) {
   align-items: center;
 }
 
+/* The hero illustration only appears beside the headline, from 1024px. Below that it would
+   stack under the buttons and push the next section down, so it's hidden. */
 .hero__art {
-  max-width: 20rem;
+  display: none;
 }
 
 @media (min-width: 1024px) {
@@ -629,7 +619,7 @@ a.card:hover :is(h2, h3, h4, .card__title) {
   }
 
   .hero__art {
-    max-width: none;
+    display: block;
     justify-self: end;
     width: 100%;
   }
@@ -640,7 +630,7 @@ a.card:hover :is(h2, h3, h4, .card__title) {
    except an optional link. */
 .band {
   margin-top: var(--section-space);
-  padding-block: var(--section-space);
+  padding-block: var(--space-7); /* 48px inside at every size: the band is a statement, not a section */
   background: var(--color-band-bg);
   color: var(--color-band-fg);
 }
@@ -660,13 +650,13 @@ a.card:hover :is(h2, h3, h4, .card__title) {
 }
 
 /* ---- Badge -----------------------------------------------------------------------------------
-   Small cyan label: "new", "case study", a status. Flat: badges are never raised. */
+   Small magenta label: "new", "case study", a status. Flat: badges are never raised. */
 .badge {
   display: inline-flex;
   align-items: center;
   padding: 0.125rem var(--space-2);
-  background: var(--color-cta);
-  color: var(--color-cta-fg);
+  background: var(--color-badge);
+  color: var(--color-badge-fg); /* white on deep magenta, 5.1:1 in both themes */
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   line-height: 1.4;

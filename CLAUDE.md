@@ -18,13 +18,11 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   `section`, `section-cta`, `grid`, `card` + `card__media`, `btn btn--primary|secondary|cta`, `btn-row`, `link-button`,
   `eyebrow`, `lead`, `muted`, `display`).
 - Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
-  in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. Never
-  white/Paper shadows.
+  in `--color-outline`; shadow in `--color-shadow` (outline grey at rest, both themes), sized from
+  `--shadow-sm|md|lg`. Never white/Paper or brand-coloured shadows.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.8: `main iframe`
-  restores the embed outline that a kit specificity bug drops, and the hero spot is hidden below 1024px (the kit
-  stacks it under the buttons; Ben doesn't want it on mobile), and the band pads 48px inside (the kit's 64/96px
-  was too chunky).
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.11: button text
+  colours are pinned on hover, because the kit's `a:hover` accent colour leaks into link-buttons.
 - Images, video and iframes in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow).
   Video embeds use `.embed-16x9`, a `title`, `loading="lazy"` and `youtube-nocookie.com`. Use
   `.media-round` for square files with circular art (the quote avatars), `.media-bare` to opt an image out.
@@ -36,7 +34,8 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
   `site.css` squares off the line caps.
-- Motion: colour transitions only. No lift, press, page-transition animations (so no `ClientRouter`) or parallax.
+- Hover on buttons and linked cards only darkens the shadow (`--shadow-*-hover`): no fill, outline or text change, and
+  nothing moves. No page-transition animations (so no `ClientRouter`) or parallax.
 - Illustrations are the kit's spot art: inline SVGs in `src/assets/spot/` (verbatim from the kit's `web/spot/`),
   rendered with `<Spot name="advise|coming-soon|legacy-site" />` or `<ContentMedia spot="…">`; the hero uses the
   kit's `.hero__split`. Never use `<img>` for them, never edit their

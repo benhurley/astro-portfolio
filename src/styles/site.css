@@ -296,27 +296,21 @@ ul.grid {
 }
 
 /* ============================================================================================
- * Site overrides to brand kit v1.8. Delete once the kit fixes them, after re-copying base.css.
+ * Site overrides to brand kit v1.11. Delete once the kit fixes them, after re-copying base.css.
  * ========================================================================================== */
 
-/* 1. Kit bug: base.css resets `iframe { border: 0 }` at (0,0,1), which beats the zero-specificity
-   `:where(main) :where(img, video, iframe)` outline, so embeds never get it. This restores it. The kit's
-   exceptions (`.card__media :is(...)`, `iframe.media-bare`) are more specific, so they still win.
-   Kit fix: write the reset as `:where(iframe) { border: 0; }`. */
-main iframe {
-  border: var(--border-strong) solid var(--color-outline);
+/* 1. Kit bug: `a:hover { color: var(--color-accent) }` (0,1,1) outranks `.btn--primary` etc. (0,1,0), so a button
+   built as a link turns its text accent-coloured on hover. Until 1.10 each variant's own :hover colour masked it.
+   It fails contrast on four of six buttons (the dark-mode CTA goes cyan on cyan, 1.00:1). WEB.md §6 says hover
+   never changes the text, so this holds each variant's text colour. Kit fix: `a:not(.btn):hover` in base.css. */
+.btn--primary:hover {
+  color: var(--color-bg);
 }
 
-/* 2. The hero illustration shows only when it sits beside the headline (from 1024px). Below that the kit stacks it
-   under the buttons (WEB.md §7, Hero); Ben prefers the headline and buttons alone on phones and tablets. */
-@media (max-width: 1023.98px) {
-  .hero__art {
-    display: none;
-  }
+.btn--secondary:hover {
+  color: var(--color-fg);
 }
 
-/* 3. The guiding-principle band pads 48px inside instead of the kit's full --section-space (64/96px), which made it
-   read as a chunky block. The gap around it is unchanged. */
-.band {
-  padding-block: var(--space-7);
+.btn--cta:hover {
+  color: var(--color-cta-fg);
 }

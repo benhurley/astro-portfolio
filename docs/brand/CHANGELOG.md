@@ -1,5 +1,25 @@
 # Web design system changelog
 
+## 1.11
+
+- **Badges are magenta**, not yellow: `--color-badge` `#D4007E` with white text (5.1:1, both themes). The logo magenta `#EC008C` can't carry small text (every pairing is under 4.5:1), so the badge uses this slightly deeper shade. Magenta gets a small, repeated UI job that balances cyan; yellow stays as text selection.
+- New tokens `--color-badge`, `--color-badge-fg`.
+
+## 1.10
+
+- **Shadows are the outline grey `#7A746A` at rest, in both themes.** In light mode an Ink shadow under the Ink primary button merged into one block; grey never matches any fill.
+- **One hover for every button and linked card: the shadow darkens** (grey → Ink in light, grey → black in dark) via new `--color-shadow-hover` and `--shadow-sm/md/lg-hover`. Fills, outlines and text no longer change on hover. Removed: the cyan primary hover, the accent outline on secondary, the lighter CTA fill (`--color-cta-hover` deleted), the accent outline and title on cards.
+- **Badges are yellow** (fill, with Ink text, 13.9:1), giving the reserved ink a job. Never yellow text.
+- Known and accepted: on hover in light mode, the Ink primary button sits on an Ink shadow, only while the pointer is on it.
+
+## 1.9
+
+From the site build. All three site.css overrides (hero art, band padding, embed border) can be deleted after re-copying `base.css`.
+
+- **Hero illustration hidden below 1024px.** It only appears beside the headline. 1.7 said to stack it under the text on mobile, which looked lopsided on phones and tablets.
+- **Band padding back to 48px** (`--space-7`) inside, at every size. 1.3 had changed it to a full `--section-space` (64 / 96px) without flagging it, undoing the approved 48px.
+- **Fixed: embeds never got their outline.** The iframe border reset (`iframe { border: 0 }`, specificity 0,0,1) beat the zero-specificity media outline rule, so YouTube embeds stayed unoutlined. The reset is now `:where(iframe)`.
+
 ## 1.8
 
 - **Spot art simplified**, back to the format of the original illustrations: one object on a soft circle. `collaborate` → **`advise`** (two speech bubbles: a question, and a cyan reply with a check), **`coming-soon`** (tablet and phone, simple page, cyan button), `website` → **`legacy-site`** (a browser window stuck on a loading spinner). Update references to the old file names.

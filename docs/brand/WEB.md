@@ -1,4 +1,4 @@
-# Ben Ventures: website design system (v1.8)
+# Ben Ventures: website design system (v1.11)
 
 What changed in each version is in `CHANGELOG.md`.
 
@@ -24,7 +24,7 @@ Load order: fonts → `tokens.css` → `base.css` → your site's own CSS.
 3. **Square corners.** The logo has none, so the UI has none (`--radius: 0`). The only round things are avatars and circular illustrations (`.media-round`), because there the circle is the artwork's own shape.
 4. **Depth, never flat.** Interface elements that sit on the page (cards, buttons, inputs, code blocks) are raised with a 2px outline and a **hard offset shadow**. Images and video get the same 2px outline but **never a shadow**. A borderless, shadowless "flat" version of these components is off-brand, however clean it looks. See §6.
 5. **Two weights.** Jost 400 and 500. Nothing bolder: the logo already carries the weight.
-6. **Brand colour is punctuation.** Pages are Paper and Ink. Cyan is the action colour: calls to action, hovers, link underlines and focus. Magenta appears only in the logo's `<` and in code.
+6. **Brand colour is punctuation.** Pages are Paper and Ink. Cyan is the action colour: the call-to-action button, link underlines and focus. Magenta marks labels (badges) and appears in the logo's `<` and in code. Yellow is text selection. Hovers use no brand colour at all: the shadow simply darkens.
 7. **WCAG 2.2 AA is the floor**, in both themes.
 
 ---
@@ -36,8 +36,8 @@ Load order: fonts → `tokens.css` → `base.css` → your site's own CSS.
 | Token | Hex | Use on the web |
 |---|---|---|
 | `--bv-cyan` | `#00AEEF` | Logo `>`, call-to-action fills, link underlines. **Never text on a light background** (2.2:1). |
-| `--bv-magenta` | `#EC008C` | Logo `<` and code syntax only. **Never text** (3.8:1). |
-| `--bv-yellow` | `#FFF200` | Text selection and highlighter-style emphasis, always with Ink text on it. |
+| `--bv-magenta` | `#EC008C` | Logo `<` and code syntax. **Never text, and never behind small text**: Ink, white and Paper on it are all under 4.5:1. Badges use `--color-badge`. |
+| `--bv-yellow` | `#FFF200` | Text selection, always as a fill with Ink text on it (13.9:1). **Never yellow text** (1.04:1 on Paper). |
 | `--bv-ink` | `#231F20` | Text (light theme), background (dark theme). |
 | `--bv-paper` | `#F4F1EA` | Background (light theme), text (dark theme). |
 
@@ -52,13 +52,14 @@ Components use these, never the brand inks directly (except the logo and link un
 | `--color-fg` | `#231F20` | `#F4F1EA` | 14.5:1 | Text, primary button fill |
 | `--color-fg-muted` | `#67625A` | `#A8A294` | 5.4:1 / 6.4:1 | Captions, dates, eyebrows |
 | `--color-rule` | `#DDD6C8` | `#3A3533` | decorative | Mobile menu separators only. **No lines between page sections** |
-| `--color-shadow` | `#231F20` | `#7A746A` | — / 3.5:1 | Hard offset shadows. Ink on light; on dark they share the outline grey. Never white, Paper or a brand colour |
+| `--color-shadow` | `#7A746A` | `#7A746A` | — | Hard offset shadows at rest: the outline grey in **both** themes, so a shadow never matches the Ink or Paper fill of the thing it sits under |
+| `--color-shadow-hover` | `#231F20` | `#000000` | — | The shadow on hover: it darkens. Never white, Paper or a brand colour |
 | `--color-outline` | `#231F20` | `#7A746A` | 14.5:1 / 3.5:1 | The 2px outline of raised elements and the header edge |
 | `--color-border` | `#8F897C` | `#7A746A` | 3.1:1 / 3.5:1 | Reserved: a lighter control border if one is ever needed. Currently unused |
 | `--color-accent` | `#0076A3` | `#00AEEF` | 4.5:1 / 6.4:1 | Cyan when it's text-sized: link and nav hover text |
 | `--color-cta` | `#00AEEF` | `#00AEEF` | — | Call-to-action button fill, primary button hover |
 | `--color-cta-fg` | `#231F20` | `#231F20` | 6.4:1 | Text on a cyan fill. **Never white** (2.5:1) |
-| `--color-cta-hover` | `#66CFF5` | `#66CFF5` | 9.2:1 with Ink text | CTA button fill on hover (a lighter cyan) |
+| `--color-badge` / `-fg` | `#D4007E` / `#FFFFFF` | same | 5.1:1 | Badge fill and text: the logo magenta deepened just enough to carry small text |
 | `--color-underline` | `#00AEEF` | `#00AEEF` | decorative | Link underlines |
 | `--color-focus` | `#0076A3` | `#00AEEF` | 4.5:1 / 6.4:1 | Focus ring (needs 3:1) |
 | `--color-codeblock-bg` | `#1A1718` | `#1A1718` | — | Code blocks are dark in both themes |
@@ -169,7 +170,7 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 1. **Every raised element gets both parts:** a `--border-strong` (2px) outline in `--color-outline` and a hard shadow in `--color-shadow`. An outline without a shadow, or a shadow without an outline, is wrong.
 2. **Solid, never blurred.** The shadow's blur radius is always `0`. No soft or "realistic" drop shadows, no glows, no `filter: drop-shadow()` with blur.
 3. **Always down and to the right, at 45°.** Light comes from the top left. X and Y offsets are always equal.
-4. **Never coloured.** Shadows are Ink on light and the outline grey `#7A746A` on dark (`--color-shadow` switches automatically). Never white or Paper, never cyan, magenta or yellow, never semi-transparent.
+4. **Never coloured.** At rest every shadow is the outline grey `#7A746A`, in both themes. On hover it darkens to Ink (light) or black (dark). Never white or Paper, never cyan, magenta or yellow, never semi-transparent. A shadow must never be the same colour as the fill above it.
 5. **Never inset.** Depth goes out from the page, not in.
 6. **Use the scale, not a new number.**
 
@@ -180,9 +181,7 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 | `--shadow-lg` | 6px | Cards, code blocks |
 
 ### Interaction: depth is the feedback
-**Hover changes colour only. Nothing moves, lifts or animates position.**
-- Buttons change fill and text colour (see Buttons). The outline and shadow stay exactly where they are.
-- Linked cards: the outline and the title turn `--color-accent`.
+**One hover for every button and linked card: the shadow darkens.** Grey → Ink in light mode, grey → black in dark mode (`--shadow-*-hover`). The fill, outline and text never change, and nothing moves, lifts or animates position. Links in running text are the exception: their text turns `--color-accent` on hover.
 - No `transform`, no shadow growth, no scale, on any hover or press.
 
 ### What stays flat
@@ -216,11 +215,11 @@ All are in `base.css` and on `reference.html`.
 ### Buttons
 | Variant | Fill | Text | Hover | Use |
 |---|---|---|---|---|
-| Primary | Ink / Paper (fg) | bg | Cyan fill, Ink text | Main action. One per view. |
-| Secondary | `--color-surface` | fg | Fill stays; outline and text turn `--color-accent` | Other actions |
-| CTA (`.btn--cta`) | `--color-cta` (cyan) | `--color-cta-fg` (Ink) | Fill lightens to `--color-cta-hover`; text stays Ink | The one conversion action: contact, hire, submit. At most one per page |
+| Primary | Ink / Paper (fg) | bg | Shadow darkens | Main action. One per view. |
+| Secondary | `--color-surface` | fg | Shadow darkens | Other actions |
+| CTA (`.btn--cta`) | `--color-cta` (cyan) | `--color-cta-fg` (Ink) | Shadow darkens | The one conversion action: contact, hire, submit. At most one per page |
 
-All buttons: 2px `--color-outline` outline, `--shadow-md` (small buttons `--shadow-sm`), 48px tall (44px small), 24px side padding, Jost 500, square corners. Hover changes colour only (§6). Below 640px, buttons in a `.btn-row` go full width.
+All buttons: 2px `--color-outline` outline, `--shadow-md` (small buttons `--shadow-sm`), 48px tall (44px small), 24px side padding, Jost 500, square corners. Hover darkens the shadow and nothing else (§6). Below 640px, buttons in a `.btn-row` go full width.
 
 ### Links
 Inherit the text colour, with a **2px cyan underline** offset 0.2em. On hover the text turns `--color-accent` (dark cyan on light, cyan on dark). Links are always underlined in running text; the underline is what makes them links, so colour alone never does.
@@ -229,17 +228,17 @@ Inherit the text colour, with a **2px cyan underline** offset 0.2em. On hover th
 Every interactive element shows a **3px cyan outline (`--color-focus`), 2px offset**, on keyboard focus (`:focus-visible`). Never remove it without a visible replacement.
 
 ### Cards
-`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover turns its outline and title `--color-accent`. The title can be any heading level (`h2`, `h3`, `h4`), or add `.card__title` to whatever element holds it; hover works on all of them. Content order: media → eyebrow → title → muted description. A `.badge` can sit inline after the title.
+`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover darkens its shadow, the same as a button. The title can be any heading level (`h2`, `h3`, `h4`), or add `.card__title` to whatever element holds it. Content order: media → eyebrow → title → muted description. A `.badge` can sit inline after the title.
 
 ### Guiding-principle band (`.band`)
 One short statement on a full-width Ink band: `--color-band-bg`, Paper text, the statement at h1 size (`.band__statement`, max 22 characters per line), with an optional mono eyebrow. It spans the full viewport width; its content sits in the normal `.container`.
 - **At most one per page.** It's the one exception to "no alternating section backgrounds".
 - It's a statement, not a section to fill: one sentence, no cards, no grid, no buttons (a single text link at most).
-- It takes one `--section-space` of margin above and pads `--section-space` inside; the next section's normal top padding gives the gap below.
+- It takes one `--section-space` of margin above and pads **48px** (`--space-7`) inside, at every screen size; the next section's normal top padding gives the gap below. Don't pad it by `--section-space`: that makes the band 64–96px taller than its one sentence needs.
 - In dark mode it's darker than the page (`#151213`), never lighter.
 
 ### Badge (`.badge`)
-A small label: "case study", "new", a status. Cyan fill, Ink text (6.4:1), JetBrains Mono 13px, 2px × 8px padding, square corners. **Flat**: badges never get an outline or shadow. Use one per item at most, and never as a button: if it's clickable, it's a link or a button instead.
+A small label: "case study", "new", a status. **Magenta fill (`--color-badge`, `#D4007E`), white text** (5.1:1, both themes), JetBrains Mono 13px, 2px × 8px padding, square corners. **Flat**: badges never get an outline or shadow. Use one per item at most, and never as a button: if it's clickable, it's a link or a button instead.
 
 ### Background grid (`.bg-grid`)
 A faint 32px grid (`--grid-cell`, 1px lines in `--color-grid`) that fades out towards the bottom. **Decorative, and only behind the hero.** Never behind running text longer than a paragraph, never on the band, never on cards. It's drawn on a `::before` layer so its fade never touches the content, and a gridded hero keeps the single section gap.
@@ -254,7 +253,7 @@ Label above the field (14px, 500). Inputs 48px tall, 2px `--color-outline` outli
 Inline code: JetBrains Mono at 0.9em on `--color-code-bg`. Code blocks are dark in both themes, raised with the 2px outline and `--shadow-lg`, with brand syntax colours: tags magenta (`#F038A5`, lifted for contrast), attributes cyan, strings yellow, comments `#A8A294`. All pass AA on the block background.
 
 ### Text selection
-Yellow highlight with Ink text, in both themes. This is where the reserved yellow ink finally shows up.
+Yellow highlight with Ink text, in both themes. The one place yellow appears on the site.
 
 ### Footer
 Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px muted text. A theme switch, if present, is a `.link-button` (underlined text), not a boxed button.
@@ -296,7 +295,7 @@ Three simple spots, each **one object on a soft circle**, drawn in the system's 
 
 A spot is decorative next to a heading, so use `aria-hidden="true"` there instead of `role="img"`. The drawing script is `spot/spot.py` (Python 3, no dependencies): add a function, register it in `SPOTS`, and export.
 
-**Hero with an illustration:** `.hero__split` puts the art beside the text from 1024px (7 : 5 columns) and below it on mobile (max 320px wide).
+**Hero with an illustration:** `.hero__split` puts the art beside the text from 1024px (7 : 5 columns). **Below 1024px the art is hidden**, phones and tablets alike: stacked under the buttons it looks lopsided and pushes the first section down, so the buttons lead straight into the next section.
 
 ## 10. Page setup checklist
 
@@ -318,7 +317,7 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour), check its contrast, document it in this file, and mirror it in `colors/tokens.json`.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.8). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.11). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
@@ -331,9 +330,9 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 - [ ] Images, video and embeds (iframes): 2px outline, no shadow; no outline inside card media slots or on the logo
 - [ ] Round corners only on avatars and circular art (`.media-round`, square files only)
 - [ ] Illustrations are the system's spot art, inline so they switch theme; new ones stay as simple as the three spots
-- [ ] Hover changes colour only: nothing moves
+- [ ] Buttons and linked cards: hover only darkens the shadow; nothing moves, no fill or outline change
 - [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
-- [ ] At most one guiding-principle band per page; background grid only behind the hero
+- [ ] At most one guiding-principle band per page (48px padding inside); background grid only behind the hero; hero art hidden below 1024px
 - [ ] New colour pairings pass contrast (4.5:1 text, 3:1 UI)
 - [ ] Nothing below 44px tap size, no input text below 16px
 - [ ] Logo is the inline SVG, at a specified size, with its clear space

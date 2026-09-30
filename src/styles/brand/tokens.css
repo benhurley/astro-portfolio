@@ -1,5 +1,5 @@
 /*
- * Ben Ventures design tokens (v1.8)
+ * Ben Ventures design tokens (v1.11)
  * The single source of truth for colour, type, spacing and layout on the web.
  * Components reference these variables. Never hardcode a hex value or a pixel size that a token covers.
  *
@@ -11,8 +11,8 @@
 
   /* ---- Brand inks: fixed values, the same in both themes ------------------ */
   --bv-cyan: #00aeef;     /* logo ">", call-to-action fills, link underlines. 2.2:1 on paper: never text on light */
-  --bv-magenta: #ec008c;  /* logo "<" and code syntax only. 3.8:1: never text */
-  --bv-yellow: #fff200;   /* accent: text selection, highlights. Never in the logo */
+  --bv-magenta: #ec008c;  /* logo "<" and code syntax. 3.8:1: never text, never behind text (badges use --color-badge) */
+  --bv-yellow: #fff200;   /* text selection, always with Ink text. Never in the logo */
   --bv-ink: #231f20;
   --bv-paper: #f4f1ea;
 
@@ -22,13 +22,15 @@
   --color-fg: var(--bv-ink);          /* 14.5:1 on bg */
   --color-fg-muted: #67625a;          /* 5.4:1 on bg: captions, meta */
   --color-rule: #ddd6c8;              /* decorative dividers only */
-  --color-shadow: var(--bv-ink);      /* hard offset shadows */
+  --color-shadow: #7a746a;            /* hard offset shadows at rest: the outline grey, in both themes */
+  --color-shadow-hover: var(--bv-ink); /* the shadow on hover: it darkens, nothing else changes */
   --color-outline: var(--bv-ink);     /* 2px outline of raised elements */
   --color-border: #8f897c;            /* form controls: 3.1:1, meets non-text contrast */
   --color-accent: #0076a3;            /* cyan for text-sized use (hover text): 4.5:1 on bg */
   --color-cta: var(--bv-cyan);        /* call-to-action fill, primary button hover */
   --color-cta-fg: var(--bv-ink);      /* text on --color-cta: 6.4:1. White fails (2.5:1) */
-  --color-cta-hover: #66cff5;         /* lighter cyan on hover, Ink text 9.2:1. Same in both themes */
+  --color-badge: #d4007e;             /* magenta deep enough to carry small text */
+  --color-badge-fg: #ffffff;          /* 5.1:1 on --color-badge, both themes */
   --color-underline: var(--bv-cyan);  /* decorative: the underline itself marks the link */
   --color-focus: #0076a3;             /* 4.5:1 on bg (needs 3:1); pure cyan is only 2.2:1 */
   --color-selection-bg: var(--bv-yellow);
@@ -104,15 +106,18 @@
 
   /* ---- Depth: hard offset shadows ------------------------------------------
    * Solid, unblurred, always down and to the right at 45° (light from the top
-   * left). Never blurred, never coloured, never inset. Ink on light, outline grey on dark. Shadows are
+   * left). Never blurred, never coloured, never inset. Outline grey at rest in both themes; darker on hover. Shadows are
    * for interface elements only: never on images or other media (those get the outline alone). A raised
-   * element always has a --border-strong outline. Hover changes colour only. */
+   * element always has a --border-strong outline. Hover only darkens the shadow. */
   --elev-sm: 3px;           /* inputs, small buttons */
   --elev-md: 4px;           /* buttons */
   --elev-lg: 6px;           /* cards, code blocks, images */
   --shadow-sm: var(--elev-sm) var(--elev-sm) 0 var(--color-shadow);
   --shadow-md: var(--elev-md) var(--elev-md) 0 var(--color-shadow);
   --shadow-lg: var(--elev-lg) var(--elev-lg) 0 var(--color-shadow);
+  --shadow-sm-hover: var(--elev-sm) var(--elev-sm) 0 var(--color-shadow-hover);
+  --shadow-md-hover: var(--elev-md) var(--elev-md) 0 var(--color-shadow-hover);
+  --shadow-lg-hover: var(--elev-lg) var(--elev-lg) 0 var(--color-shadow-hover);
   --focus-width: 3px;
   --focus-offset: 2px;
   --tap-min: 2.75rem;       /* 44px minimum touch target */
@@ -153,7 +158,7 @@
     --color-fg: var(--bv-paper);
     --color-fg-muted: #a8a294;        /* 6.4:1 */
     --color-rule: #3a3533;
-    --color-shadow: #7a746a;          /* on dark, shadows share the outline grey */
+    --color-shadow-hover: #000000;    /* on dark, hover deepens the shadow to black */
     --color-outline: #7a746a;         /* 3.5:1 on ink: the outline carries the edge in dark mode */
     --color-border: #7a746a;          /* 3.5:1 */
     --color-accent: var(--bv-cyan);   /* 6.4:1 on ink */
@@ -172,7 +177,7 @@
   --color-fg: var(--bv-paper);
   --color-fg-muted: #a8a294;
   --color-rule: #3a3533;
-  --color-shadow: #7a746a;
+  --color-shadow-hover: #000000;
   --color-outline: #7a746a;
   --color-border: #7a746a;
   --color-accent: var(--bv-cyan);
