@@ -14,7 +14,7 @@ const projects = defineCollection({
     sortOrder: z.number(),
     description: z.string(),
     featuredImage: z.string(),
-    badge: z.string().optional(), // a short label shown as the kit's magenta .badge, e.g. "latest"
+    badge: z.string().optional(), // a short label shown as the kit's magenta .badge, e.g. "Latest"
   }),
 })
 
