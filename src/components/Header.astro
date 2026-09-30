@@ -4,9 +4,8 @@ import Logo from './Logo.astro'
 /**
  * Header Component
  *
- * @description Sticky site header: logo home link and main navigation. It has no bottom edge until the page
- * scrolls. Below 768px the navigation collapses behind a "Menu" text button into a full-screen panel
- * (docs/brand/WEB.md §7, Header and Navigation).
+ * @description Sticky site header with a permanent 2px bottom edge: logo home link and main navigation. Below
+ * 768px the navigation collapses behind a "Menu" text button into a full-screen panel (docs/brand/WEB.md §7).
  */
 const links = [
   { href: '/', label: 'Home' },
@@ -17,7 +16,6 @@ const path = Astro.url.pathname
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')))
 ---
 
-<div class="scroll-sentinel" aria-hidden="true"></div>
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-header__logo" href="/" aria-label="Ben Ventures, home">
@@ -42,16 +40,6 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 </header>
 
 <script>
-  /* The header's edge appears once content scrolls under it (WEB.md §7, Header) */
-  const header = document.querySelector('.site-header')
-  const sentinel = document.querySelector('.scroll-sentinel')
-
-  if (header && sentinel) {
-    new IntersectionObserver((entries) => {
-      header.toggleAttribute('data-scrolled', !entries[0].isIntersecting)
-    }).observe(sentinel)
-  }
-
   const toggle = document.querySelector<HTMLButtonElement>('.site-nav__toggle')
   const nav = document.getElementById('site-nav')
 

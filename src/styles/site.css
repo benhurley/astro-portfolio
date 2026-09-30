@@ -374,3 +374,8 @@ a.card:hover .work-card__title {
   background: var(--color-surface);
   color: var(--color-accent);
 }
+
+/* 3. Header edge: always shown. The kit only draws it once the page scrolls (WEB.md §7, Header). */
+.site-header {
+  border-bottom-color: var(--color-outline);
+}
