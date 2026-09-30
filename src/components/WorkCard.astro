@@ -5,9 +5,9 @@ import type { ImageMetadata } from 'astro'
 /**
  * WorkCard Component
  *
- * @description A whole-card link to a project, in the kit's order: media slot, eyebrow (platform), title (with an
- * optional badge), muted description. The image fills the card's 16:10 media slot and has no frame or shadow of its
- * own.
+ * @description A whole-card link to a project: media slot, title (with an optional badge), muted description, and a
+ * small "Made with …" line for the platform. The image fills the card's 16:10 media slot and has no frame or shadow
+ * of its own.
  */
 interface Props {
   href: string
@@ -39,10 +39,10 @@ const { href, title, description, platform, image, badge, headingLevel: Heading 
       )
     }
   </div>
-  <span class="eyebrow">{platform.toLowerCase()}</span>
   <Heading class="work-card__title">
     {title}
     {badge && <span class="badge">{badge}</span>}
   </Heading>
   <p class="muted">{description}</p>
+  <p class="work-card__meta">Made with {platform}</p>
 </a>

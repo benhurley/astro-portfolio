@@ -72,6 +72,12 @@ ul.grid {
   line-height: var(--leading-snug);
 }
 
+/* The platform line at the foot of a work card */
+.work-card__meta {
+  color: var(--color-fg-muted);
+  font-size: var(--text-sm);
+}
+
 /* ---- Guiding-principle band: a badge label above the kit's statement, a supporting line below ---- */
 .band .badge {
   margin-bottom: var(--space-4);
