@@ -306,3 +306,17 @@ ul.grid {
 main iframe {
   border: var(--border-strong) solid var(--color-outline);
 }
+
+/* 2. The hero illustration shows only when it sits beside the headline (from 1024px). Below that the kit stacks it
+   under the buttons (WEB.md §7, Hero); Ben prefers the headline and buttons alone on phones and tablets. */
+@media (max-width: 1023.98px) {
+  .hero__art {
+    display: none;
+  }
+}
+
+/* 3. The guiding-principle band pads 48px inside instead of the kit's full --section-space (64/96px), which made it
+   read as a chunky block. The gap around it is unchanged. */
+.band {
+  padding-block: var(--space-7);
+}

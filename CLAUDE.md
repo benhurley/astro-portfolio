@@ -22,7 +22,9 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   white/Paper shadows.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
   `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.8: `main iframe`
-  restores the embed outline that a kit specificity bug drops.
+  restores the embed outline that a kit specificity bug drops, and the hero spot is hidden below 1024px (the kit
+  stacks it under the buttons; Ben doesn't want it on mobile), and the band pads 48px inside (the kit's 64/96px
+  was too chunky).
 - Images, video and iframes in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow).
   Video embeds use `.embed-16x9`, a `title`, `loading="lazy"` and `youtube-nocookie.com`. Use
   `.media-round` for square files with circular art (the quote avatars), `.media-bare` to opt an image out.
