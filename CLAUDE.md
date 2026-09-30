@@ -19,8 +19,11 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   `eyebrow`, `lead`, `muted`, `display`).
 - Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
   in `--color-outline`, shadow in `--color-shadow` (always dark, never coloured), sized from `--shadow-sm|md|lg`.
-- No lines or alternating backgrounds between sections. The one exception is the home page's single inverted
-  "guiding principle" band, which Ben asked for.
+- No lines or alternating backgrounds between sections. The one exception is the home page's single "guiding
+  principle" band: cyan (`--color-cta`) with Ink text, the same in both themes, which Ben asked for. Ben rejected a
+  white/Paper band in dark mode and the yellow highlight on one word.
+- The page has a faint drafting-grid texture (`--grid-line`, `--grid-size` in `site.css`), restoring the old site's
+  grid in brand colours. Keep it subtle; raised elements have solid fills over it.
 - If the brand kit changes, re-copy `web/tokens.css`, `web/base.css` and `web/WEB.md` verbatim, diff them first, and
   adapt the site to them. Don't patch the kit's rules in `site.css`.
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.

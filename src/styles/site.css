@@ -23,11 +23,20 @@ main:focus {
   outline: none; /* the skip link target; focus is programmatic only */
 }
 
-/* ---- Highlighter emphasis: the reserved yellow ink, always with Ink text ----------- */
-mark {
-  background: var(--color-selection-bg);
-  padding-inline: 0.08em;
-  color: var(--color-selection-fg);
+/* ---- Background texture: a fine drafting grid behind the page, drawn in the rule colour on the 24px spacing step.
+   Raised elements have solid fills, so it only shows in open space ------------------------------------------ */
+:root {
+  --grid-line: color-mix(in srgb, var(--color-rule) 55%, transparent); /* a hairline, not a ruled page */
+  --grid-size: var(--space-5);
+}
+
+body,
+.band {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: var(--grid-size) var(--grid-size);
 }
 
 /* ---- Icons: outline set with square caps and mitred joins, to match the logo's cuts --- */
@@ -73,15 +82,12 @@ ul.grid {
   flex: 1;
 }
 
-/* ---- Band: one full-width inverted statement. Used once, so it isn't the alternating backgrounds WEB.md §4 rules out ---- */
+/* ---- Band: one full-width statement in cyan with Ink text (--color-cta / --color-cta-fg, 6.4:1), the same in both
+   themes. Used once on the page, so it isn't the alternating section backgrounds WEB.md §4 rules out. ---- */
 .band {
-  border-top: 0;
-  background: var(--color-fg);
-  color: var(--color-bg);
-}
-
-.band + .section {
-  border-top: 0;
+  --grid-line: color-mix(in srgb, var(--color-cta-fg) 10%, transparent); /* the page's grid, carried across in Ink */
+  background-color: var(--color-cta);
+  color: var(--color-cta-fg);
 }
 
 .band .eyebrow,
