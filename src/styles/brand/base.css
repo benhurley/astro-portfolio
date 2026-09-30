@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.3). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.6). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -35,6 +35,30 @@ video {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+/* Images and video in page content get the 2px outline, never a shadow.
+   :where() keeps specificity at zero so any component can override it. */
+:where(main) :where(img, video) {
+  border: var(--border-strong) solid var(--color-outline);
+  border-radius: var(--radius);
+}
+
+/* Circular art: for a SQUARE image whose artwork is a circle filling it edge to edge
+   (avatars, circular illustrations). Rounding the corners makes the 2px outline trace the art. */
+.media-round {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-round);
+}
+
+/* Inside a card's media slot the card's own outline frames the image: no second border.
+   .media-bare opts any other image out (e.g. a logo or icon placed as an <img>). */
+.card__media :is(img, video),
+img.media-bare,
+img.spot,
+video.media-bare {
+  border: 0;
 }
 
 ::selection {
@@ -131,6 +155,44 @@ a {
 a:hover {
   color: var(--color-accent);
 }
+
+/* ---- Figures ------------------------------------------------------------------------------- */
+.figure {
+  margin: 0 0 var(--space-7);
+}
+
+.figure figcaption {
+  margin: var(--space-3) 0 0;
+}
+
+/* ---- Spot illustrations -------------------------------------------------------------------
+   Inline SVGs from web/spot/. Every colour is a token, so the art flips with the theme.
+   Drawn with the system's own outline, hard shadow and inks; see WEB.md "Spot illustrations". */
+.grid > .spot-cell {
+  grid-column: span 4;
+  margin: 0;
+}
+
+.spot {
+  display: block;
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+}
+.spot .sp-grid line { stroke: var(--color-grid); stroke-width: 1; }
+.spot .sp-fill { fill: var(--color-surface); }
+.spot .sp-tint { fill: var(--color-code-bg); }
+.spot .sp-shadow { fill: var(--color-shadow); }
+.spot .sp-line { stroke: var(--color-outline); stroke-width: 4; stroke-linejoin: miter; }
+.spot .sp-join { stroke-linejoin: round; }
+.spot .sp-muted { fill: var(--color-fg-muted); }
+.spot .sp-strong { fill: var(--color-fg); }
+.spot .sp-cyan { fill: var(--bv-cyan); }
+.spot .sp-magenta { fill: var(--bv-magenta); }
+.spot .sp-yellow { fill: var(--bv-yellow); }
+.spot .sp-stroke-cyan, .spot .sp-stroke-magenta { fill: none; stroke-width: 12; stroke-linejoin: miter; stroke-linecap: butt; }
+.spot .sp-stroke-cyan { stroke: var(--bv-cyan); }
+.spot .sp-stroke-magenta { stroke: var(--bv-magenta); }
 
 /* ---- Code ------------------------------------------------------------------------ */
 code,

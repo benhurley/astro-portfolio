@@ -1,5 +1,5 @@
 /*
- * Ben Ventures design tokens (v1.3)
+ * Ben Ventures design tokens (v1.6)
  * The single source of truth for colour, type, spacing and layout on the web.
  * Components reference these variables. Never hardcode a hex value or a pixel size that a token covers.
  *
@@ -97,7 +97,7 @@
 
   /* ---- Shape, motion, interaction ----------------------------------------- */
   --radius: 0;              /* square corners everywhere: the logo has none */
-  --radius-round: 999px;    /* avatars only */
+  --radius-round: 999px;    /* avatars and circular illustrations only (.media-round) */
   --grid-cell: 2rem;        /* 32px background grid */
   --border-width: 1px;      /* dividers */
   --border-strong: 2px;     /* the outline on every raised element */
@@ -105,7 +105,7 @@
   /* ---- Depth: hard offset shadows ------------------------------------------
    * Solid, unblurred, always down and to the right at 45° (light from the top
    * left). Never blurred, never coloured, never inset. Ink on light, outline grey on dark. Shadows are
-   * for interface elements only: never on images or other media. A raised
+   * for interface elements only: never on images or other media (those get the outline alone). A raised
    * element always has a --border-strong outline. Hover changes colour only. */
   --elev-sm: 3px;           /* inputs, small buttons */
   --elev-md: 4px;           /* buttons */

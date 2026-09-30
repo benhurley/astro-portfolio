@@ -1,4 +1,4 @@
-# Ben Ventures: website design system (v1.3)
+# Ben Ventures: website design system (v1.6)
 
 What changed in each version is in `CHANGELOG.md`.
 
@@ -21,8 +21,8 @@ Load order: fonts → `tokens.css` → `base.css` → your site's own CSS.
 
 1. **Use tokens, never raw values.** No hex codes, font names or pixel sizes in component CSS where a token exists. If a design needs a value that has no token, add the token first.
 2. **Mobile first.** Base styles are for phones; `min-width` media queries add to them.
-3. **Square corners.** The logo has none, so the UI has none (`--radius: 0`). The only round things are avatars.
-4. **Depth, never flat.** Interface elements that sit on the page (cards, buttons, inputs, code blocks) are raised with a 2px outline and a **hard offset shadow**. Images and other media never are. A borderless, shadowless "flat" version of these components is off-brand, however clean it looks. See §6.
+3. **Square corners.** The logo has none, so the UI has none (`--radius: 0`). The only round things are avatars and circular illustrations (`.media-round`), because there the circle is the artwork's own shape.
+4. **Depth, never flat.** Interface elements that sit on the page (cards, buttons, inputs, code blocks) are raised with a 2px outline and a **hard offset shadow**. Images and video get the same 2px outline but **never a shadow**. A borderless, shadowless "flat" version of these components is off-brand, however clean it looks. See §6.
 5. **Two weights.** Jost 400 and 500. Nothing bolder: the logo already carries the weight.
 6. **Brand colour is punctuation.** Pages are Paper and Ink. Cyan is the action colour: calls to action, hovers, link underlines and focus. Magenta appears only in the logo's `<` and in code.
 7. **WCAG 2.2 AA is the floor**, in both themes.
@@ -186,7 +186,7 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 - No `transform`, no shadow growth, no scale, on any hover or press.
 
 ### What stays flat
-- **Assets never get shadows or frames:** images, video, illustrations, screenshots, embeds, the logo. Media inside a card fills the card's media slot edge to edge; the card is raised, the image isn't.
+- **Assets never get shadows.** Images and video in page content get the 2px `--color-outline` outline and nothing else (applied by default in `base.css`). Media inside a card's media slot fills it edge to edge with **no** outline of its own, because the card's outline already frames it. The logo never gets an outline or a shadow; if it's ever placed as an `<img>`, add `.media-bare`.
 - Text, links, icons, navigation, the mobile menu panel, the header and the footer.
 - The header: a 2px `--color-outline` line underneath at all times (a line, not a shadow).
 
@@ -271,7 +271,25 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 ## 9. Icons and images
 
 - **Icons:** only if needed. Use an outline set drawn at 1.5–2px with **square line caps and mitred joins** to match the logo's flat cuts (for example Lucide or Tabler with `stroke-linecap="square"`). Size to the text: 20px next to body text.
-- **Images:** no filters, overlays or gradients. Square corners. No shadows, outlines or frames on images or any other media. Always set `width`/`height` (or `aspect-ratio`) to avoid layout shift, and `loading="lazy"` below the fold. Alt text is required; decorative images get `alt=""`.
+- **Images:** no filters, overlays or gradients. Square corners. Images and video get a 2px `--color-outline` outline and square corners, and **never a shadow** (default styling in `base.css` for anything inside `<main>`). No outline inside a card's media slot; opt anything else out with `.media-bare` (logos, icons placed as `<img>`).
+  - **Circular art (`.media-round`):** only for a **square** image whose artwork is a circle filling it edge to edge (avatars, round badges of circular art). The class rounds the image into a circle so the 2px outline traces the art exactly. Never use it to crop a rectangular photo or illustration into a circle, and never on buttons, cards or other interface elements. Always set `width`/`height` (or `aspect-ratio`) to avoid layout shift, and `loading="lazy"` below the fold. Alt text is required; decorative images get `alt=""`.
+
+### Spot illustrations
+
+The site's illustrations are **spot art drawn from the system itself**: the same outlines, hard shadows, square corners and inks as the interface, so they look like part of the page rather than stock art dropped onto it. The files are in `web/spot/` (inline, theme-aware) and the kit's `spot/` folder (fixed light/dark exports). They replace the earlier circular people-and-devices illustrations, which are retired: they had baked-in colours, soft shading and rounded devices, and could not switch with the theme.
+
+Use them **inline** so they flip with light and dark. `<img>` versions can't follow the theme; use the fixed `-light`/`-dark` files there, with class `spot` so they don't get the image outline.
+
+**Rules for any new spot** (so the set keeps matching):
+1. **Subjects are the work, not people.** Windows, devices, cursors, code, layouts. No figures, faces, hands, mascots or stock-style scenes. Two cursors are how we show people working together.
+2. **Built only from system parts:** square-cornered panels, the logo's ring, 90° chevrons, flat bars standing in for text, simple circles and triangles. No text, no icons from a set, no rounded devices.
+3. **Canvas:** 400 × 400, square, on the faint 20-unit grid plate. Keep the main shapes inside a 40-unit margin.
+4. **Depth like the UI:** 4-unit outline on everything that isn't a text bar, and a 10-unit hard shadow, down and to the right, on panels only (windows, devices). No blur, no gradients, no transparency.
+5. **Colour only through the classes** in `base.css`: `sp-fill`, `sp-tint`, `sp-shadow`, `sp-line`, `sp-muted`, `sp-strong`, `sp-cyan`, `sp-magenta`, `sp-yellow`, `sp-stroke-cyan`, `sp-stroke-magenta`, `sp-grid`. Never a hex value in the SVG.
+6. **Ink roles match the UI:** cyan marks the action (buttons, the call to action), magenta and yellow are accents. Use all three sparingly; most of the art is fill, outline and bars.
+7. **Check both themes** before shipping a new one.
+
+The generator that draws them (shared primitives: `window`, `raised`, `bars`, `chevron`, `cursor`) is `spot/spot.py` in the kit (Python 3, no dependencies); new spots should reuse it rather than start from scratch. Add a function, register it in `SPOTS`, and export.
 
 ## 10. Page setup checklist
 
@@ -293,7 +311,7 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour), check its contrast, document it in this file, and mirror it in `colors/tokens.json`.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.3). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.6). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
@@ -303,7 +321,9 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 - [ ] Checked in light **and** dark theme
 - [ ] Keyboard only: can reach and use everything, focus is always visible
 - [ ] Raised elements have the 2px outline **and** a hard shadow from the scale: nothing flat, nothing blurred, nothing light in dark mode
-- [ ] Images and media have no shadow or frame
+- [ ] Images and video: 2px outline, no shadow; no outline inside card media slots or on the logo
+- [ ] Round corners only on avatars and circular art (`.media-round`, square files only)
+- [ ] Illustrations are the system's spot art, inline so they switch theme; new ones follow the spot rules
 - [ ] Hover changes colour only: nothing moves
 - [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
 - [ ] At most one guiding-principle band per page; background grid only behind the hero

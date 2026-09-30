@@ -1,0 +1,28 @@
+---
+import collaborate from '../assets/spot/collaborate.inline.svg?raw'
+import comingSoon from '../assets/spot/coming-soon.inline.svg?raw'
+import website from '../assets/spot/website.inline.svg?raw'
+
+/**
+ * Spot Component
+ *
+ * @description A brand spot illustration as inline, theme-aware SVG (colours come from the sp-* classes in
+ * base.css). The SVGs in src/assets/spot/ are copied verbatim from the brand kit's web/spot/; never edit their
+ * colours. Beside text that already says the same thing, pass `decorative` to hide it from screen readers.
+ */
+interface Props {
+  name: 'collaborate' | 'coming-soon' | 'website'
+  /**
+   * Swap the SVG's role="img" and aria-label for aria-hidden="true"
+   * @default false
+   */
+  decorative?: boolean
+}
+
+const spots = { collaborate, 'coming-soon': comingSoon, website }
+const { name, decorative = false } = Astro.props
+
+const svg = decorative ? spots[name].replace(/role="img" aria-label="[^"]*"/, 'aria-hidden="true"') : spots[name]
+---
+
+<Fragment set:html={svg} />

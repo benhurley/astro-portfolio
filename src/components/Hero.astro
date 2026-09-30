@@ -1,21 +1,11 @@
 ---
-import { Image } from 'astro:assets'
-import type { ImageMetadata } from 'astro'
-import heroImage from '../../public/hero-image.webp'
+import Spot from './Spot.astro'
 
 /**
  * Hero Component
  *
- * @description Home page hero: illustration, the page's one display headline and actions
+ * @description Home page hero: the "website" spot illustration, the page's one display headline and actions
  */
-interface Props {
-  /**
-   * The image to display (imported asset)
-   */
-  src?: ImageMetadata
-}
-
-const { src = heroImage }: Props = Astro.props
 const heroMessages = [
   "Is your website stuck in 2010? Let's rescue it.",
   'Website looking like MySpace? We should talk.',
@@ -26,14 +16,7 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
 <section class="hero bg-grid">
   <div class="container split">
     <div class="hero__art">
-      <Image
-        src={src}
-        alt=""
-        widths={[300, 600]}
-        sizes="(min-width: 768px) 30vw, 0px"
-        class="asset-outline asset-outline--round"
-        loading="eager"
-      />
+      <Spot name="website" decorative />
     </div>
     <div>
       <h1 class="display">{randomMessage}</h1>
@@ -59,9 +42,8 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
     display: none;
   }
 
-  .hero__art :global(img) {
+  .hero__art :global(.spot) {
     margin-inline: auto;
-    width: 75%;
   }
 
   @media (min-width: 768px) {

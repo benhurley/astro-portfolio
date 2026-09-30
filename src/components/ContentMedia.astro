@@ -1,44 +1,40 @@
 ---
+import Spot from './Spot.astro'
+
 /**
  * ContentMedia Component
  *
- * @description A section that displays content alongside an image, with the option to reverse the image position
+ * @description A section that displays content beside an image or a brand spot illustration, with the option to
+ * reverse the media position. Images get the kit's default 2px outline; spots are inline SVG and have none.
  */
 interface Props {
   /**
-   * The source URL for the image
+   * The source URL for an image (use this or `spot`)
    */
-  imgSrc: string
+  imgSrc?: string
   /**
    * Alt text for the image; decorative by default
    * @default ''
    */
   imgAlt?: string
   /**
-   * Whether to display the image on the right side instead of the left
+   * A brand spot illustration to show instead of an image (decorative: the text beside it carries the meaning)
+   */
+  spot?: 'collaborate' | 'coming-soon' | 'website'
+  /**
+   * Whether to display the media on the right side instead of the left
    * @default false
    */
   reverseImg?: boolean
-  /**
-   * The image is a spot illustration (transparent, round backdrop), sized like the hero's
-   * @default false
-   */
-  art?: boolean
 }
 
-const { imgSrc, imgAlt = '', reverseImg = false, art = false }: Props = Astro.props
+const { imgSrc, imgAlt = '', spot, reverseImg = false }: Props = Astro.props
 ---
 
 <section class="section">
   <div class="container split">
-    <div class:list={['split__media', { 'split__media--art': art }]} style={reverseImg ? 'order: 1' : undefined}>
-      <img
-        src={imgSrc}
-        alt={imgAlt}
-        class:list={['asset-outline', { 'asset-outline--round': art }]}
-        loading="lazy"
-        decoding="async"
-      />
+    <div class:list={['split__media', { 'split__media--spot': spot }]} style={reverseImg ? 'order: 1' : undefined}>
+      {spot ? <Spot name={spot} decorative /> : <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />}
     </div>
     <div>
       <slot />

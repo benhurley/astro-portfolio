@@ -3,8 +3,8 @@
  * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
  * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
  *
- * Depth, section spacing, the band, badge and background grid all come from base.css (docs/brand/WEB.md); this
- * file only adds site-specific components on top.
+ * Depth, section spacing, image outlines, the band, badge, background grid and spot illustrations all come from
+ * base.css (docs/brand/WEB.md); this file only adds site-specific components on top.
  */
 
 /* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
@@ -89,10 +89,9 @@ ul.grid {
   width: 100%;
 }
 
-/* Spot illustrations (transparent, with a round cream backdrop) sit smaller than screenshots */
-.split__media--art img {
+/* Spot illustrations centre in their column (base.css caps them at 400px) */
+.split__media--spot .spot {
   margin-inline: auto;
-  width: 75%;
 }
 
 @media (min-width: 768px) {
@@ -195,9 +194,10 @@ ul.grid {
   aspect-ratio: 16 / 9;
 }
 
+/* An embedded video gets the same 2px outline base.css gives img and video in <main> (WEB.md §9) */
 .video iframe {
   display: block;
-  border: 0;
+  border: var(--border-strong) solid var(--color-outline);
   width: 100%;
   height: 100%;
 }
@@ -239,11 +239,10 @@ ul.grid {
   font-size: var(--text-sm);
 }
 
+/* Round and outlined by the kit's .media-round */
 .quote__avatar {
-  border-radius: var(--radius-round); /* avatars are the only round things */
   width: var(--space-7);
   height: var(--space-7);
-  object-fit: cover;
 }
 
 /* ---- Lightbox (CSS :target) -------------------------------------------------------------- */
@@ -305,19 +304,12 @@ ul.grid {
 }
 
 /* ============================================================================================
- * Site overrides to brand kit v1.3 (Ben's calls). If they stick, add them to the kit's base.css and WEB.md,
- * re-copy, and delete this block.
+ * Site overrides to brand kit v1.6. If they stick, add them to the kit's base.css and WEB.md, re-copy, and
+ * delete this block.
  * ========================================================================================== */
 
-/* 1. Image assets get the same 2px outline as buttons and cards, but no shadow (WEB.md §6 and §9 say media get
-   no outline). Used on screenshots, photos, banners, embeds and the spot illustrations; images inside a card's
-   media slot already sit inside the card's outline. */
-.asset-outline {
-  border: var(--border-strong) solid var(--color-outline);
-}
-
-/* 2. Round spot illustrations get a round outline that traces their circular backdrop (the circle fills each
-   file edge to edge). The kit keeps round shapes for avatars only (--radius-round). */
-.asset-outline--round {
-  border-radius: var(--radius-round);
+/* 1. A spot inside the hero's .bg-grid drops its own grid plate: the spot's 20-unit plate and the page's 32px
+   grid never line up, so together they read as a plaid behind the art. */
+.bg-grid .spot .sp-grid {
+  display: none;
 }

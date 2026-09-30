@@ -21,9 +21,10 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. Never
   white/Paper shadows.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.3: image assets
-  get a 2px `.asset-outline` (no shadow) on screenshots, photos, banners and embeds; the round spot illustrations
-  add `.asset-outline--round` so the outline traces their circle.
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.6: a spot
+  inside the hero's `.bg-grid` hides its own grid plate.
+- Images and video in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow). Use
+  `.media-round` for square files with circular art (the quote avatars), `.media-bare` to opt an image out.
 - Follow the kit for sections (one shared gap, no lines), the guiding-principle `.band`, `.badge` and `.bg-grid`
   (hero only; the fade is the kit's design, and Ben is keeping it). Site-specific choices on top of the kit: a
   `.band__note` line under the band statement (copy doesn't have to come from the kit), and the project write-up is a
@@ -33,5 +34,6 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
   `site.css` squares off the line caps.
 - Motion: colour transitions only. No lift, press, page-transition animations (so no `ClientRouter`) or parallax.
-- Illustrations are "spot" art: transparent with a round cream backdrop (`hero-image.webp`, `*-spot.webp`), passed to
-  `ContentMedia` with `art`.
+- Illustrations are the kit's spot art: inline SVGs in `src/assets/spot/` (verbatim from the kit's `web/spot/`),
+  rendered with `<Spot name="…" />` or `<ContentMedia spot="…">`. Never use `<img>` for them, never edit their
+  colours, and draw new ones with the kit's `spot/spot.py` so the set matches.

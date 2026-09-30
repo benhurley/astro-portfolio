@@ -29,7 +29,7 @@ const { author, avatar, link } = Astro.props
   {
     author && (
       <figcaption class="quote__author">
-        {avatar && <img src={avatar} alt="" class="quote__avatar" width="48" height="48" loading="lazy" />}
+        {avatar && <img src={avatar} alt="" class="quote__avatar media-round" width="48" height="48" loading="lazy" />}
         <cite>
           {link ? (
             <a href={link} target="_blank" rel="noopener noreferrer">
