@@ -60,7 +60,7 @@ h4 {
 .display {
   font-size: var(--text-display);
   line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: var(--tracking-display);
   font-weight: var(--weight-medium);
   margin: 0 0 var(--space-5);
 }
@@ -86,6 +86,10 @@ ul,
 ol {
   margin: 0 0 var(--space-4);
   max-width: var(--measure);
+}
+
+p {
+  text-wrap: pretty; /* avoids a lone word on the last line */
 }
 
 .specimen {
@@ -150,16 +154,11 @@ pre {
   color: var(--color-codeblock-fg);
   font-size: var(--text-sm);
   line-height: 1.7;
-  border: var(--border-strong) solid var(--color-shadow);
+  border: var(--border-strong) solid var(--color-outline);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
 }
 
-/* Images inside content get the same frame as cards */
-.framed {
-  border: var(--border-strong) solid var(--color-shadow);
-  box-shadow: var(--shadow-lg);
-}
 
 .tok-tag { color: var(--color-syntax-tag); }
 .tok-attr { color: var(--color-syntax-attr); }
@@ -187,7 +186,13 @@ pre {
 
 .section {
   padding-block: var(--section-space);
-  border-top: var(--border-width) solid var(--color-rule);
+}
+
+/* A section's closing call to action (after a grid or list) is centred */
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
 }
 
 .stack > * + * {
@@ -225,7 +230,20 @@ pre {
   top: 0;
   z-index: var(--z-header);
   background: var(--color-bg);
-  border-bottom: var(--border-strong) solid var(--color-shadow);
+  border-bottom: var(--border-strong) solid transparent;
+  transition: border-color var(--duration) var(--ease);
+}
+
+/* The header's edge appears only once content scrolls under it (set by a small script) */
+.site-header[data-scrolled] {
+  border-bottom-color: var(--color-outline);
+}
+
+.scroll-sentinel {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
 }
 
 .site-header__inner {
@@ -347,7 +365,7 @@ pre {
   gap: var(--space-2);
   min-height: 3rem;
   padding: 0 var(--space-5);
-  border: var(--border-strong) solid var(--color-shadow);
+  border: var(--border-strong) solid var(--color-outline);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
@@ -356,20 +374,10 @@ pre {
   transition:
     background-color var(--duration-fast) var(--ease),
     color var(--duration-fast) var(--ease),
-    transform var(--duration-fast) var(--ease),
-    box-shadow var(--duration-fast) var(--ease);
+    border-color var(--duration-fast) var(--ease);
 }
 
-/* Hover lifts toward you; pressing pushes the button flat onto the page */
-.btn:hover {
-  transform: translate(calc(-1 * var(--lift)), calc(-1 * var(--lift)));
-  box-shadow: calc(var(--elev-md) + var(--lift)) calc(var(--elev-md) + var(--lift)) 0 var(--color-shadow);
-}
-
-.btn:active {
-  transform: translate(var(--elev-md), var(--elev-md));
-  box-shadow: 0 0 0 var(--color-shadow);
-}
+/* Hover and press change colour only. Nothing moves. */
 
 .btn--primary {
   background: var(--color-fg);
@@ -408,13 +416,6 @@ pre {
   box-shadow: var(--shadow-sm);
 }
 
-.btn--sm:hover {
-  box-shadow: calc(var(--elev-sm) + var(--lift)) calc(var(--elev-sm) + var(--lift)) 0 var(--color-shadow);
-}
-
-.btn--sm:active {
-  transform: translate(var(--elev-sm), var(--elev-sm));
-}
 
 .btn-row {
   display: flex;
@@ -437,25 +438,76 @@ pre {
   display: block;
   padding: var(--space-5);
   background: var(--color-surface);
-  border: var(--border-strong) solid var(--color-shadow);
+  border: var(--border-strong) solid var(--color-outline);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   color: inherit;
   text-decoration: none;
-  transition:
-    transform var(--duration) var(--ease),
-    box-shadow var(--duration) var(--ease);
+  transition: border-color var(--duration-fast) var(--ease);
 }
 
+/* Linked cards: hover recolours the outline and the title. Nothing moves. */
 a.card:hover {
-  transform: translate(calc(-1 * var(--lift)), calc(-1 * var(--lift)));
-  box-shadow: calc(var(--elev-lg) + var(--lift)) calc(var(--elev-lg) + var(--lift)) 0 var(--color-shadow);
+  border-color: var(--color-accent);
   color: inherit;
 }
 
-a.card:active {
-  transform: translate(var(--elev-lg), var(--elev-lg));
-  box-shadow: 0 0 0 var(--color-shadow);
+a.card__media {
+  aspect-ratio: 16 / 10;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
+  overflow: hidden;
+  background: var(--color-code-bg);
+  border-bottom: var(--border-strong) solid var(--color-outline);
+}
+
+/* Media is an asset: it fills the slot and never gets its own shadow or frame */
+.card__media img,
+.card__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+.card h3 {
+  transition: color var(--duration-fast) var(--ease);
+}
+
+a.card:hover h3 {
+  color: var(--color-accent);
+}
+
+.card__media {
+  aspect-ratio: 16 / 10;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
+  overflow: hidden;
+  background: var(--color-code-bg);
+  border-bottom: var(--border-strong) solid var(--color-outline);
+}
+
+/* Media is an asset: it fills the slot and never gets its own shadow or frame */
+.card__media img,
+.card__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
 }
 
 .card h3 {
@@ -483,7 +535,7 @@ a.card:active {
 .field textarea {
   min-height: 3rem;
   padding: var(--space-3) var(--space-4);
-  border: var(--border-strong) solid var(--color-shadow);
+  border: var(--border-strong) solid var(--color-outline);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   background: var(--color-surface);
@@ -505,7 +557,6 @@ a.card:active {
 /* ---- Footer ---------------------------------------------------------------------------------- */
 .site-footer {
   padding-block: var(--space-7);
-  border-top: var(--border-width) solid var(--color-rule);
   font-size: var(--text-sm);
   color: var(--color-fg-muted);
 }
@@ -516,6 +567,22 @@ a.card:active {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
+}
+
+.link-button {
+  min-height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline 2px var(--color-underline);
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-accent);
 }
 
 .site-footer p {

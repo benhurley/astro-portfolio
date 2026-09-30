@@ -14,14 +14,15 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - The spec is `docs/brand/WEB.md`. Follow it; it wins over habit.
 - `src/styles/brand/{tokens,base}.css` are verbatim from the brand kit. Don't edit them; add site-level styles to
   `src/styles/site.css` or a component `<style>` using tokens only.
-- Ben's decisions that override WEB.md live in the "Site overrides" block at the end of `site.css`. They win over the
-  kit: dark theme is deeper with black shadows and a muted outline, hover is colour-only (no lift or press), sections
-  have no rule between them, and images never get a frame or shadow.
 - No Tailwind, no SCSS, no UI component library. Plain semantic HTML with the classes from `base.css` (`container`,
-  `section`, `grid`, `card`, `btn btn--primary|secondary|cta`, `btn-row`, `eyebrow`, `lead`, `muted`, `display`,
-  `framed`).
-- Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images. Shadows are solid,
-  unblurred, down-right, `--color-shadow` only (never coloured), sized from `--shadow-sm|md|lg`.
+  `section`, `section-cta`, `grid`, `card` + `card__media`, `btn btn--primary|secondary|cta`, `btn-row`, `link-button`,
+  `eyebrow`, `lead`, `muted`, `display`).
+- Depth is required (WEB.md §6) for cards, buttons, inputs and code blocks, never for images or other media. Outline
+  in `--color-outline`, shadow in `--color-shadow` (always dark, never coloured), sized from `--shadow-sm|md|lg`.
+- No lines or alternating backgrounds between sections. The one exception is the home page's single inverted
+  "guiding principle" band, which Ben asked for.
+- If the brand kit changes, re-copy `web/tokens.css`, `web/base.css` and `web/WEB.md` verbatim, diff them first, and
+  adapt the site to them. Don't patch the kit's rules in `site.css`.
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
   `site.css` squares off the line caps.

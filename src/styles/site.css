@@ -3,8 +3,8 @@
  * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
  * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
  *
- * Depth (docs/brand/WEB.md §6) comes from base.css: .card, .btn, inputs and pre are raised. Images are not:
- * don't use .framed here. Where this site deliberately departs from the kit, it's in "Site overrides" at the end.
+ * Depth (docs/brand/WEB.md §6) comes from base.css: .card, .btn, inputs and pre are raised; images and other media
+ * never are. Hover is colour only.
  */
 
 /* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
@@ -47,12 +47,7 @@ svg[data-icon] {
   margin-bottom: 0;
 }
 
-.section-foot {
-  margin-top: var(--space-7);
-  text-align: center;
-}
-
-/* A closing call to action: centred heading and button */
+/* A closing call-to-action section: centred heading and button */
 .section--centered {
   text-align: center;
 }
@@ -78,7 +73,7 @@ ul.grid {
   flex: 1;
 }
 
-/* ---- Band: a full-width inverted section for a single statement. It's a section, so it stays flat ---- */
+/* ---- Band: one full-width inverted statement. Used once, so it isn't the alternating backgrounds WEB.md §4 rules out ---- */
 .band {
   border-top: 0;
   background: var(--color-fg);
@@ -94,26 +89,17 @@ ul.grid {
   color: inherit;
 }
 
-/* ---- Work card: a card with a full-bleed image on top ------------------------------ */
-.work-card {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
+/* ---- Work card: a linked card with the kit's media slot. On the portfolio page the title is an h2 styled
+   as h3, so it needs the kit's h3 hover colour too ------------------------------------------------------ */
+.work-card__title {
+  transition: color var(--duration-fast) var(--ease);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
 }
 
-.work-card img {
-  border-bottom: var(--border-strong) solid var(--color-shadow);
-  aspect-ratio: 16 / 10;
-  width: 100%;
-  object-fit: cover;
-}
-
-.work-card__body {
-  padding: var(--space-5);
-}
-
-.work-card__body p {
-  color: var(--color-fg-muted);
+a.card:hover .work-card__title {
+  color: var(--color-accent);
 }
 
 /* ---- Split: media beside text ------------------------------------------------------- */
@@ -342,91 +328,4 @@ ul.grid {
 
 .site-footer__logo {
   color: inherit;
-}
-
-.theme-toggle {
-  color: var(--color-fg);
-}
-
-/* ============================================================================================
- * Site overrides to brand kit v1.1
- * Deliberate departures from docs/brand/WEB.md, decided by Ben. Upstream these into the kit
- * (tokens.css, base.css, WEB.md) so the kit and the site agree again, then delete this block.
- * ========================================================================================== */
-
-/* 1. Deeper dark theme, with black shadows and a muted outline instead of Paper (WEB.md §6 says Paper) */
-:root {
-  --color-outline: var(--color-shadow); /* light theme: outline and shadow stay the same Ink, as in the kit */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --color-bg: #121011;
-    --color-surface: #1c191a;
-    --color-rule: #2a2627;
-    --color-shadow: #000000;
-    --color-outline: #57514b; /* 2.6:1 on bg: decorative edge; text and focus contrast are unchanged */
-    --color-code-bg: #242021;
-  }
-}
-
-:root[data-theme='dark'] {
-  --color-bg: #121011;
-  --color-surface: #1c191a;
-  --color-rule: #2a2627;
-  --color-shadow: #000000;
-  --color-outline: #57514b;
-  --color-code-bg: #242021;
-}
-
-.card,
-.btn,
-.field input,
-.field textarea,
-pre {
-  border-color: var(--color-outline);
-}
-
-/* 2. Hover is colour only: no lift, no press (WEB.md §6 "Interaction" says lift and press) */
-.btn:hover,
-.btn:active,
-.btn--sm:hover,
-.btn--sm:active {
-  transform: none;
-  box-shadow: var(--shadow-md);
-}
-
-.btn--sm:hover,
-.btn--sm:active {
-  box-shadow: var(--shadow-sm);
-}
-
-a.card:hover,
-a.card:active {
-  transform: none;
-  box-shadow: var(--shadow-lg);
-}
-
-.card {
-  transition: border-color var(--duration-fast) var(--ease);
-}
-
-.btn {
-  transition:
-    background-color var(--duration-fast) var(--ease),
-    color var(--duration-fast) var(--ease),
-    border-color var(--duration-fast) var(--ease);
-}
-
-a.card:hover {
-  border-color: var(--color-accent);
-}
-
-a.card:hover :is(h2, h3) {
-  color: var(--color-accent);
-}
-
-/* 3. No rule between sections: spacing separates them, and the band is the only change of colour */
-.section {
-  border-top: 0;
 }

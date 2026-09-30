@@ -22,7 +22,8 @@
   --color-fg: var(--bv-ink);          /* 14.5:1 on bg */
   --color-fg-muted: #67625a;          /* 5.4:1 on bg: captions, meta */
   --color-rule: #ddd6c8;              /* decorative dividers only */
-  --color-shadow: var(--bv-ink);      /* hard offset shadows and the outline of raised elements */
+  --color-shadow: var(--bv-ink);      /* hard offset shadows */
+  --color-outline: var(--bv-ink);     /* 2px outline of raised elements */
   --color-border: #8f897c;            /* form controls: 3.1:1, meets non-text contrast */
   --color-accent: #0076a3;            /* cyan for text-sized use (hover text): 4.5:1 on bg */
   --color-cta: var(--bv-cyan);        /* call-to-action fill, primary button hover */
@@ -59,12 +60,13 @@
   --text-h3: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);         /* 20 → 24px */
   --text-h2: clamp(1.625rem, 1.375rem + 1.1111vw, 2.375rem);      /* 26 → 38px */
   --text-h1: clamp(2.125rem, 1.6667rem + 2.037vw, 3.5rem);        /* 34 → 56px */
-  --text-display: clamp(2.75rem, 1.9167rem + 3.7037vw, 5.25rem);   /* 44 → 84px */
+  --text-display: clamp(2.75rem, 1.6667rem + 4.8148vw, 6rem);   /* 44 → 96px */
 
   --leading-tight: 1.05;     /* display, h1 */
   --leading-snug: 1.2;       /* h2, h3 */
   --leading-body: 1.6;
-  --tracking-tight: -0.02em; /* display, h1 */
+  --tracking-tight: -0.02em; /* h1 */
+  --tracking-display: -0.03em; /* display: big type needs tighter spacing */
   --measure: 68ch;           /* max line length for running text */
 
   /* ---- Space: 4px base ------------------------------------------------------ */
@@ -96,12 +98,12 @@
 
   /* ---- Depth: hard offset shadows ------------------------------------------
    * Solid, unblurred, always down and to the right at 45° (light from the top
-   * left). Never blurred, never coloured, never inset. A raised element always
-   * has a --border-strong outline in the same colour as its shadow. */
+   * left). Never blurred, never coloured, never inset, never light. Shadows are
+   * for interface elements only: never on images or other media. A raised
+   * element always has a --border-strong outline. Hover changes colour only. */
   --elev-sm: 3px;           /* inputs, small buttons */
   --elev-md: 4px;           /* buttons */
   --elev-lg: 6px;           /* cards, code blocks, images */
-  --lift: 2px;              /* extra offset on hover: the element rises toward you */
   --shadow-sm: var(--elev-sm) var(--elev-sm) 0 var(--color-shadow);
   --shadow-md: var(--elev-md) var(--elev-md) 0 var(--color-shadow);
   --shadow-lg: var(--elev-lg) var(--elev-lg) 0 var(--color-shadow);
@@ -141,15 +143,16 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: var(--bv-ink);
-    --color-surface: #2c2827;
+    --color-surface: var(--bv-ink);   /* same as the page: raised elements are drawn by outline + shadow, not a lighter fill */
     --color-fg: var(--bv-paper);
     --color-fg-muted: #a8a294;        /* 6.4:1 */
     --color-rule: #3a3533;
-    --color-shadow: var(--bv-paper);  /* on dark, depth is drawn in Paper */
+    --color-shadow: #000000;          /* shadows are always dark */
+    --color-outline: #7a746a;         /* 3.5:1 on ink: the outline carries the edge in dark mode */
     --color-border: #7a746a;          /* 3.5:1 */
     --color-accent: var(--bv-cyan);   /* 6.4:1 on ink */
     --color-focus: var(--bv-cyan);
-    --color-code-bg: #2e2a28;
+    --color-code-bg: #1a1718;
     --logo-b: var(--bv-paper);
     --logo-wordmark: var(--bv-paper);
   }
@@ -157,15 +160,16 @@
 
 :root[data-theme="dark"] {
   --color-bg: var(--bv-ink);
-  --color-surface: #2c2827;
+  --color-surface: var(--bv-ink);
   --color-fg: var(--bv-paper);
   --color-fg-muted: #a8a294;
   --color-rule: #3a3533;
-  --color-shadow: var(--bv-paper);
+  --color-shadow: #000000;
+  --color-outline: #7a746a;
   --color-border: #7a746a;
   --color-accent: var(--bv-cyan);
   --color-focus: var(--bv-cyan);
-  --color-code-bg: #2e2a28;
+  --color-code-bg: #1a1718;
   --logo-b: var(--bv-paper);
   --logo-wordmark: var(--bv-paper);
 }
