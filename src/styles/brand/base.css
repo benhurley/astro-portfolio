@@ -150,7 +150,15 @@ pre {
   color: var(--color-codeblock-fg);
   font-size: var(--text-sm);
   line-height: 1.7;
+  border: var(--border-strong) solid var(--color-shadow);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Images inside content get the same frame as cards */
+.framed {
+  border: var(--border-strong) solid var(--color-shadow);
+  box-shadow: var(--shadow-lg);
 }
 
 .tok-tag { color: var(--color-syntax-tag); }
@@ -217,7 +225,7 @@ pre {
   top: 0;
   z-index: var(--z-header);
   background: var(--color-bg);
-  border-bottom: var(--border-width) solid var(--color-rule);
+  border-bottom: var(--border-strong) solid var(--color-shadow);
 }
 
 .site-header__inner {
@@ -339,15 +347,28 @@ pre {
   gap: var(--space-2);
   min-height: 3rem;
   padding: 0 var(--space-5);
-  border: 2px solid transparent;
+  border: var(--border-strong) solid var(--color-shadow);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
   font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
   text-decoration: none;
   cursor: pointer;
   transition:
     background-color var(--duration-fast) var(--ease),
     color var(--duration-fast) var(--ease),
-    border-color var(--duration-fast) var(--ease);
+    transform var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+/* Hover lifts toward you; pressing pushes the button flat onto the page */
+.btn:hover {
+  transform: translate(calc(-1 * var(--lift)), calc(-1 * var(--lift)));
+  box-shadow: calc(var(--elev-md) + var(--lift)) calc(var(--elev-md) + var(--lift)) 0 var(--color-shadow);
+}
+
+.btn:active {
+  transform: translate(var(--elev-md), var(--elev-md));
+  box-shadow: 0 0 0 var(--color-shadow);
 }
 
 .btn--primary {
@@ -356,13 +377,12 @@ pre {
 }
 
 .btn--primary:hover {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
+  background: var(--color-cta);
+  color: var(--color-cta-fg);
 }
 
 .btn--secondary {
-  background: transparent;
-  border-color: var(--color-fg);
+  background: var(--color-surface);
   color: var(--color-fg);
 }
 
@@ -371,12 +391,12 @@ pre {
   color: var(--color-bg);
 }
 
-.btn--accent {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
+.btn--cta {
+  background: var(--color-cta);
+  color: var(--color-cta-fg);
 }
 
-.btn--accent:hover {
+.btn--cta:hover {
   background: var(--color-fg);
   color: var(--color-bg);
 }
@@ -385,6 +405,15 @@ pre {
   min-height: var(--tap-min);
   padding: 0 var(--space-3);
   font-size: var(--text-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--sm:hover {
+  box-shadow: calc(var(--elev-sm) + var(--lift)) calc(var(--elev-sm) + var(--lift)) 0 var(--color-shadow);
+}
+
+.btn--sm:active {
+  transform: translate(var(--elev-sm), var(--elev-sm));
 }
 
 .btn-row {
@@ -408,16 +437,25 @@ pre {
   display: block;
   padding: var(--space-5);
   background: var(--color-surface);
-  border: var(--border-width) solid var(--color-rule);
+  border: var(--border-strong) solid var(--color-shadow);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
   color: inherit;
   text-decoration: none;
-  transition: border-color var(--duration-fast) var(--ease);
+  transition:
+    transform var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
 }
 
 a.card:hover {
-  border-color: var(--color-fg);
+  transform: translate(calc(-1 * var(--lift)), calc(-1 * var(--lift)));
+  box-shadow: calc(var(--elev-lg) + var(--lift)) calc(var(--elev-lg) + var(--lift)) 0 var(--color-shadow);
   color: inherit;
+}
+
+a.card:active {
+  transform: translate(var(--elev-lg), var(--elev-lg));
+  box-shadow: 0 0 0 var(--color-shadow);
 }
 
 .card h3 {
@@ -445,17 +483,18 @@ a.card:hover {
 .field textarea {
   min-height: 3rem;
   padding: var(--space-3) var(--space-4);
-  border: var(--border-width) solid var(--color-border);
+  border: var(--border-strong) solid var(--color-shadow);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   background: var(--color-surface);
   color: var(--color-fg);
   font: inherit;
   font-size: max(16px, var(--text-base)); /* below 16px iOS Safari zooms the page on focus */
 }
 
-.field input:focus-visible,
-.field textarea:focus-visible {
-  border-color: var(--color-fg);
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--color-fg-muted);
 }
 
 /* ---- Hero ---------------------------------------------------------------------------------- */

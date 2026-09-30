@@ -21,7 +21,7 @@ const { src, alt = '' } = Astro.props
 ---
 
 <div class="breakout">
-  <Image src={src} alt={alt} width={1400} height={700} loading="lazy" />
+  <Image src={src} alt={alt} width={1400} height={700} class="framed" loading="lazy" />
 </div>
 
 <style>
@@ -30,7 +30,6 @@ const { src, alt = '' } = Astro.props
   }
 
   .breakout :global(img) {
-    border: var(--border-width) solid var(--color-rule);
     width: 100%;
     object-fit: cover;
   }

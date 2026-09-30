@@ -7,14 +7,14 @@ The website for [Ben Ventures](https://www.benvent.com/): design and frontend de
 
 Requires Node 24 (see `.nvmrc`).
 
-| Command           | Action                                          |
-| :---------------- | :---------------------------------------------- |
-| `npm install`     | Install dependencies                            |
-| `npm run dev`     | Start the dev server at `localhost:4321`        |
-| `npm run build`   | Build the production site to `./dist/`          |
-| `npm run preview` | Serve the production build locally              |
-| `npm run lint`    | ESLint, including strict `jsx-a11y` rules       |
-| `npm run format`  | Prettier                                        |
+| Command           | Action                                    |
+| :---------------- | :---------------------------------------- |
+| `npm install`     | Install dependencies                      |
+| `npm run dev`     | Start the dev server at `localhost:4321`  |
+| `npm run build`   | Build the production site to `./dist/`    |
+| `npm run preview` | Serve the production build locally        |
+| `npm run lint`    | ESLint, including strict `jsx-a11y` rules |
+| `npm run format`  | Prettier                                  |
 
 ## Design system
 
@@ -35,8 +35,11 @@ copying from a new kit, not by editing them here. Prettier ignores that folder s
 The rules that matter most:
 
 - **Tokens only.** No raw hex, font names or pixel sizes in component CSS where a token exists.
-- **Square corners, two weights (400/500), sentence case.** Magenta is punctuation (link underlines, focus ring, one
-  accent button per page); cyan appears only in the logo.
+- **Depth, never flat.** Cards, buttons, inputs, code blocks and content images (`.framed`) get a 2px outline and a hard,
+  unblurred offset shadow from the scale (`--shadow-sm|md|lg`), always Ink on light and Paper on dark. Linked cards
+  and buttons lift on hover and flatten on press. Text, links, nav, sections and the logo stay flat.
+- **Square corners, two weights (400/500), sentence case.** Cyan is the action colour (link underlines, focus, the one
+  `.btn--cta` per page); magenta appears only in the logo's `<` and in code.
 - **The logo is artwork.** Use `src/components/Logo.astro` (inline, theme-aware SVG), never an `<img>` or a font.
 - **Light and dark.** The theme follows the OS; the footer toggle stores an override in `localStorage` (`bv-theme`).
   Check every change in both themes, at 360, 390, 768, 1024 and 1440px.

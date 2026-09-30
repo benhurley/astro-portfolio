@@ -10,8 +10,8 @@
   color-scheme: light dark;
 
   /* ---- Brand inks: fixed values, the same in both themes ------------------ */
-  --bv-cyan: #00aeef;     /* logo "<" only. 2.2:1 on paper: never use for text on light */
-  --bv-magenta: #ec008c;  /* logo ">", link underlines, focus ring. 3.8:1: never body text */
+  --bv-cyan: #00aeef;     /* logo ">", call-to-action fills, link underlines. 2.2:1 on paper: never text on light */
+  --bv-magenta: #ec008c;  /* logo "<" and code syntax only. 3.8:1: never text */
   --bv-yellow: #fff200;   /* accent: text selection, highlights. Never in the logo */
   --bv-ink: #231f20;
   --bv-paper: #f4f1ea;
@@ -22,25 +22,27 @@
   --color-fg: var(--bv-ink);          /* 14.5:1 on bg */
   --color-fg-muted: #67625a;          /* 5.4:1 on bg: captions, meta */
   --color-rule: #ddd6c8;              /* decorative dividers only */
+  --color-shadow: var(--bv-ink);      /* hard offset shadows and the outline of raised elements */
   --color-border: #8f897c;            /* form controls: 3.1:1, meets non-text contrast */
-  --color-accent: #d4007e;            /* magenta for text-sized use: 4.5:1 on bg */
-  --color-accent-contrast: #ffffff;   /* text on --color-accent: 5.1:1 */
-  --color-underline: var(--bv-magenta);
-  --color-focus: var(--bv-magenta);
+  --color-accent: #0076a3;            /* cyan for text-sized use (hover text): 4.5:1 on bg */
+  --color-cta: var(--bv-cyan);        /* call-to-action fill, primary button hover */
+  --color-cta-fg: var(--bv-ink);      /* text on --color-cta: 6.4:1. White fails (2.5:1) */
+  --color-underline: var(--bv-cyan);  /* decorative: the underline itself marks the link */
+  --color-focus: #0076a3;             /* 4.5:1 on bg (needs 3:1); pure cyan is only 2.2:1 */
   --color-selection-bg: var(--bv-yellow);
   --color-selection-fg: var(--bv-ink);
   --color-code-bg: #e9e4d8;           /* inline code */
   --color-codeblock-bg: #1a1718;      /* code blocks are dark in both themes */
   --color-codeblock-fg: var(--bv-paper);
-  --color-syntax-tag: var(--bv-cyan);         /* 7.0:1 on codeblock */
-  --color-syntax-attr: #f038a5;               /* 4.9:1 */
+  --color-syntax-tag: #f038a5;                /* magenta, lifted: 4.9:1 on codeblock */
+  --color-syntax-attr: var(--bv-cyan);        /* 7.0:1 */
   --color-syntax-string: var(--bv-yellow);    /* 14:1 */
   --color-syntax-comment: #a8a294;            /* 6.4:1 */
 
   /* Logo parts (used by the inline SVGs in web/logo/) */
-  --logo-open: var(--bv-cyan);
+  --logo-open: var(--bv-magenta);
   --logo-b: var(--bv-ink);
-  --logo-close: var(--bv-magenta);
+  --logo-close: var(--bv-cyan);
   --logo-wordmark: var(--bv-ink);
 
   /* ---- Type ---------------------------------------------------------------- */
@@ -89,7 +91,20 @@
   /* ---- Shape, motion, interaction ----------------------------------------- */
   --radius: 0;              /* square corners everywhere: the logo has none */
   --radius-round: 999px;    /* avatars only */
-  --border-width: 1px;
+  --border-width: 1px;      /* dividers */
+  --border-strong: 2px;     /* the outline on every raised element */
+
+  /* ---- Depth: hard offset shadows ------------------------------------------
+   * Solid, unblurred, always down and to the right at 45° (light from the top
+   * left). Never blurred, never coloured, never inset. A raised element always
+   * has a --border-strong outline in the same colour as its shadow. */
+  --elev-sm: 3px;           /* inputs, small buttons */
+  --elev-md: 4px;           /* buttons */
+  --elev-lg: 6px;           /* cards, code blocks, images */
+  --lift: 2px;              /* extra offset on hover: the element rises toward you */
+  --shadow-sm: var(--elev-sm) var(--elev-sm) 0 var(--color-shadow);
+  --shadow-md: var(--elev-md) var(--elev-md) 0 var(--color-shadow);
+  --shadow-lg: var(--elev-lg) var(--elev-lg) 0 var(--color-shadow);
   --focus-width: 3px;
   --focus-offset: 2px;
   --tap-min: 2.75rem;       /* 44px minimum touch target */
@@ -130,9 +145,10 @@
     --color-fg: var(--bv-paper);
     --color-fg-muted: #a8a294;        /* 6.4:1 */
     --color-rule: #3a3533;
+    --color-shadow: var(--bv-paper);  /* on dark, depth is drawn in Paper */
     --color-border: #7a746a;          /* 3.5:1 */
-    --color-accent: #f038a5;          /* 4.5:1 on ink */
-    --color-accent-contrast: var(--bv-ink);
+    --color-accent: var(--bv-cyan);   /* 6.4:1 on ink */
+    --color-focus: var(--bv-cyan);
     --color-code-bg: #2e2a28;
     --logo-b: var(--bv-paper);
     --logo-wordmark: var(--bv-paper);
@@ -145,9 +161,10 @@
   --color-fg: var(--bv-paper);
   --color-fg-muted: #a8a294;
   --color-rule: #3a3533;
+  --color-shadow: var(--bv-paper);
   --color-border: #7a746a;
-  --color-accent: #f038a5;
-  --color-accent-contrast: var(--bv-ink);
+  --color-accent: var(--bv-cyan);
+  --color-focus: var(--bv-cyan);
   --color-code-bg: #2e2a28;
   --logo-b: var(--bv-paper);
   --logo-wordmark: var(--bv-paper);
