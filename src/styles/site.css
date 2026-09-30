@@ -218,10 +218,12 @@ ul.grid {
   margin-block: var(--space-6);
 }
 
-.external-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+/* An outbound link with a trailing icon. The link stays inline so its underline and any <em> inside flow as
+   normal text; the icon sits on the text line, centred on the lowercase letters, just after the last word. */
+.external-link svg {
+  display: inline-block;
+  vertical-align: -0.2em;
+  margin-left: var(--space-1);
 }
 
 /* ---- Quote --------------------------------------------------------------------------- */
