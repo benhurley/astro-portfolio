@@ -9,7 +9,7 @@ import Footer from '../components/Footer.astro'
 
 const {
   title = 'Ben Ventures',
-  description = `Is Your Website Stuck in 2010? Let's Rescue It. Reach out to Ben today to fix your website or build a new one.`,
+  description = "Is your website stuck in 2010? Let's rescue it. Reach out to Ben today to fix your website or build a new one.",
   url = Astro.url.pathname,
   image = '/og-image.png',
   author = 'Ben',
@@ -41,7 +41,7 @@ const {
     <meta name="theme-color" content="#F4F1EA" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#231F20" media="(prefers-color-scheme: dark)" />
 
-    <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
+    <SiteMeta title={title} description={description} url={url} image={image} author={author} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

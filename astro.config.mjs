@@ -4,13 +4,28 @@ import compress from 'astro-compress'
 import icon from 'astro-icon'
 import { fileURLToPath } from 'url'
 
-import sitemap from '@astrojs/sitemap';
+import sitemap from '@astrojs/sitemap'
+
+// Absolute URLs (og:image, canonical, sitemap) use the production domain, except on Netlify deploy previews and
+// branch deploys, which point at their own URL so link previews work before a merge (Netlify sets CONTEXT and
+// DEPLOY_PRIME_URL at build time).
+const site =
+  process.env.CONTEXT && process.env.CONTEXT !== 'production' && process.env.DEPLOY_PRIME_URL
+    ? process.env.DEPLOY_PRIME_URL
+    : 'https://www.benvent.com'
 
 // https://astro.build/config
 export default defineConfig({
   compressHTML: true,
-  site: 'https://www.benvent.com',
-  integrations: [mdx(), icon(), compress(), sitemap()],
+  site,
+  integrations: [
+    mdx(),
+    icon(),
+    // HTML is left to Astro's compressHTML: astro-compress's HTML pass strips attribute quotes and reorders
+    // attributes, which link-preview scrapers (iMessage, Slack) fail to parse, so they ignore og:image.
+    compress({ HTML: false }),
+    sitemap(),
+  ],
   vite: {
     resolve: {
       alias: {
