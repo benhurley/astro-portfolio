@@ -1,5 +1,5 @@
 /*
- * Ben Ventures design tokens (v1.13)
+ * Ben Ventures design tokens (v1.15)
  * The single source of truth for colour, type, spacing and layout on the web.
  * Components reference these variables. Never hardcode a hex value or a pixel size that a token covers.
  *
@@ -22,8 +22,9 @@
   --color-fg: var(--bv-ink);          /* 14.5:1 on bg */
   --color-fg-muted: #67625a;          /* 5.4:1 on bg: captions, meta */
   --color-rule: #ddd6c8;              /* decorative dividers only */
-  --color-outline: var(--bv-ink);     /* 2px outline of raised elements: Ink on light, Paper on dark */
-  --color-shadow: var(--bv-ink);      /* hard offset shadows: always the same colour as the outline */
+  --color-outline: var(--bv-ink);     /* 2px outline of raised elements */
+  --color-shadow: var(--bv-ink);      /* hard offset shadows. Light mode: the same Ink as the outline */
+  --color-input-border: var(--bv-ink);/* form fields: must stay >= 3:1 against the page */
   --color-border: #8f897c;            /* form controls: 3.1:1, meets non-text contrast */
   --color-accent: #0076a3;            /* cyan for text-sized use (hover text): 4.5:1 on bg */
   --color-cta: var(--bv-cyan);        /* primary button fill */
@@ -32,6 +33,12 @@
   --color-alt: #d4007e;               /* magenta button fill: the logo magenta, deep enough for text */
   --color-alt-fg: #ffffff;            /* 5.1:1 on --color-alt */
   --color-alt-hover: #b8006d;         /* magenta hover: deeper, away from its white text (6.4:1) */
+  /* Coloured buttons' own outline and shadow. Light: Ink like everything else.
+     Dark: no outline, and a tonal shadow in a deep shade of the button's own fill. */
+  --color-cta-outline: var(--bv-ink);
+  --color-cta-shadow: var(--bv-ink);
+  --color-alt-outline: var(--bv-ink);
+  --color-alt-shadow: var(--bv-ink);
   --color-hover-tint: var(--color-code-bg); /* outlined buttons and linked cards fill with this on hover */
   --color-badge: #d4007e;             /* magenta deep enough to carry small text */
   --color-badge-fg: #ffffff;          /* 5.1:1 on --color-badge, both themes */
@@ -159,8 +166,13 @@
     --color-fg: var(--bv-paper);
     --color-fg-muted: #a8a294;        /* 6.4:1 */
     --color-rule: #3a3533;
-    --color-outline: var(--bv-paper); /* the exact mirror of light: Paper outline... */
-    --color-shadow: var(--bv-paper);  /* ...and Paper shadow */
+    --color-outline: #57504d;         /* tonal dark mode: a quiet warm line (2.1:1; decorative) */
+    --color-shadow: #0e0c0c;          /* ...and a near-black shadow */
+    --color-input-border: #7a746a;    /* form fields need 3:1: 3.5:1 */
+    --color-cta-outline: transparent; /* coloured buttons: no outline... */
+    --color-cta-shadow: #00688f;      /* ...a deep-cyan shadow */
+    --color-alt-outline: transparent;
+    --color-alt-shadow: #7a0049;      /* deep-magenta shadow */
     --color-border: #7a746a;          /* 3.5:1 */
     --color-accent: var(--bv-cyan);   /* 6.4:1 on ink */
     --color-focus: var(--bv-cyan);
@@ -178,8 +190,13 @@
   --color-fg: var(--bv-paper);
   --color-fg-muted: #a8a294;
   --color-rule: #3a3533;
-  --color-outline: var(--bv-paper);
-  --color-shadow: var(--bv-paper);
+  --color-outline: #57504d;
+  --color-shadow: #0e0c0c;
+  --color-input-border: #7a746a;
+  --color-cta-outline: transparent;
+  --color-cta-shadow: #00688f;
+  --color-alt-outline: transparent;
+  --color-alt-shadow: #7a0049;
   --color-border: #7a746a;
   --color-accent: var(--bv-cyan);
   --color-focus: var(--bv-cyan);

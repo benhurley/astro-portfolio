@@ -1,4 +1,4 @@
-# Ben Ventures: website design system (v1.13)
+# Ben Ventures: website design system (v1.15)
 
 What changed in each version is in `CHANGELOG.md`.
 
@@ -24,7 +24,7 @@ Load order: fonts → `tokens.css` → `base.css` → your site's own CSS.
 3. **Square corners.** The logo has none, so the UI has none (`--radius: 0`). The only round things are avatars and circular illustrations (`.media-round`), because there the circle is the artwork's own shape.
 4. **Depth, never flat.** Interface elements that sit on the page (cards, buttons, inputs, code blocks) are raised with a 2px outline and a **hard offset shadow**. Images and video get the same 2px outline but **never a shadow**. A borderless, shadowless "flat" version of these components is off-brand, however clean it looks. See §6.
 5. **Two weights.** Jost 400 and 500. Nothing bolder: the logo already carries the weight.
-6. **Brand colour is punctuation.** Pages are Paper and Ink. Cyan is the action colour: the primary button, link underlines and focus. Magenta is the alternate button, badges, the logo's `<` and code. Yellow is text selection. Outlines and shadows are never a brand colour: Ink on light, Paper on dark.
+6. **Brand colour is punctuation.** Pages are Paper and Ink. Cyan is the action colour: the primary button, link underlines and focus. Magenta is the alternate button, badges, the logo's `<` and code. Yellow is text selection. Outlines and shadows: Ink in light mode; in dark mode, a quiet warm line with a near-black shadow, and coloured buttons cast a deep shade of their own colour.
 7. **WCAG 2.2 AA is the floor**, in both themes.
 
 ---
@@ -52,8 +52,11 @@ Components use these, never the brand inks directly (except the logo and link un
 | `--color-fg` | `#231F20` | `#F4F1EA` | 14.5:1 | Text, primary button fill |
 | `--color-fg-muted` | `#67625A` | `#A8A294` | 5.4:1 / 6.4:1 | Captions, dates, eyebrows |
 | `--color-rule` | `#DDD6C8` | `#3A3533` | decorative | Mobile menu separators only. **No lines between page sections** |
-| `--color-outline` | `#231F20` | `#F4F1EA` | 14.5:1 | The 2px outline of raised elements, images and the header edge. Dark mode is the exact mirror of light |
-| `--color-shadow` | `#231F20` | `#F4F1EA` | 14.5:1 | Hard offset shadows: **always the same colour as the outline** |
+| `--color-outline` | `#231F20` | `#57504D` | 14.5:1 / 2.1:1 | The 2px outline of outlined buttons, cards, code blocks, images and the header edge. In dark mode a quiet warm line |
+| `--color-shadow` | `#231F20` | `#0E0C0C` | — | Hard offset shadows for those elements. Light: the same Ink as the outline. Dark: near-black |
+| `--color-input-border` | `#231F20` | `#7A746A` | 14.5:1 / 3.5:1 | Form field borders. Kept at 3:1 or more, which the dark `--color-outline` isn't |
+| `--color-cta-outline` / `-shadow` | Ink / Ink | none / `#00688F` | — | The cyan button's outline and shadow. Dark: **no outline, and a tonal shadow** in deep cyan |
+| `--color-alt-outline` / `-shadow` | Ink / Ink | none / `#7A0049` | — | The magenta button's, likewise: deep-magenta tonal shadow |
 | `--color-cta-hover` | `#66CFF5` | same | 9.2:1 with Ink | Primary (cyan) button on hover |
 | `--color-alt` / `-fg` | `#D4007E` / `#FFFFFF` | same | 5.1:1 | Magenta button: the logo magenta deepened enough to carry text |
 | `--color-alt-hover` | `#B8006D` | same | 6.4:1 with white | Magenta button on hover |
@@ -170,10 +173,10 @@ Cards span 4 columns, which makes them one per row on mobile, two on tablet and 
 The website uses **hard offset shadows**: solid, unblurred blocks of colour behind raised elements, like a print slightly off register. It's the web's version of the logo's flat cuts and square corners. **Flat design is not an option for this brand.**
 
 ### The rules
-1. **Every raised element gets both parts, in the same colour:** a `--border-strong` (2px) outline and a hard shadow, both Ink in light mode and both Paper in dark mode. An outline without a shadow, a shadow without an outline, or the two in different colours, is wrong.
+1. **Light mode: every raised element gets a 2px Ink outline and an Ink hard shadow.** Dark mode uses **tonal shadows**: coloured buttons drop the outline and cast a shadow in a deep shade of their own fill (cyan → `#00688F`, magenta → `#7A0049`); outlined buttons, cards, inputs and code blocks keep a quiet warm line (`#57504D`, inputs `#7A746A`) with a near-black shadow (`#0E0C0C`). Always use the tokens; never hand-pick a shadow colour.
 2. **Solid, never blurred.** The shadow's blur radius is always `0`. No soft or "realistic" drop shadows, no glows, no `filter: drop-shadow()` with blur.
 3. **Always down and to the right, at 45°.** Light comes from the top left. X and Y offsets are always equal.
-4. **Never coloured.** Shadows are Ink on light and Paper on dark (the exact mirror), never grey, cyan, magenta or yellow, never semi-transparent. (Dark mode was tried in grey, black and stone; none held up. A hard shadow only reads if it contrasts with the page, so on a dark page it has to be light.)
+4. **No white or light shadows, ever, and never semi-transparent.** The only coloured shadows are the dark-mode tonal shadows under coloured buttons, each a deep shade of that button's own fill. (Dark mode was tried with Paper outlines and shadows, greys, black and stone; the Paper mirror read as brash, the greys as muddy. Tonal is what held up.)
 5. **Never inset.** Depth goes out from the page, not in.
 6. **Use the scale, not a new number.**
 
@@ -193,7 +196,7 @@ The website uses **hard offset shadows**: solid, unblurred blocks of colour behi
 - The header: a 2px `--color-outline` line underneath at all times (a line, not a shadow).
 
 ### Dark theme
-The exact mirror of light: surfaces are the same Ink as the page (no lighter charcoal), and a raised element is drawn by a Paper outline and a Paper shadow. Don't pair a black outline with the Paper shadow: black disappears on the dark page and outlined elements lose their top and left edges.
+**Tonal shadows.** Surfaces are the same Ink as the page (no lighter charcoal). Coloured buttons are pure fill, with no outline, over a shadow in a deep shade of their own colour, like ink printed slightly off register. Outlined buttons, cards and code blocks have a quiet warm line and a near-black shadow; form inputs use a slightly lighter line to stay accessible. Depth is present but calm; nothing is white.
 
 ---
 
@@ -252,7 +255,7 @@ A faint 32px grid (`--grid-cell`, 1px lines in `--color-grid`) that fades out to
 A CTA that closes a section, after a grid or list ("View all work"), is **centred** under it with `.section-cta`, 48px below. CTAs inside a block of text (the hero, a paragraph) align with that text.
 
 ### Forms
-Label above the field (14px, 500). Inputs 48px tall, 2px `--color-outline` outline, `--shadow-sm`, `--color-surface` fill, muted placeholder; the cyan focus ring shows on focus. **Input text must be at least 16px** or iOS Safari zooms the page on focus.
+Label above the field (14px, 500). Inputs 48px tall, 2px `--color-input-border` outline, `--shadow-sm`, `--color-surface` fill, muted placeholder; the cyan focus ring shows on focus. **Input text must be at least 16px** or iOS Safari zooms the page on focus.
 
 ### Code
 Inline code: JetBrains Mono at 0.9em on `--color-code-bg`. Code blocks are dark in both themes, raised with the 2px outline and `--shadow-lg`, with brand syntax colours: tags magenta (`#F038A5`, lifted for contrast), attributes cyan, strings yellow, comments `#A8A294`. All pass AA on the block background.
@@ -281,7 +284,7 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 
 ### Spot illustrations
 
-Three simple spots, each **one object on a soft circle**, drawn in the system's style: 4-unit outlines, square corners, a small hard shadow, and the brand inks used sparingly. They're inline SVGs (`web/spot/`) coloured by theme tokens, so they switch with light and dark. The kit's `spot/` folder has fixed light/dark SVG and PNG exports for slides, docs and email.
+Three simple spots, each **one object on a soft circle**, drawn in the system's style: 4-unit outlines, square corners, flat (no shadows), and the brand inks used sparingly. They're inline SVGs (`web/spot/`) coloured by theme tokens, so they switch with light and dark. The kit's `spot/` folder has fixed light/dark SVG and PNG exports for slides, docs and email.
 
 | Spot | Shows | Use for |
 |---|---|---|
@@ -293,7 +296,7 @@ Three simple spots, each **one object on a soft circle**, drawn in the system's 
 1. **One idea, one object** (or one pair), centred on the circle. If it needs a caption to make sense, it's too complicated.
 2. **Few shapes.** Panels, bubbles, devices, flat bars for text. No people, no words, no icons from a set, no detailed scenes.
 3. **Canvas 400 × 400**, circle radius 190 (`sp-disc`), objects inside it with room to breathe.
-4. **Same depth as the UI:** 4-unit outline, 8-unit hard shadow down and to the right on the main objects. No blur, gradients or transparency.
+4. **Flat.** 4-unit outlines, no shadows at all. Spots are assets, and assets never get shadows; depth belongs to the interface around them. No blur, gradients or transparency either.
 5. **Colour only through the spot classes** (`sp-*`). They're defined once, in `CLASS_CSS` in `spot/spot.py`; the build copies them into `base.css` between the `spot-classes` markers and **fails** if any class is unused or undefined, so dead styles can't pile up. Never a hex value in a spot.
 6. **Cyan marks the answer or the action**, at most one cyan element per spot.
 7. **Check both themes** before shipping.
@@ -322,7 +325,7 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour, in **both** dark blocks), check its contrast, and document it in this file. `colors/tokens.json` is generated from `tokens.css` by the kit build, so never edit it by hand; the build also fails if the two dark-theme blocks in `tokens.css` differ.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.13). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.15). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
@@ -335,7 +338,7 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 - [ ] Images, video and embeds (iframes): 2px outline, no shadow; no outline inside card media slots or on the logo
 - [ ] Round corners only on avatars and circular art (`.media-round`, square files only)
 - [ ] Illustrations are the system's spot art, inline so they switch theme; new ones stay as simple as the three spots
-- [ ] Outline and shadow always the same colour (Ink / Paper); hover changes only the fill; nothing moves
+- [ ] Outlines and shadows only from the tokens (Ink in light; tonal in dark), never white; hover changes only the fill; nothing moves
 - [ ] At most one cyan primary and one magenta button per view
 - [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
 - [ ] At most one guiding-principle band per page (48px padding inside); background grid only behind the hero; hero art hidden below 1024px

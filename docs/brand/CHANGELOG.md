@@ -1,5 +1,16 @@
 # Web design system changelog
 
+## 1.15
+
+- **Dark mode uses tonal shadows** instead of the Paper outline and shadow. Coloured buttons: no outline, a shadow in a deep shade of their own fill (cyan `#00688F`, magenta `#7A0049`). Outlined buttons, cards, code blocks: a quiet warm outline `#57504D` and a near-black shadow `#0E0C0C`. Light mode is unchanged (Ink outline and shadow everywhere).
+- New tokens: `--color-cta-outline`, `--color-cta-shadow`, `--color-alt-outline`, `--color-alt-shadow`, `--color-input-border`. Buttons read their outline and shadow through `--btn-outline` / `--btn-shadow`, so each variant can set its own.
+- **Form inputs** use `--color-input-border` (`#7A746A` in dark, 3.5:1), because the quiet dark outline (2.1:1) is below the 3:1 a form field boundary needs.
+- In dark mode, images, embeds and the header edge use the quiet `#57504D` line.
+
+## 1.14
+
+- **Spot illustrations are flat:** no hard shadows under the panels or speech bubbles. Spots are assets, and assets never get shadows. `sp-shadow` removed from the spot classes. Spot rule 4 now says "Flat".
+
 ## 1.13
 
 - **Outline and shadow always match:** Ink in light mode, **Paper in dark mode**, the exact mirror. The grey (`#7A746A`) outline and shadow are gone from dark mode. `--color-shadow-hover` and `--shadow-*-hover` removed.
