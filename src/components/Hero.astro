@@ -26,7 +26,14 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
 <section class="hero bg-grid">
   <div class="container split">
     <div class="hero__art">
-      <Image src={src} alt="" widths={[300, 600]} sizes="(min-width: 768px) 30vw, 0px" loading="eager" />
+      <Image
+        src={src}
+        alt=""
+        widths={[300, 600]}
+        sizes="(min-width: 768px) 30vw, 0px"
+        class="asset-outline asset-outline--round"
+        loading="eager"
+      />
     </div>
     <div>
       <h1 class="display">{randomMessage}</h1>

@@ -310,8 +310,14 @@ ul.grid {
  * ========================================================================================== */
 
 /* 1. Image assets get the same 2px outline as buttons and cards, but no shadow (WEB.md §6 and §9 say media get
-   no outline). Used on screenshots, photos, banners and embeds; round spot illustrations and images inside a
-   card's media slot don't need it. */
+   no outline). Used on screenshots, photos, banners, embeds and the spot illustrations; images inside a card's
+   media slot already sit inside the card's outline. */
 .asset-outline {
   border: var(--border-strong) solid var(--color-outline);
+}
+
+/* 2. Round spot illustrations get a round outline that traces their circular backdrop (the circle fills each
+   file edge to edge). The kit keeps round shapes for avatars only (--radius-round). */
+.asset-outline--round {
+  border-radius: var(--radius-round);
 }
