@@ -1,4 +1,4 @@
-# Ben Ventures: website design system (v1.6)
+# Ben Ventures: website design system (v1.8)
 
 What changed in each version is in `CHANGELOG.md`.
 
@@ -271,25 +271,32 @@ Separated by space, not a rule. Mark at 24px, © line, secondary links, 14px mut
 ## 9. Icons and images
 
 - **Icons:** only if needed. Use an outline set drawn at 1.5–2px with **square line caps and mitred joins** to match the logo's flat cuts (for example Lucide or Tabler with `stroke-linecap="square"`). Size to the text: 20px next to body text.
-- **Images:** no filters, overlays or gradients. Square corners. Images and video get a 2px `--color-outline` outline and square corners, and **never a shadow** (default styling in `base.css` for anything inside `<main>`). No outline inside a card's media slot; opt anything else out with `.media-bare` (logos, icons placed as `<img>`).
+- **Images:** no filters, overlays or gradients. Square corners. Images, video **and embeds** (`img`, `video`, `iframe`) get a 2px `--color-outline` outline and square corners, and **never a shadow** (default styling in `base.css` for anything inside `<main>`). No outline inside a card's media slot; opt anything else out with `.media-bare` (logos, icons placed as `<img>`).
+  - **Video embeds (YouTube, Vimeo):** add `.embed-16x9` so the iframe fills its container at 16:9. Always give the iframe a `title` (screen readers announce it), add `loading="lazy"`, and use the privacy-enhanced host (`youtube-nocookie.com`) for YouTube.
   - **Circular art (`.media-round`):** only for a **square** image whose artwork is a circle filling it edge to edge (avatars, round badges of circular art). The class rounds the image into a circle so the 2px outline traces the art exactly. Never use it to crop a rectangular photo or illustration into a circle, and never on buttons, cards or other interface elements. Always set `width`/`height` (or `aspect-ratio`) to avoid layout shift, and `loading="lazy"` below the fold. Alt text is required; decorative images get `alt=""`.
 
 ### Spot illustrations
 
-The site's illustrations are **spot art drawn from the system itself**: the same outlines, hard shadows, square corners and inks as the interface, so they look like part of the page rather than stock art dropped onto it. The files are in `web/spot/` (inline, theme-aware) and the kit's `spot/` folder (fixed light/dark exports). They replace the earlier circular people-and-devices illustrations, which are retired: they had baked-in colours, soft shading and rounded devices, and could not switch with the theme.
+Three simple spots, each **one object on a soft circle**, drawn in the system's style: 4-unit outlines, square corners, a small hard shadow, and the brand inks used sparingly. They're inline SVGs (`web/spot/`) coloured by theme tokens, so they switch with light and dark. The kit's `spot/` folder has fixed light/dark SVG and PNG exports for slides, docs and email.
 
-Use them **inline** so they flip with light and dark. `<img>` versions can't follow the theme; use the fixed `-light`/`-dark` files there, with class `spot` so they don't get the image outline.
+| Spot | Shows | Use for |
+|---|---|---|
+| `advise` | Two speech bubbles: a question, and a cyan reply with a check | Advising, consulting, "let's talk" |
+| `coming-soon` | A tablet and a phone showing a simple page with a cyan button | Launches, new products, mobile work |
+| `legacy-site` | A browser window stuck loading: a spinner (the logo's ring) with a magenta arc, grey placeholder bars | Slow or outdated sites that need rebuilding |
 
-**Rules for any new spot** (so the set keeps matching):
-1. **Subjects are the work, not people.** Windows, devices, cursors, code, layouts. No figures, faces, hands, mascots or stock-style scenes. Two cursors are how we show people working together.
-2. **Built only from system parts:** square-cornered panels, the logo's ring, 90° chevrons, flat bars standing in for text, simple circles and triangles. No text, no icons from a set, no rounded devices.
-3. **Canvas:** 400 × 400, square, on the faint 20-unit grid plate. Keep the main shapes inside a 40-unit margin.
-4. **Depth like the UI:** 4-unit outline on everything that isn't a text bar, and a 10-unit hard shadow, down and to the right, on panels only (windows, devices). No blur, no gradients, no transparency.
-5. **Colour only through the classes** in `base.css`: `sp-fill`, `sp-tint`, `sp-shadow`, `sp-line`, `sp-muted`, `sp-strong`, `sp-cyan`, `sp-magenta`, `sp-yellow`, `sp-stroke-cyan`, `sp-stroke-magenta`, `sp-grid`. Never a hex value in the SVG.
-6. **Ink roles match the UI:** cyan marks the action (buttons, the call to action), magenta and yellow are accents. Use all three sparingly; most of the art is fill, outline and bars.
-7. **Check both themes** before shipping a new one.
+**Keep new spots as simple as these:**
+1. **One idea, one object** (or one pair), centred on the circle. If it needs a caption to make sense, it's too complicated.
+2. **Few shapes.** Panels, bubbles, devices, flat bars for text. No people, no words, no icons from a set, no detailed scenes.
+3. **Canvas 400 × 400**, circle radius 190 (`sp-disc`), objects inside it with room to breathe.
+4. **Same depth as the UI:** 4-unit outline, 8-unit hard shadow down and to the right on the main objects. No blur, gradients or transparency.
+5. **Colour only through the classes** in `base.css` (`sp-disc`, `sp-track`, `sp-fill`, `sp-tint`, `sp-shadow`, `sp-line`, `sp-muted`, `sp-strong`, `sp-cyan`, `sp-magenta`, `sp-yellow`, `sp-stroke-strong`, `sp-stroke-ink`, `sp-screen`, `sp-screen-muted`, `sp-screen-line`). Never a hex value. Screens are dark in both themes, like code blocks.
+6. **Cyan marks the answer or the action**, at most one cyan element per spot.
+7. **Check both themes** before shipping.
 
-The generator that draws them (shared primitives: `window`, `raised`, `bars`, `chevron`, `cursor`) is `spot/spot.py` in the kit (Python 3, no dependencies); new spots should reuse it rather than start from scratch. Add a function, register it in `SPOTS`, and export.
+A spot is decorative next to a heading, so use `aria-hidden="true"` there instead of `role="img"`. The drawing script is `spot/spot.py` (Python 3, no dependencies): add a function, register it in `SPOTS`, and export.
+
+**Hero with an illustration:** `.hero__split` puts the art beside the text from 1024px (7 : 5 columns) and below it on mobile (max 320px wide).
 
 ## 10. Page setup checklist
 
@@ -311,7 +318,7 @@ The generator that draws them (shared primitives: `window`, `raised`, `bars`, `c
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour), check its contrast, document it in this file, and mirror it in `colors/tokens.json`.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.6). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.8). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
@@ -321,9 +328,9 @@ The generator that draws them (shared primitives: `window`, `raised`, `bars`, `c
 - [ ] Checked in light **and** dark theme
 - [ ] Keyboard only: can reach and use everything, focus is always visible
 - [ ] Raised elements have the 2px outline **and** a hard shadow from the scale: nothing flat, nothing blurred, nothing light in dark mode
-- [ ] Images and video: 2px outline, no shadow; no outline inside card media slots or on the logo
+- [ ] Images, video and embeds (iframes): 2px outline, no shadow; no outline inside card media slots or on the logo
 - [ ] Round corners only on avatars and circular art (`.media-round`, square files only)
-- [ ] Illustrations are the system's spot art, inline so they switch theme; new ones follow the spot rules
+- [ ] Illustrations are the system's spot art, inline so they switch theme; new ones stay as simple as the three spots
 - [ ] Hover changes colour only: nothing moves
 - [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
 - [ ] At most one guiding-principle band per page; background grid only behind the hero

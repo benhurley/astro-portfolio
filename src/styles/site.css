@@ -189,17 +189,9 @@ ul.grid {
   object-fit: cover;
 }
 
+/* Spacing around an embed; the iframe itself is the kit's .embed-16x9 (outline from base.css) */
 .video {
   margin-block: var(--space-6) var(--space-4);
-  aspect-ratio: 16 / 9;
-}
-
-/* An embedded video gets the same 2px outline base.css gives img and video in <main> (WEB.md §9) */
-.video iframe {
-  display: block;
-  border: var(--border-strong) solid var(--color-outline);
-  width: 100%;
-  height: 100%;
 }
 
 .link-row {
@@ -304,12 +296,13 @@ ul.grid {
 }
 
 /* ============================================================================================
- * Site overrides to brand kit v1.6. If they stick, add them to the kit's base.css and WEB.md, re-copy, and
- * delete this block.
+ * Site overrides to brand kit v1.8. Delete once the kit fixes them, after re-copying base.css.
  * ========================================================================================== */
 
-/* 1. A spot inside the hero's .bg-grid drops its own grid plate: the spot's 20-unit plate and the page's 32px
-   grid never line up, so together they read as a plaid behind the art. */
-.bg-grid .spot .sp-grid {
-  display: none;
+/* 1. Kit bug: base.css resets `iframe { border: 0 }` at (0,0,1), which beats the zero-specificity
+   `:where(main) :where(img, video, iframe)` outline, so embeds never get it. This restores it. The kit's
+   exceptions (`.card__media :is(...)`, `iframe.media-bare`) are more specific, so they still win.
+   Kit fix: write the reset as `:where(iframe) { border: 0; }`. */
+main iframe {
+  border: var(--border-strong) solid var(--color-outline);
 }

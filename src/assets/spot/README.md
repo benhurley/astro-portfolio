@@ -5,9 +5,9 @@ tokens, so the art flips between light and dark with the rest of the page.
 
 | File | Subject |
 |---|---|
-| `collaborate.inline.svg` | Design and code windows overlapping, two collaborators' cursors |
-| `coming-soon.inline.svg` | Tablet and phone showing a launch page with a notify button |
-| `website.inline.svg` | Browser window: image, text, call-to-action |
+| `advise.inline.svg` | Two speech bubbles: a question, and a cyan reply with a check |
+| `coming-soon.inline.svg` | Tablet and phone showing a simple page with a cyan button |
+| `legacy-site.inline.svg` | A browser window stuck loading: spinner and grey placeholder bars |
 
 - Size with CSS: they fill their container up to 400px (`.spot`). Square, 1:1.
 - Each has `role="img"` and an `aria-label`. If one is purely decorative next to text that says the same

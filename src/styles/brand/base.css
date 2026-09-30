@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.6). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.8). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -31,15 +31,32 @@ body {
 
 img,
 svg,
-video {
+video,
+iframe {
   display: block;
   max-width: 100%;
+}
+
+img,
+svg,
+video {
   height: auto;
+}
+
+iframe {
+  border: 0; /* drop the browser's default inset border; content iframes get the outline below */
+}
+
+/* Video embeds (YouTube, Vimeo): full width, 16:9, sized by the container */
+.embed-16x9 {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 /* Images and video in page content get the 2px outline, never a shadow.
    :where() keeps specificity at zero so any component can override it. */
-:where(main) :where(img, video) {
+:where(main) :where(img, video, iframe) {
   border: var(--border-strong) solid var(--color-outline);
   border-radius: var(--radius);
 }
@@ -54,10 +71,11 @@ video {
 
 /* Inside a card's media slot the card's own outline frames the image: no second border.
    .media-bare opts any other image out (e.g. a logo or icon placed as an <img>). */
-.card__media :is(img, video),
+.card__media :is(img, video, iframe),
 img.media-bare,
 img.spot,
-video.media-bare {
+video.media-bare,
+iframe.media-bare {
   border: 0;
 }
 
@@ -179,7 +197,10 @@ a:hover {
   max-width: 25rem;
   height: auto;
 }
-.spot .sp-grid line { stroke: var(--color-grid); stroke-width: 1; }
+.spot .sp-disc { fill: var(--color-code-bg); }
+.spot .sp-track { fill: none; stroke: var(--color-rule); stroke-width: 12; }
+.spot .sp-stroke-ink { fill: none; stroke: var(--bv-ink); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
+
 .spot .sp-fill { fill: var(--color-surface); }
 .spot .sp-tint { fill: var(--color-code-bg); }
 .spot .sp-shadow { fill: var(--color-shadow); }
@@ -193,6 +214,14 @@ a:hover {
 .spot .sp-stroke-cyan, .spot .sp-stroke-magenta { fill: none; stroke-width: 12; stroke-linejoin: miter; stroke-linecap: butt; }
 .spot .sp-stroke-cyan { stroke: var(--bv-cyan); }
 .spot .sp-stroke-magenta { stroke: var(--bv-magenta); }
+.spot .sp-stroke-strong { fill: none; stroke: var(--color-fg); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
+.spot .sp-glyph { fill: var(--color-fg); stroke: var(--color-fg); }
+/* screens are dark in both themes, like code blocks */
+.spot .sp-screen { fill: var(--color-codeblock-bg); }
+.spot .sp-screen-muted { fill: var(--color-syntax-comment); }
+.spot .sp-screen-line { fill: none; stroke: var(--color-syntax-comment); stroke-width: 3; }
+.spot .sp-wrench-edge { fill: none; stroke: var(--color-outline); stroke-width: 24; stroke-linecap: butt; }
+.spot .sp-wrench { fill: none; stroke: var(--bv-cyan); stroke-width: 16; stroke-linecap: butt; }
 
 /* ---- Code ------------------------------------------------------------------------ */
 code,
@@ -580,6 +609,30 @@ a.card:hover :is(h2, h3, h4, .card__title) {
 /* ---- Hero ---------------------------------------------------------------------------------- */
 .hero {
   padding-top: var(--space-8);
+}
+
+/* Hero with an illustration: stacked on mobile (art below the text), side by side from 1024px */
+.hero__split {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.hero__art {
+  max-width: 20rem;
+}
+
+@media (min-width: 1024px) {
+  .hero__split {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--grid-gap);
+  }
+
+  .hero__art {
+    max-width: none;
+    justify-self: end;
+    width: 100%;
+  }
 }
 
 /* ---- Guiding-principle band ----------------------------------------------------------------

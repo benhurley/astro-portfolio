@@ -1,5 +1,21 @@
 # Web design system changelog
 
+## 1.8
+
+- **Spot art simplified**, back to the format of the original illustrations: one object on a soft circle. `collaborate` → **`advise`** (two speech bubbles: a question, and a cyan reply with a check), **`coming-soon`** (tablet and phone, simple page, cyan button), `website` → **`legacy-site`** (a browser window stuck on a loading spinner). Update references to the old file names.
+- **Spot grid plates removed.** Spots sit on a circle (`sp-disc`) now, so the 1.7 "hide the spot grid on a gridded background" rule and `.spot--no-plate` are gone; a spot can sit on `.bg-grid` as-is.
+- **Spot rules rewritten** for simplicity: one idea, few shapes, no people, no words, one cyan element.
+- New spot classes: `sp-disc`, `sp-track`, `sp-stroke-ink`, `sp-stroke-strong`, `sp-screen`, `sp-screen-muted`, `sp-screen-line`. Removed: `sp-grid`.
+
+## 1.7
+
+From the site build. Both site.css overrides (hero spot grid, YouTube outline) can be deleted after re-copying `base.css`.
+
+- **Spot on a gridded background:** the spot's own grid plate is hidden automatically inside `.bg-grid`, and `.spot--no-plate` does the same anywhere else. The two grids can't line up and together read as plaid. New spot rule 8 in `WEB.md`.
+- **New `.hero__split`** layout for a hero with an illustration (art beside the text from 1024px, below it on mobile). The reference page uses it.
+- **Embeds get the media outline:** `iframe` joins `img` and `video` in the outline rule and its exceptions (`.card__media`, `.media-bare`). The browser's default iframe border is removed.
+- **New `.embed-16x9`** for full-width 16:9 video embeds, with guidance: `title` attribute, `loading="lazy"`, `youtube-nocookie.com`.
+
 ## 1.6
 
 - **New spot illustrations** (`web/spot/`): `collaborate`, `coming-soon`, `website`. Drawn from the system's own parts, coloured entirely by classes mapped to tokens, so they switch with light and dark. Fixed light/dark SVG and PNG exports are in the kit's `spot/` folder.

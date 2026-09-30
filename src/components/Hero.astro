@@ -4,7 +4,8 @@ import Spot from './Spot.astro'
 /**
  * Hero Component
  *
- * @description Home page hero: the "website" spot illustration, the page's one display headline and actions
+ * @description Home page hero on the kit's .hero__split: the page's one display headline and actions, with the
+ * "legacy-site" spot beside them from 1024px and below them on mobile
  */
 const heroMessages = [
   "Is your website stuck in 2010? Let's rescue it.",
@@ -14,10 +15,7 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
 ---
 
 <section class="hero bg-grid">
-  <div class="container split">
-    <div class="hero__art">
-      <Spot name="website" decorative />
-    </div>
+  <div class="container hero__split">
     <div>
       <h1 class="display">{randomMessage}</h1>
       <div class="btn-row">
@@ -29,31 +27,14 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
         >
       </div>
     </div>
+    <div class="hero__art">
+      <Spot name="legacy-site" decorative />
+    </div>
   </div>
 </section>
 
 <style>
   .display {
     margin-bottom: var(--space-6);
-  }
-
-  /* The illustration accompanies the headline on wider screens only */
-  .hero__art {
-    display: none;
-  }
-
-  .hero__art :global(.spot) {
-    margin-inline: auto;
-  }
-
-  @media (min-width: 768px) {
-    /* Give the headline the wider column so it doesn't stack four lines deep */
-    .split {
-      grid-template-columns: 2fr 3fr;
-    }
-
-    .hero__art {
-      display: block;
-    }
   }
 </style>

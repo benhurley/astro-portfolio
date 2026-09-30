@@ -21,9 +21,10 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   in `--color-outline`, shadow in `--color-shadow` (never coloured), sized from `--shadow-sm|md|lg`. Never
   white/Paper shadows.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.6: a spot
-  inside the hero's `.bg-grid` hides its own grid plate.
-- Images and video in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow). Use
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.8: `main iframe`
+  restores the embed outline that a kit specificity bug drops.
+- Images, video and iframes in `<main>` get the kit's 2px outline automatically (no class needed, never a shadow).
+  Video embeds use `.embed-16x9`, a `title`, `loading="lazy"` and `youtube-nocookie.com`. Use
   `.media-round` for square files with circular art (the quote avatars), `.media-bare` to opt an image out.
 - Follow the kit for sections (one shared gap, no lines), the guiding-principle `.band`, `.badge` and `.bg-grid`
   (hero only; the fade is the kit's design, and Ben is keeping it). Site-specific choices on top of the kit: a
@@ -35,5 +36,6 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   `site.css` squares off the line caps.
 - Motion: colour transitions only. No lift, press, page-transition animations (so no `ClientRouter`) or parallax.
 - Illustrations are the kit's spot art: inline SVGs in `src/assets/spot/` (verbatim from the kit's `web/spot/`),
-  rendered with `<Spot name="…" />` or `<ContentMedia spot="…">`. Never use `<img>` for them, never edit their
+  rendered with `<Spot name="advise|coming-soon|legacy-site" />` or `<ContentMedia spot="…">`; the hero uses the
+  kit's `.hero__split`. Never use `<img>` for them, never edit their
   colours, and draw new ones with the kit's `spot/spot.py` so the set matches.
