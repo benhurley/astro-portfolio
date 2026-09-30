@@ -379,3 +379,8 @@ a.card:hover .work-card__title {
 .site-header {
   border-bottom-color: var(--color-outline);
 }
+
+/* 4. Display type: 44 → 72px instead of the kit's 44 → 96px, which overpowered the hero. Still larger than h1 (56px). */
+:root {
+  --text-display: clamp(2.75rem, 2.1667rem + 2.5926vw, 4.5rem);
+}
