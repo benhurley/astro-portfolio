@@ -62,7 +62,7 @@ const offerings = [
 
   <FeaturedProjects title="Portfolio" />
 
-  <ContentMedia imgSrc="/coming-soon.webp" art>
+  <ContentMedia imgSrc="/coming-soon-spot.webp" art>
     <h2>Starting a new company?</h2>
     <p class="lead">
       Let me handle the technical setup while you focus on your business. I'll get you up and running with a domain,
@@ -70,7 +70,7 @@ const offerings = [
     </p>
   </ContentMedia>
 
-  <ContentMedia imgSrc="/advisor.webp" art>
+  <ContentMedia imgSrc="/advisor-spot.webp" art>
     <h2>Need advising?</h2>
     <p class="lead">
       New projects are overwhelming, and it helps to have someone who's been there. I'll ensure your design system,
@@ -78,9 +78,9 @@ const offerings = [
     </p>
   </ContentMedia>
 
-  <section class="section">
+  <section class="section section--centered">
     <div class="container">
-      <h2>Let's get to work.</h2>
+      <h2 class="closing">Let's get to work.</h2>
       <div class="btn-row">
         <a
           class="btn btn--cta"
@@ -93,9 +93,14 @@ const offerings = [
 </DefaultLayout>
 
 <style>
-  .principle {
+  .principle,
+  .closing {
     font-size: var(--text-h1);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
+  }
+
+  .closing {
+    margin-bottom: var(--space-6);
   }
 </style>

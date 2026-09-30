@@ -58,6 +58,11 @@ const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.lengt
   }
 
   @media (min-width: 768px) {
+    /* Give the headline the wider column so it doesn't stack four lines deep */
+    .split {
+      grid-template-columns: 2fr 3fr;
+    }
+
     .hero__art {
       display: block;
     }

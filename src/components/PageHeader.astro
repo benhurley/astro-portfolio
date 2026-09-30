@@ -81,14 +81,7 @@ const crumbs = segments.map((segment, index) => ({
     }
     {
       featuredImage && (
-        <Image
-          src={featuredImage}
-          alt=""
-          width={1200}
-          height={250}
-          class="page-header__banner framed"
-          loading="eager"
-        />
+        <Image src={featuredImage} alt="" width={1200} height={250} class="page-header__banner" loading="eager" />
       )
     }
     {eyebrow && <span class="eyebrow">{eyebrow}</span>}

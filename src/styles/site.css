@@ -3,8 +3,8 @@
  * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
  * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
  *
- * Depth (docs/brand/WEB.md §6) comes from base.css: .card, .btn, inputs, pre and .framed are already raised.
- * Put .framed on screenshots and project images in content; illustrations stay unframed.
+ * Depth (docs/brand/WEB.md §6) comes from base.css: .card, .btn, inputs and pre are raised. Images are not:
+ * don't use .framed here. Where this site deliberately departs from the kit, it's in "Site overrides" at the end.
  */
 
 /* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
@@ -49,6 +49,16 @@ svg[data-icon] {
 
 .section-foot {
   margin-top: var(--space-7);
+  text-align: center;
+}
+
+/* A closing call to action: centred heading and button */
+.section--centered {
+  text-align: center;
+}
+
+.section--centered .btn-row {
+  justify-content: center;
 }
 
 /* Lists laid out on the brand grid: each item spans 4 columns (1 / 2 / 3 per row) */
@@ -117,6 +127,12 @@ ul.grid {
   width: 100%;
 }
 
+/* Spot illustrations (transparent, with a round cream backdrop) sit smaller than screenshots */
+.split__media--art img {
+  margin-inline: auto;
+  width: 75%;
+}
+
 @media (min-width: 768px) {
   .split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -127,6 +143,11 @@ ul.grid {
 /* ---- Page header and breadcrumbs ------------------------------------------------------ */
 .page-header {
   padding-block: var(--space-6) var(--space-8);
+}
+
+/* The header's own bottom padding separates it from the first section */
+.page-header + .section {
+  padding-top: 0;
 }
 
 .page-header .lead {
@@ -188,7 +209,7 @@ ul.grid {
 
 .gallery {
   display: grid;
-  gap: var(--space-5); /* room for the framed images' shadows */
+  gap: var(--space-4);
   margin-block: var(--space-6);
 }
 
@@ -234,7 +255,7 @@ ul.grid {
 /* ---- Quote --------------------------------------------------------------------------- */
 .quote {
   margin: var(--space-6) 0;
-  border-left: var(--border-strong) solid var(--color-shadow);
+  border-left: var(--border-strong) solid var(--color-outline);
   padding-left: var(--space-5);
 }
 
@@ -325,4 +346,87 @@ ul.grid {
 
 .theme-toggle {
   color: var(--color-fg);
+}
+
+/* ============================================================================================
+ * Site overrides to brand kit v1.1
+ * Deliberate departures from docs/brand/WEB.md, decided by Ben. Upstream these into the kit
+ * (tokens.css, base.css, WEB.md) so the kit and the site agree again, then delete this block.
+ * ========================================================================================== */
+
+/* 1. Deeper dark theme, with black shadows and a muted outline instead of Paper (WEB.md §6 says Paper) */
+:root {
+  --color-outline: var(--color-shadow); /* light theme: outline and shadow stay the same Ink, as in the kit */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #121011;
+    --color-surface: #1c191a;
+    --color-rule: #2a2627;
+    --color-shadow: #000000;
+    --color-outline: #57514b; /* 2.6:1 on bg: decorative edge; text and focus contrast are unchanged */
+    --color-code-bg: #242021;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #121011;
+  --color-surface: #1c191a;
+  --color-rule: #2a2627;
+  --color-shadow: #000000;
+  --color-outline: #57514b;
+  --color-code-bg: #242021;
+}
+
+.card,
+.btn,
+.field input,
+.field textarea,
+pre {
+  border-color: var(--color-outline);
+}
+
+/* 2. Hover is colour only: no lift, no press (WEB.md §6 "Interaction" says lift and press) */
+.btn:hover,
+.btn:active,
+.btn--sm:hover,
+.btn--sm:active {
+  transform: none;
+  box-shadow: var(--shadow-md);
+}
+
+.btn--sm:hover,
+.btn--sm:active {
+  box-shadow: var(--shadow-sm);
+}
+
+a.card:hover,
+a.card:active {
+  transform: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.card {
+  transition: border-color var(--duration-fast) var(--ease);
+}
+
+.btn {
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+a.card:hover {
+  border-color: var(--color-accent);
+}
+
+a.card:hover :is(h2, h3) {
+  color: var(--color-accent);
+}
+
+/* 3. No rule between sections: spacing separates them, and the band is the only change of colour */
+.section {
+  border-top: 0;
 }

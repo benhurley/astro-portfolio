@@ -35,9 +35,12 @@ copying from a new kit, not by editing them here. Prettier ignores that folder s
 The rules that matter most:
 
 - **Tokens only.** No raw hex, font names or pixel sizes in component CSS where a token exists.
-- **Depth, never flat.** Cards, buttons, inputs, code blocks and content images (`.framed`) get a 2px outline and a hard,
-  unblurred offset shadow from the scale (`--shadow-sm|md|lg`), always Ink on light and Paper on dark. Linked cards
-  and buttons lift on hover and flatten on press. Text, links, nav, sections and the logo stay flat.
+- **Depth, never flat.** Cards, buttons, inputs and code blocks get a 2px outline and a hard, unblurred offset shadow
+  from the scale (`--shadow-sm|md|lg`). Images don't. Hover changes colour only; nothing moves. Text, links, nav,
+  sections and the logo stay flat.
+- **Site overrides.** Where the site deliberately departs from the kit (deeper dark theme with black shadows, no
+  hover lift, no section rules, unframed images), the change lives in the "Site overrides" block at the end of
+  `src/styles/site.css`, pending an update to the kit.
 - **Square corners, two weights (400/500), sentence case.** Cyan is the action colour (link underlines, focus, the one
   `.btn--cta` per page); magenta appears only in the logo's `<` and in code.
 - **The logo is artwork.** Use `src/components/Logo.astro` (inline, theme-aware SVG), never an `<img>` or a font.
