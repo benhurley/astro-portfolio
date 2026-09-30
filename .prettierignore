@@ -1,2 +1,3 @@
-# Verbatim copies of the brand kit (web/tokens.css, web/base.css). Update them from the kit, never by hand.
+# Verbatim copies of the brand kit (web/tokens.css, web/base.css, web/spot/). Update them from the kit, never by hand.
 src/styles/brand/
+src/assets/spot/
