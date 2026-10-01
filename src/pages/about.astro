@@ -6,16 +6,17 @@ import headshot from '@assets/images/headshot.jpg'
 
 const aiRange = [
   {
-    title: 'AI-Free',
-    text: "Hand-written code and hand-made design, start to finish. For when there's a specific need: a policy, a client requirement, or a firm preference for keeping the robots out of it.",
+    title: 'Fully Agentic',
+    badge: 'Recommended',
+    text: 'My favorite. Claude Code with custom commands, agentic automation and workflows that take repeatable work off the table.',
   },
   {
     title: 'Somewhere in Between',
     text: 'AI as a sidekick for drafts, tests and second opinions, while the decisions and the craft stay human.',
   },
   {
-    title: 'Fully Agentic',
-    text: 'My favorite. Claude Code with custom commands, agentic automation and workflows that take repeatable work off the table.',
+    title: 'AI-Free',
+    text: "Hand-written code and hand-made design, start to finish. For when there's a specific need: a policy, a client requirement, or a firm preference for keeping the robots out of it.",
   },
 ]
 ---
@@ -74,7 +75,10 @@ const aiRange = [
           aiRange.map((item) => (
             <li>
               <div class="card">
-                <h3>{item.title}</h3>
+                <h3>
+                  {item.title}
+                  {item.badge && <span class="badge">{item.badge}</span>}
+                </h3>
                 <p class="muted">{item.text}</p>
               </div>
             </li>
@@ -138,6 +142,15 @@ const aiRange = [
   /* The prose column is centred by the kit; on this page it lines up with the sections above */
   .brand {
     margin-inline: 0;
+  }
+
+  /* These short blocks sit under full-width cards, so they run the full width instead of the kit's 68-character
+     reading measure (WEB.md §3), which left them looking cut off on desktop */
+  .section-head .lead,
+  .example,
+  .brand,
+  .brand p {
+    max-width: none;
   }
 
   .closing {

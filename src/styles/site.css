@@ -73,8 +73,8 @@ ul.grid {
   margin-bottom: var(--space-4);
 }
 
-/* A badge after a title sits a little away from it */
-.work-card__title .badge {
+/* A badge after a card title sits a little away from it */
+.card :is(h2, h3) .badge {
   vertical-align: middle;
   margin-left: var(--space-2);
 }
