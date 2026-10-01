@@ -86,6 +86,6 @@ const crumbs = segments.map((segment, index) => ({
     }
     <h1>{title}</h1>
     {sanitizedSubtitle && <p class="lead" set:html={sanitizedSubtitle} />}
-    {meta && <p class="made-with page-header__meta">{meta}</p>}
+    {meta && <p class="meta">{meta}</p>}
   </div>
 </section>

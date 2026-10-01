@@ -21,8 +21,8 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   and shadow come from tokens only: Ink in light; tonal in dark (quiet `#57504D` line + near-black shadow, and
   coloured buttons drop the outline for a deep shade of their own fill). Never white or light shadows. Spots are flat.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
-  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.15: 32px band padding (kit 48px), spots shrink to
-  192px (centred, text stays left) on phones, and Title Case copy (below).
+  `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.17: phone spots 192px (kit
+  160px), hero spot hidden on phones, hero buttons side by side on phones.
 - Copy: Title Case for headings, buttons, nav and link labels (major words capitalised; a, an, the, and, or, to, in,
   of, on, for, with lowercase unless first). Running text (descriptions, leads, the band note) stays sentence case.
   Badges are Title Case too ("Guiding Principle", "Latest"); eyebrows stay lowercase mono. WEB.md §3 says sentence case; Ben prefers Title Case.
@@ -43,6 +43,7 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Hover on buttons and linked cards changes only the fill (cyan lightens, magenta deepens, others tint): no outline,
   shadow or text change, and nothing moves. No page-transition animations (so no `ClientRouter`) or parallax.
 - Illustrations are the kit's spot art: inline SVGs in `src/assets/spot/` (verbatim from the kit's `web/spot/`),
-  rendered with `<Spot name="advise|coming-soon|legacy-site" />` or `<ContentMedia spot="…">`; the hero uses the
-  kit's `.hero__split`. Never use `<img>` for them, never edit their
+  rendered with `<Spot name="advise|coming-soon|legacy-site" />` or `<ContentMedia spot="…">` (the kit's
+  `.split` / `.split__art`; the hero uses `.hero__split`). External links end with `<LinkIcon />` (the kit's
+  `.link-icon`), on the same line as the text. Never use `<img>` for them, never edit their
   colours, and draw new ones with the kit's `spot/spot.py` so the set matches.

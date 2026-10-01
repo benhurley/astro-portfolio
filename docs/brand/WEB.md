@@ -1,4 +1,4 @@
-# Ben Ventures: website design system (v1.15)
+# Ben Ventures: website design system (v1.17)
 
 What changed in each version is in `CHANGELOG.md`.
 
@@ -110,7 +110,10 @@ Sizes are fluid: they scale smoothly from the first value at a 360px viewport to
 | `--text-xs` | 13px | 400 | — | 0 | Legal only |
 
 Rules:
-- **Sentence case** for headings, buttons and nav. No all-caps.
+- **Title Case** for headings (including the display headline and the band statement), buttons, nav, link labels, card titles and badges: "My Offerings", "Get in Touch", "View Case Study", "Case Study". Major words are capitalised; short words (a, an, the, and, but, or, to, in, of, on, at, by, as, for, with) stay lowercase unless they're the first word ("Let's Get to Work.", "Starting a New Company?").
+- **Sentences stay sentences.** Descriptions, lead paragraphs, body copy and captions are in normal sentence case.
+- **The small mono labels stay lowercase** (eyebrows like `01 · work`, `guiding principle`, `latest`), as a deliberate contrast with the Title Case heading under them.
+- No all-caps anywhere.
 - Running text is capped at **68 characters** per line (`--measure`).
 - Eyebrow labels (the small line above a heading) are JetBrains Mono, lowercase, muted, e.g. `01 · work`.
 - Don't use font-size to create hierarchy below h3; use weight or colour.
@@ -236,23 +239,33 @@ Inherit the text colour, with a **2px cyan underline** offset 0.2em. On hover th
 Every interactive element shows a **3px cyan outline (`--color-focus`), 2px offset**, on keyboard focus (`:focus-visible`). Never remove it without a visible replacement.
 
 ### Cards
-`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover fills it with `--color-hover-tint`, the same as an outlined button. The title can be any heading level (`h2`, `h3`, `h4`), or add `.card__title` to whatever element holds it. Content order: media → eyebrow → title → muted description. A `.badge` can sit inline after the title.
+`--color-surface` fill, 2px `--color-outline` outline, `--shadow-lg`, 24px padding, square corners. Optional **media slot** (`.card__media`) at the top: 16:10, edge to edge, separated by the outline colour, image `object-fit: cover`, no shadow of its own. Work cards should use it. If the whole card is a link, hover fills it with `--color-hover-tint`, the same as an outlined button. The title can be any heading level (`h2`, `h3`, `h4`), or add `.card__title` to whatever element holds it. Content order: media → (eyebrow) → title → muted description → (meta). Both the eyebrow and the meta line are optional. **Work cards use a `.meta` line instead of an eyebrow**: a small muted fact under the description, like "Made with Shopify". Project page headers use the same `.meta` line. A `.badge` can sit inline after the title.
 
 ### Guiding-principle band (`.band`)
 One short statement on a full-width Ink band: `--color-band-bg`, Paper text, the statement at h1 size (`.band__statement`, max 22 characters per line), with an optional mono eyebrow. It spans the full viewport width; its content sits in the normal `.container`.
 - **At most one per page.** It's the one exception to "no alternating section backgrounds".
-- It's a statement, not a section to fill: one sentence, no cards, no grid, no buttons (a single text link at most).
-- It takes one `--section-space` of margin above and pads **48px** (`--space-7`) inside, at every screen size; the next section's normal top padding gives the gap below. Don't pad it by `--section-space`: that makes the band 64–96px taller than its one sentence needs.
+- It's a statement, not a section to fill: one statement in Title Case, plus **at most one short supporting sentence** under it (`.band__note`, in sentence case and the band's muted colour). No cards, no grid, no buttons (a single text link at most).
+- It takes one `--section-space` of margin above and pads **32px** (`--space-6`) inside, at every screen size; the next section's normal top padding gives the gap below. Don't pad it by `--section-space`: that makes the band far taller than its one line needs.
 - In dark mode it's darker than the page (`#151213`), never lighter.
 
 ### Badge (`.badge`)
-A small label: "case study", "new", a status. **Magenta fill (`--color-badge`, `#D4007E`), white text** (5.1:1, both themes), JetBrains Mono 13px, 2px × 8px padding, square corners. **Flat**: badges never get an outline or shadow. Use one per item at most, and never as a button: if it's clickable, it's a link or a button instead.
+A small label in Title Case: "Case Study", "New", a status. **Magenta fill (`--color-badge`, `#D4007E`), white text** (5.1:1, both themes), JetBrains Mono 13px, 2px × 8px padding, square corners. **Flat**: badges never get an outline or shadow. Use one per item at most, and never as a button: if it's clickable, it's a link or a button instead.
 
 ### Background grid (`.bg-grid`)
 A faint 32px grid (`--grid-cell`, 1px lines in `--color-grid`) that fades out towards the bottom. **Decorative, and only behind the hero.** Never behind running text longer than a paragraph, never on the band, never on cards. It's drawn on a `::before` layer so its fade never touches the content, and a gridded hero keeps the single section gap.
 
 ### Section calls to action
-A CTA that closes a section, after a grid or list ("View all work"), is **centred** under it with `.section-cta`, 48px below. CTAs inside a block of text (the hero, a paragraph) align with that text.
+A CTA that closes a section, after a grid or list ("View All Work"), is **centred** under it with `.section-cta`, 48px below. CTAs inside a block of text (the hero, a paragraph) align with that text, **except in a closing section**: the page's final call to action ("Let's Get to Work.") uses `.section--closing`, which centres the heading, any text and the button together.
+
+### Reading column (`.prose`)
+Long write-ups, such as project pages, sit in a **centred column capped at 68 characters** (`--measure`). Put `.prose` on the container that holds the write-up; headings in it are Title Case, paragraphs are sentences.
+
+### External links
+A link that leaves the site gets a trailing 20px icon (`web/icons/external.inline.svg`, class `.link-icon`) on the same text line: 4px gap, `vertical-align: -0.2em`, so the underline and any italics flow normally. **In MDX, keep the link text and the icon on one line inside the `<a>`**: if the text sits on its own line, MDX wraps it in a `<p>` and knocks the icon out of line.
+
+```html
+<a href="https://example.com">Visit Website<svg class="link-icon" …></svg></a>
+```
 
 ### Forms
 Label above the field (14px, 500). Inputs 48px tall, 2px `--color-input-border` outline, `--shadow-sm`, `--color-surface` fill, muted placeholder; the cyan focus ring shows on focus. **Input text must be at least 16px** or iOS Safari zooms the page on focus.
@@ -303,12 +316,12 @@ Three simple spots, each **one object on a soft circle**, drawn in the system's 
 
 A spot is decorative next to a heading, so use `aria-hidden="true"` there instead of `role="img"`. The drawing script is `spot/spot.py` (Python 3, no dependencies; it reads colours from `web/tokens.css` via `spot/tokens_parse.py`): add a function, register it in `SPOTS`, and export.
 
-**Hero with an illustration:** `.hero__split` puts the art beside the text from 1024px (7 : 5 columns). **Below 1024px the art is hidden**, phones and tablets alike: stacked under the buttons it looks lopsided and pushes the first section down, so the buttons lead straight into the next section.
+**Text with a spot (`.split` / `.split__art`; in the hero, `.hero__split` / `.hero__art`):** from 768px the spot sits beside the text (7 : 5 columns). **Below 768px it shrinks to 160px** and sits **centred above its section**, with the text below left-aligned: it still breaks up the text, without pushing the copy a screen down. Don't hide it, and don't let it stretch to the full width on a phone.
 
 ## 10. Page setup checklist
 
 - `<html lang="en">`, `<meta name="viewport" content="width=device-width, initial-scale=1">`. Don't disable zoom.
-- Paste `favicon/head-snippet.html` into `<head>` (favicons, manifest, theme colour, Open Graph image).
+- Paste `favicon/head-snippet.html` into `<head>` (favicons, manifest, theme colour, link previews). **Replace `https://www.example.com` with the real site address: preview images must be absolute `https://` URLs**, since a relative `/og-image.png` is ignored by most platforms. Set `og:title` / `og:description` and the matching `twitter:` tags per page.
 - A "Skip to content" link as the first focusable element (`.skip-link`).
 - One `<h1>` per page. Landmarks: `header`, `nav`, `main`, `footer`.
 - Every page gets its own `<title>` and meta description. Title format: `Page name · Ben Ventures`.
@@ -325,12 +338,14 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 
 - **Change tokens, not components.** A colour or size change happens in `tokens.css` and flows everywhere.
 - **Adding a token:** add it to `tokens.css` (both themes if it's a colour, in **both** dark blocks), check its contrast, and document it in this file. `colors/tokens.json` is generated from `tokens.css` by the kit build, so never edit it by hand; the build also fails if the two dark-theme blocks in `tokens.css` differ.
-- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.15). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
+- **Versioning:** the header of `tokens.css` and this file carry a version (currently 1.17). Bump the minor version for additions and the major version for anything renamed or removed, and note it in a changelog.
 - **Brand colour values never change on the web alone.** The five inks are shared with print. Changing one is a brand decision and means regenerating the kit.
 
 ### Review checklist for every change
 
 - [ ] No raw hex, font names or px sizes in component CSS where a token exists
+- [ ] Headings, buttons, nav, link labels and badges in Title Case; sentences in sentence case; mono labels lowercase
+- [ ] Link-preview tags use absolute https:// URLs
 - [ ] Checked at 360, 390, 768, 1024 and 1440px wide
 - [ ] Checked in light **and** dark theme
 - [ ] Keyboard only: can reach and use everything, focus is always visible
@@ -341,7 +356,7 @@ A spot is decorative next to a heading, so use `aria-hidden="true"` there instea
 - [ ] Outlines and shadows only from the tokens (Ink in light; tonal in dark), never white; hover changes only the fill; nothing moves
 - [ ] At most one cyan primary and one magenta button per view
 - [ ] No lines between sections; section spacing is one shared gap, never doubled; closing section CTAs centred
-- [ ] At most one guiding-principle band per page (48px padding inside); background grid only behind the hero; hero art hidden below 1024px
+- [ ] At most one guiding-principle band per page (32px padding inside); background grid only behind the hero; spots 160px wide below 768px, beside the text from 768px
 - [ ] New colour pairings pass contrast (4.5:1 text, 3:1 UI)
 - [ ] Nothing below 44px tap size, no input text below 16px
 - [ ] Logo is the inline SVG, at a specified size, with its clear space

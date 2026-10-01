@@ -1,5 +1,26 @@
 # Web design system changelog
 
+## 1.17
+
+From the site build. After re-copying, the site's remaining overrides for these can go.
+
+- **Title Case details** aligned with the site: badges are Title Case too ("Case Study"), and *with* joins the lowercase short words; short words are lowercase unless first.
+- **Spots on phones sit centred** above their section (text stays left-aligned). 1.16 had them left-aligned with the heading.
+- **Band supporting line:** `.band__note`, one optional short sentence under the statement, in the band's muted colour.
+- **`.meta` line** ("Made with Shopify"): under the description on work cards and project headers, replacing the eyebrow above the title. Card order is now media → (eyebrow) → title → description → (meta).
+- **External links with a trailing icon:** `.link-icon` and `web/icons/external.inline.svg`, with the MDX one-line gotcha documented.
+- **Closing call to action:** `.section--closing` centres the heading, text and button of the page's final section.
+- **Reading column:** `.prose`, a centred column capped at 68 characters, for long write-ups.
+- **Fixed head snippet:** absolute `https://` preview image URLs (placeholders to replace), `og:image:type`, `og:image:alt`, `og:url` / title / description, and the X/Twitter title, description, image and alt tags.
+
+## 1.16
+
+From the site build. The site's band and spot-size overrides can be deleted after re-copying `base.css`.
+
+- **Title Case** replaces sentence case for headings, buttons, CTA links, card titles and nav (standard Title Case: short words stay lowercase unless first or last). Running text stays in sentences; the small mono labels stay lowercase. The kit's reference page and brand guide are converted.
+- **Band padding is 32px** (`--space-6`) inside, at every size (was 48px), matching the original design.
+- **Spots on mobile shrink instead of hiding:** below 768px a spot beside text is 160px wide, above the heading and aligned with it; from 768px it sits beside the text. Replaces 1.9's "hidden below 1024px". New generic `.split` / `.split__art`; `.hero__split` / `.hero__art` are the same component.
+
 ## 1.15
 
 - **Dark mode uses tonal shadows** instead of the Paper outline and shadow. Coloured buttons: no outline, a shadow in a deep shade of their own fill (cyan `#00688F`, magenta `#7A0049`). Outlined buttons, cards, code blocks: a quiet warm outline `#57504D` and a near-black shadow `#0E0C0C`. Light mode is unchanged (Ink outline and shadow everywhere).

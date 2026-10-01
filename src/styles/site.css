@@ -3,8 +3,9 @@
  * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
  * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
  *
- * Depth, section spacing, image outlines, the band, badge, background grid and spot illustrations all come from
- * base.css (docs/brand/WEB.md); this file only adds site-specific components on top.
+ * Depth, section spacing, image outlines, the band (and its note), badge, background grid, spot splits, the
+ * reading column, the closing section, .meta and .link-icon all come from base.css (docs/brand/WEB.md); this file
+ * only adds site-specific components on top.
  */
 
 /* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
@@ -40,15 +41,6 @@ svg[data-icon] {
   margin-bottom: 0;
 }
 
-/* A closing call-to-action section: centred heading and button */
-.section--centered {
-  text-align: center;
-}
-
-.section--centered .btn-row {
-  justify-content: center;
-}
-
 /* Lists laid out on the brand grid: each item spans 4 columns (1 / 2 / 3 per row) */
 ul.grid {
   margin: 0;
@@ -72,13 +64,7 @@ ul.grid {
   line-height: var(--leading-snug);
 }
 
-/* The "Made with …" platform line, on work cards and project page headers */
-.made-with {
-  color: var(--color-fg-muted);
-  font-size: var(--text-sm);
-}
-
-/* ---- Guiding-principle band: a badge label above the kit's statement, a supporting line below ---- */
+/* ---- Guiding-principle band: a badge label above the kit's statement ---- */
 .band .badge {
   margin-bottom: var(--space-4);
 }
@@ -89,29 +75,19 @@ ul.grid {
   margin-left: var(--space-2);
 }
 
-.band__note {
-  margin: var(--space-4) 0 0;
-  color: var(--color-band-muted);
-}
-
-/* ---- Split: media beside text ------------------------------------------------------- */
-.split {
+/* ---- Media split: a screenshot beside text, two equal columns from 768px. (Spots use the kit's .split.) ---- */
+.media-split {
   display: grid;
   align-items: center;
   gap: var(--space-6);
 }
 
-.split__media img {
+.media-split__media img {
   width: 100%;
 }
 
-/* Spot illustrations centre in their column (base.css caps them at 400px) */
-.split__media--spot .spot {
-  margin-inline: auto;
-}
-
 @media (min-width: 768px) {
-  .split {
+  .media-split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-8);
   }
@@ -121,10 +97,6 @@ ul.grid {
 /* The first section's top padding supplies the gap below the header (one shared gap, WEB.md §4) */
 .page-header {
   padding-top: var(--space-6);
-}
-
-.page-header__meta {
-  margin: var(--space-4) 0 0;
 }
 
 .page-header .lead {
@@ -168,12 +140,7 @@ ul.grid {
 }
 
 /* ---- Long-form content (project write-ups) -------------------------------------------- */
-/* A centred reading column, as the original site had it */
-.prose {
-  margin-inline: auto;
-  max-width: var(--measure);
-}
-
+/* .prose (the centred reading column) is the kit's; these are the write-up's inner rhythm */
 .prose h2 {
   margin-top: var(--space-8);
 }
@@ -216,14 +183,6 @@ ul.grid {
 
 .link-row {
   margin-block: var(--space-6);
-}
-
-/* An outbound link with a trailing icon. The link stays inline so its underline and any <em> inside flow as
-   normal text; the icon sits on the text line, centred on the lowercase letters, just after the last word. */
-.external-link svg {
-  display: inline-block;
-  vertical-align: -0.2em;
-  margin-left: var(--space-1);
 }
 
 /* ---- Quote --------------------------------------------------------------------------- */
@@ -318,21 +277,35 @@ ul.grid {
 }
 
 /* ============================================================================================
- * Site overrides to brand kit v1.15 (Ben's calls). If they stick, add them to the kit's base.css and WEB.md,
- * re-copy, and delete this block. Headings, buttons and nav in Title Case (WEB.md §3 says sentence case) are a
- * copy decision, so they live in the markup, not here.
+ * Site overrides to brand kit v1.17 (Ben's calls). If they stick, add them to the kit's base.css and WEB.md,
+ * re-copy, and delete this block.
  * ========================================================================================== */
 
-/* 1. The guiding-principle band pads 32px top and bottom, not the kit's 48px (--space-7), to match the original
-   site's band. */
-.band {
-  padding-block: var(--space-6);
+/* 1. Spots on phones are 192px (12rem), not the kit's 160px (10rem). Ben asked for "slightly bigger". */
+@media (max-width: 767.98px) {
+  .split__art {
+    width: 12rem;
+  }
+
+  /* 2. The hero spot stays hidden on phones: Ben wants the headline and buttons alone there. The kit (1.16) shows
+     it at 160px above the headline. From 768px it sits beside the headline, as the kit has it. */
+  .hero__art {
+    display: none;
+  }
 }
 
-/* 2. Spot illustrations shrink on phones. Below 768px the split stacks the spot above its text, and at full size
-   (up to 400px) it pushes the copy a screen down; here it's a smaller (192px) spot, centred above the left-aligned text. */
-@media (max-width: 767.98px) {
-  .split__media--spot .spot {
-    max-width: 12rem;
+/* 3. The hero's two buttons sit side by side on phones, splitting the width with a 16px gap, instead of the kit's
+   full-width stack (WEB.md §7, Buttons: "below 640px, buttons in a .btn-row go full width"). Side padding drops
+   to 12px so both labels fit on one line down to 320px. */
+@media (max-width: 639.98px) {
+  .hero .btn-row {
+    flex-wrap: nowrap;
+    gap: var(--space-4);
+  }
+
+  .hero .btn-row .btn {
+    flex: 1 1 0;
+    padding-inline: var(--space-3);
+    width: auto;
   }
 }

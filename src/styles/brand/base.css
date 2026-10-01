@@ -1,5 +1,5 @@
 /*
- * Ben Ventures base styles and components (v1.15). Requires tokens.css first.
+ * Ben Ventures base styles and components (v1.17). Requires tokens.css first.
  * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
  */
 
@@ -215,6 +215,30 @@ a:not(.btn, .card):hover {
 .spot .sp-stroke-ink { fill: none; stroke: var(--bv-ink); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
 /* spot-classes:end */
 
+/* ---- External links -------------------------------------------------------------------------
+   The link stays inline; a 20px icon sits on the text line after it, so the underline and any
+   italics flow normally. Keep the text and the icon on ONE line inside the <a> in MDX, or MDX
+   wraps the text in a <p> and knocks the icon out of line. */
+.link-icon {
+  display: inline-block; /* overrides the global svg { display: block } */
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: var(--space-1);
+  vertical-align: -0.2em;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  fill: none;
+}
+
+/* ---- Reading column ----------------------------------------------------------------------------
+   Long write-ups (project pages): a centred column capped at the reading measure. */
+.prose {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
 /* ---- Code ------------------------------------------------------------------------ */
 code,
 kbd,
@@ -278,6 +302,19 @@ main > :last-child {
 }
 
 /* A section's closing call to action (after a grid or list) is centred */
+/* A closing section ("Let's Get to Work."): heading, text and button all centred */
+.section--closing {
+  text-align: center;
+}
+
+.section--closing :is(h2, p) {
+  margin-inline: auto;
+}
+
+.section--closing .btn-row {
+  justify-content: center;
+}
+
 .section-cta {
   display: flex;
   justify-content: center;
@@ -562,6 +599,14 @@ main > :last-child {
   margin-bottom: 0;
 }
 
+/* A small muted fact line: "Made with Shopify". Under the description on work cards and
+   project page headers, in place of an eyebrow above the title. */
+.meta {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
 /* Linked cards: the same hover as outlined buttons. The fill tints; nothing else changes. */
 a.card:hover {
   background: var(--color-hover-tint);
@@ -604,27 +649,35 @@ a.card:hover {
   padding-top: var(--space-8);
 }
 
-/* Hero with an illustration: stacked on mobile (art below the text), side by side from 1024px */
+/* Text beside a spot illustration (the hero, or any section). .hero__split / .hero__art are
+   the same component under the hero's names.
+   Below 768px the spot shrinks to 160px and sits above the heading, aligned with it, so it
+   breaks up the text without pushing the copy a screen down. From 768px it sits beside the
+   text (7 : 5 columns). */
+.split,
 .hero__split {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5);
   align-items: center;
 }
 
-/* The hero illustration only appears beside the headline, from 1024px. Below that it would
-   stack under the buttons and push the next section down, so it's hidden. */
+.split__art,
 .hero__art {
-  display: none;
+  order: -1;
+  width: 10rem;
+  justify-self: center; /* centred above its section on phones; the text stays left-aligned */
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
+  .split,
   .hero__split {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--grid-gap);
   }
 
+  .split__art,
   .hero__art {
-    display: block;
+    order: 0;
     justify-self: end;
     width: 100%;
   }
@@ -635,7 +688,7 @@ a.card:hover {
    except an optional link. */
 .band {
   margin-top: var(--section-space);
-  padding-block: var(--space-7); /* 48px inside at every size: the band is a statement, not a section */
+  padding-block: var(--space-6); /* 32px inside at every size: the band is a statement, not a section */
   background: var(--color-band-bg);
   color: var(--color-band-fg);
 }
@@ -652,6 +705,14 @@ a.card:hover {
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   text-wrap: balance;
+}
+
+/* One optional short supporting sentence under the statement */
+.band__note {
+  max-width: var(--measure);
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-lg);
+  color: var(--color-band-muted);
 }
 
 /* ---- Badge -----------------------------------------------------------------------------------
