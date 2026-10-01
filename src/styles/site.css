@@ -41,6 +41,10 @@ svg[data-icon] {
   margin-bottom: 0;
 }
 
+.section-head .lead {
+  margin: var(--space-3) 0 0;
+}
+
 /* Lists laid out on the brand grid: each item spans 4 columns (1 / 2 / 3 per row) */
 ul.grid {
   margin: 0;
