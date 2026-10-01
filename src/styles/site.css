@@ -149,6 +149,12 @@ ul.grid {
   margin-top: 0;
 }
 
+/* The section gap is the whole gap: the last thing in a section (a title, a testimonial) adds no margin of its own */
+:is(.page-header, .section) .container > :last-child,
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
 .prose strong {
   font-weight: var(--weight-medium);
 }
@@ -315,4 +321,22 @@ ul.grid {
    this leaves 26px. */
 ul.grid {
   gap: var(--space-6);
+}
+
+/* 5. The gap between sections is 48px on phones and 64px from 1024px, not the kit's 64 / 96px. Set on the token, so
+   section padding, the space above the band and the page's closing padding all follow. */
+:root {
+  --section-space: var(--space-7);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-space: var(--space-8);
+  }
+}
+
+/* The gridded hero's bottom padding is a fixed 64px in the kit (room for the grid to fade); tie it to the gap so the
+   space under the hero shrinks with everything else. The next section's top padding stays 0. */
+.hero.bg-grid {
+  padding-bottom: var(--section-space);
 }
