@@ -4,46 +4,49 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import headshot from '@assets/images/headshot.jpg'
 
-const expertise = [
-  'Frontend development for web, iOS and Android',
-  'UX and product design',
-  'Design systems and brand kits',
-  'Accessibility to WCAG 2.2 AA',
-]
-
 const aiRange = [
   {
     title: 'AI-Free',
-    text: 'Hand-written code and hand-made design from start to finish, for teams and projects where AI is off the table.',
+    text: "Hand-written code and hand-made design, start to finish. For when there's a specific need: a policy, a client requirement, or a firm preference for keeping the robots out of it.",
   },
   {
-    title: 'AI-Assisted',
-    text: 'AI where it genuinely helps and nowhere else, with every line reviewed by a person before it ships.',
+    title: 'Somewhere in Between',
+    text: 'AI as a sidekick for drafts, tests and second opinions, while the decisions and the craft stay human.',
   },
   {
-    title: 'Agentic',
-    text: 'Claude Code with agentic automation and workflows that take repeatable work off your plate end to end.',
+    title: 'Fully Agentic',
+    text: 'My favorite. Claude Code with custom commands, agentic automation and workflows that take repeatable work off the table.',
   },
 ]
 ---
 
 <DefaultLayout
   title="About"
-  description="Ben Ventures is the design and frontend development practice of Ben Hurley, founder and principal consultant."
+  description="Ben Ventures is Ben Hurley: a frontend specialist and principal consultant, working anywhere from completely AI-free to fully agentic."
 >
-  <PageHeader title="About" subtitle="Ben Ventures is the design and frontend development practice of Ben Hurley." />
+  <PageHeader title="About" subtitle="Ben Ventures is Ben Hurley: one frontend specialist, zero account managers." />
 
   <section class="section">
     <div class="container split">
       <div>
         <h2>Founder &amp; Principal Consultant</h2>
-        <p class="lead">
-          I'm a principal consultant for frontend development, UX, design systems and accessibility, with experience at
-          some of the world's most prominent companies.
+        <p>
+          I started out in cloud and backend development, right up until an early consulting assignment put me on an
+          e-commerce site and pulled me over to the frontend. Turns out I liked it there, enough to make the switch for
+          good.
         </p>
-        <ul class="expertise">
-          {expertise.map((item) => <li>{item}</li>)}
-        </ul>
+        <p>
+          Since then, I've built frontends for a handful of NYC startups and a few household names. That work led
+          naturally into design, wireframing and UX, and along the way I've shipped dozens of websites and online tools,
+          plus a few iOS apps for good measure.
+        </p>
+        <p>
+          What you get: a true frontend specialist who also understands the full stack, and knows what it really takes
+          to build a good product and ship it fast. Don't just take my word for it; <a href="/portfolio/"
+            >the testimonials</a
+          > are in the portfolio.
+        </p>
+        <p>When I'm not working, I'm traveling with my wife or rotting at home with my two rescue cats.</p>
       </div>
       <div class="split__art">
         <Image
@@ -62,8 +65,8 @@ const aiRange = [
       <div class="section-head">
         <h2>AI-Free to Fully Agentic</h2>
         <p class="lead">
-          Every team has its own comfort level with AI, so I meet you where you are: completely AI-free, Claude Code
-          with agentic automation and workflows, or anything in between.
+          I'm happiest with agentic tools, but I'm just as comfortable going completely AI-free when a project calls for
+          it. Most teams land somewhere in between, and that works too.
         </p>
       </div>
       <ul class="grid">
@@ -78,6 +81,11 @@ const aiRange = [
           ))
         }
       </ul>
+      <p class="example">
+        <strong>A real example:</strong> at one client, I use Claude Code commands that pull my ready-for-development frontend
+        tickets, split them into separate worktrees, complete the tasks, run adversarial code reviews and open the pull requests.
+        My job is mostly writing detailed tickets and reviewing code, which is the direction the industry is heading.
+      </p>
     </div>
   </section>
 
@@ -86,12 +94,12 @@ const aiRange = [
       <div class="prose brand">
         <h2>About the Brand</h2>
         <p>
-          The Ben Ventures logo is the HTML bold tag, <code>&lt;b&gt;</code>: b for Ben. The closing bracket doubles as
-          a v, so it also reads BV.
+          The Ben Ventures logo is the HTML bold tag, <code>&lt;b&gt;</code>. Fitting, I'm told, since I can be a little
+          bold myself. The closing bracket doubles as a v, so it also reads BV.
         </p>
         <p>
           It's set in magenta, black and cyan, three of the four printing inks, because the work is half code and half
-          design.
+          design. (Yellow got the day off; it handles text selection now.)
         </p>
       </div>
     </div>
@@ -112,19 +120,18 @@ const aiRange = [
 </DefaultLayout>
 
 <style>
-  .expertise {
-    margin-bottom: 0;
-    padding-left: var(--space-5);
-  }
-
-  .expertise li + li {
-    margin-top: var(--space-2);
-  }
-
   .headshot {
     width: 100%;
     max-width: 25rem;
     height: auto;
+  }
+
+  .example {
+    margin-top: var(--space-7);
+  }
+
+  .example strong {
+    font-weight: var(--weight-medium);
   }
 
   /* The prose column is centred by the kit; on this page it lines up with the sections above */
