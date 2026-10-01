@@ -1,7 +1,7 @@
 ---
-import { Card, Heading } from 'accessible-astro-components'
 import { getCollection } from 'astro:content'
-import CardWrapper from './CardWrapper.astro'
+import type { ImageMetadata } from 'astro'
+import WorkCard from './WorkCard.astro'
 
 /**
  * FeaturedProjects Component
@@ -10,9 +10,9 @@ import CardWrapper from './CardWrapper.astro'
  */
 interface Props {
   /**
-   * Additional classes to apply to the section
+   * Eyebrow label above the section title
    */
-  class?: string
+  eyebrow?: string
   /**
    * The number of projects to display
    * @default 3
@@ -20,64 +20,56 @@ interface Props {
   limit?: number
   /**
    * The title for the section
-   * @default "Projects"
+   * @default "Selected work"
    */
   title?: string
 }
 
-const { class: className, limit = 3, title = 'Portfolio' } = Astro.props
+const { eyebrow, limit = 3, title = 'Selected work' } = Astro.props
 
 // Get projects from content collection
 const projects = await getCollection('projects')
 
 // Dynamically import all images from the projects folder
-const images = import.meta.glob('/src/assets/images/projects/*.{png,jpg,jpeg,webp}', { eager: true })
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/projects/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+})
 
 // Filter featured projects and sort them
 const featuredProjects = projects
   .filter((project) => project.data.isFeatured)
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder)
   .slice(0, limit)
-  .map((project) => {
-    // Get the image based on the featuredImage field from frontmatter
-    const imagePath = `/src/assets/images/projects/${project.data.featuredImage}`
-    const imageModule = images[imagePath]
-
-    return {
-      ...project,
-      imageComponent: imageModule?.default,
-    }
-  })
+  .map((project) => ({
+    ...project,
+    imageComponent: images[`/src/assets/images/projects/${project.data.featuredImage}`]?.default,
+  }))
 ---
 
-<section class:list={[className, 'my-16']}>
+<section class="section">
   <div class="container">
-    <Heading level="h2" class="mb-6">{title}</Heading>
-    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+    <div class="section-head">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h2>{title}</h2>
+    </div>
+    <ul class="grid">
       {
         featuredProjects.map((project) => (
-          <CardWrapper>
-            <Card
-              imageComponent={project.imageComponent}
-              url={'/portfolio/' + project.id.replace(/\.mdx?$/, '')}
-              headingLevel="h2"
+          <li>
+            <WorkCard
+              href={'/portfolio/' + project.id.replace(/\.mdx?$/, '')}
               title={project.data.title}
-              footer={'Made with ' + project.data.platform}
-            >
-              {project.data.description}
-            </Card>
-          </CardWrapper>
+              description={project.data.description}
+              platform={project.data.platform}
+              image={project.imageComponent}
+              badge={project.data.badge}
+            />
+          </li>
         ))
       }
+    </ul>
+    <div class="section-cta">
+      <a class="btn btn--secondary" href="/portfolio/">See More</a>
     </div>
-    <div class="mt-12 flex justify-center">
-      <a href="/portfolio" class="text-xl decoration-white hover:underline">See More</a>
-    </div>
-    <!-- <div class="mt-12">
-      <Link href="/portfolio/" isButton animateOnHover animationType="nudge">
-        View all projects
-        <Icon aria-hidden="true" name="lucide:arrow-right" size="1.5rem" />
-      </Link>
-    </div> -->
   </div>
 </section>

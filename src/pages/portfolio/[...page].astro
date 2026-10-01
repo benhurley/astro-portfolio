@@ -1,76 +1,84 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
-import { Card, Pagination } from 'accessible-astro-components'
+import WorkCard from '@components/WorkCard.astro'
 import { getCollection } from 'astro:content'
-import type { GetStaticPaths, Page } from 'astro'
+import type { GetStaticPaths, ImageMetadata, Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import CardWrapper from '@components/CardWrapper.astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const projects = await getCollection('projects')
 
   // Dynamically import all images from the projects folder
-  const images = import.meta.glob('/src/assets/images/projects/*.{png,jpg,jpeg,webp}', { eager: true })
+  const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/projects/*.{png,jpg,jpeg,webp}', {
+    eager: true,
+  })
 
   const projectsWithImages = projects
     .sort((a, b) => a.data.sortOrder - b.data.sortOrder)
-    .map((project) => {
-      const imagePath = `/src/assets/images/projects/${project.data.featuredImage}`
-      const imageModule = images[imagePath]
-
-      return {
-        ...project,
-        imageComponent: imageModule?.default,
-      }
-    })
+    .map((project) => ({
+      ...project,
+      imageComponent: images[`/src/assets/images/projects/${project.data.featuredImage}`]?.default,
+    }))
 
   return paginate(projectsWithImages, { pageSize: 6 })
 }) satisfies GetStaticPaths
 
 interface Props {
-  page: Page<CollectionEntry<'projects'> & { imageComponent: any }>
+  page: Page<CollectionEntry<'projects'> & { imageComponent?: ImageMetadata }>
 }
 
 const { page } = Astro.props
+const totalPages = Math.ceil(page.total / page.size)
 ---
 
 <DefaultLayout title="Portfolio">
-  <PageHeader title="Portfolio" bgType="bordered" />
-  <section class="my-12">
+  <PageHeader title="Portfolio" />
+  <section class="section">
     <div class="container">
-      <p class="text-sm"><em>Project {page.start + 1} through {page.end + 1} of {page.total} total projects</em></p>
-      <ul class="my-3 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+      <p class="eyebrow">
+        projects {page.start + 1}–{page.end + 1} of {page.total}
+      </p>
+      <ul class="grid">
         {
           page.data.map((project) => (
             <li>
-              <CardWrapper>
-                <Card
-                  imageComponent={project.imageComponent}
-                  url={'/portfolio/' + project.id.replace(/\.mdx?$/, '')}
-                  title={project.data.title}
-                  headingLevel="h2"
-                  footer={'Platform: ' + project.data.platform}
-                  fullHeight={true}
-                >
-                  {project.data.description}
-                </Card>
-              </CardWrapper>
+              <WorkCard
+                href={'/portfolio/' + project.id.replace(/\.mdx?$/, '') + '/'}
+                title={project.data.title}
+                description={project.data.description}
+                platform={project.data.platform}
+                image={project.imageComponent}
+                badge={project.data.badge}
+                headingLevel="h2"
+              />
             </li>
           ))
         }
       </ul>
-      <div class="mt-12 grid place-content-center">
-        <Pagination
-          firstPage={page.url.prev ? '/portfolio' : null}
-          previousPage={page.url.prev ? page.url.prev : null}
-          nextPage={page.url.next ? page.url.next : null}
-          lastPage={page.url.next ? `/portfolio/${Math.ceil(page.total / page.size)}` : null}
-          currentPage={`${page.currentPage}`}
-          totalPages={`${Math.ceil(page.total / page.size)}`}
-          ariaLabel="Portfolio pagination"
-        />
-      </div>
+      {
+        totalPages > 1 && (
+          <nav class="pagination" aria-label="Portfolio pagination">
+            {page.url.prev ? (
+              <a class="btn btn--secondary btn--sm" href={page.url.prev}>
+                Previous Page
+              </a>
+            ) : (
+              <span />
+            )}
+            <p class="muted">
+              Page {page.currentPage} of {totalPages}
+            </p>
+            {page.url.next ? (
+              <a class="btn btn--secondary btn--sm" href={page.url.next}>
+                Next Page
+              </a>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )
+      }
     </div>
   </section>
 </DefaultLayout>

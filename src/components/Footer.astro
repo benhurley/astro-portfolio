@@ -1,33 +1,54 @@
 ---
-import CallToAction from './CallToAction.astro'
 import Logo from './Logo.astro'
-import { Heading, Link } from 'accessible-astro-components'
 
 /**
  * Footer Component
  *
- * @description A component that displays the footer of the website
+ * @description Site footer: mark at 24px, © line, secondary links and the theme toggle
  */
 const currentYear = new Date().getFullYear()
 ---
 
-<footer>
-  <section class="py-8">
-    <div class="container flex md:flex-row align-center gap-16 md:justify-between">
-      <Logo />
-      <p>
-        &copy; {currentYear} Ben Ventures LLC – A New York Company.
-      </p>
-    </div>
-  </section>
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <a class="site-footer__logo" href="/" aria-label="Ben Ventures, home">
+      <Logo variant="mark" />
+    </a>
+    <p>&copy; {currentYear} Ben Ventures LLC, a New York company.</p>
+    <ul>
+      <li><a href="mailto:ben@benvent.com">Email</a></li>
+      <li><a href="/sitemap/">Sitemap</a></li>
+      <li>
+        <button class="link-button" type="button" id="theme-toggle">Theme: system</button>
+      </li>
+    </ul>
+  </div>
 </footer>
 
-<style>
-  footer {
-    margin-top: auto;
-  }
+<script>
+  /* Theme toggle: system → light → dark, stored per browser under "bv-theme" (docs/brand/WEB.md §2) */
+  const root = document.documentElement
+  const button = document.getElementById('theme-toggle')
+  const order = ['system', 'light', 'dark']
+  const current = () => root.dataset.theme || 'system'
 
-  section {
-    border-top: 1px solid var(--border-color-subtle);
+  if (button) {
+    const show = () => {
+      button.textContent = `Theme: ${current()}`
+    }
+
+    button.addEventListener('click', () => {
+      const next = order[(order.indexOf(current()) + 1) % order.length]
+      if (next === 'system') delete root.dataset.theme
+      else root.dataset.theme = next
+      try {
+        if (next === 'system') localStorage.removeItem('bv-theme')
+        else localStorage.setItem('bv-theme', next)
+      } catch {
+        /* storage blocked: the choice lasts for this page only */
+      }
+      show()
+    })
+    show()
   }
-</style>
+</script>

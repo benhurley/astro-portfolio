@@ -14,64 +14,60 @@ To The Moon! is a lifestyle brand that recently expanded into clothing and neede
 import BlockQuote from '@components/BlockQuote.astro'
 import BreakoutImage from '@components/BreakoutImage.astro'
 import { Image } from 'astro:assets'
-import { Icon } from 'astro-icon/components'
+import LinkIcon from '@components/LinkIcon.astro'
 
 ## Technical Challenges
 
 Extensive updates were made to an existing Liquid theme to help bring their vision to life, including a dynamic star-filled space background. Using pure CSS kept the experience fast and lightweight.
 ## Project Gallery
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-  <a href="#img1" class="cursor-zoom-in">
+<div class="gallery">
+  <a href="#img1" class="gallery__link">
     <Image
       src="/projects/to-the-moon/project-image-1.png"
       alt="To The Moon homepage featuring animated starfield background"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="gallery__img"
     />
   </a>
-  <a href="#img2" class="cursor-zoom-in">
+  <a href="#img2" class="gallery__link">
     <Image
       src="/projects/to-the-moon/project-image-2.png"
       alt="Product collection page showcasing streetwear merchandise"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="gallery__img"
     />
   </a>
-  <a href="#img3" class="cursor-zoom-in">
+  <a href="#img3" class="gallery__link">
     <Image
       src="/projects/to-the-moon/project-image-3.png"
       alt="Individual product page with custom design elements"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="gallery__img"
     />
   </a>
-  <a href="#img4" class="cursor-zoom-in">
+  <a href="#img4" class="gallery__link">
     <Image
       src="/projects/to-the-moon/project-image-4.png"
       alt="Mobile responsive view of the To The Moon storefront"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border-1"
+      class="gallery__img"
     />
   </a>
 </div>
 
 The storefront successfully launched in 2025 and continues to support the brand's limited edition drops.
 
-<div class="mt-8">
+<div class="link-row">
   <a 
     href="https://uptothemoon.com" 
     target="_blank" 
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-2 external-link"
-  >
-    Visit Website
-    <Icon name="lucide:external-link" size="1.25rem" />
-  </a>
+  >Visit Website <LinkIcon /></a>
 </div>
 
 ## Testimonial

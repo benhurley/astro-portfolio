@@ -1,34 +1,59 @@
 ---
-import { Media } from 'accessible-astro-components'
+import Spot from './Spot.astro'
 
 /**
  * ContentMedia Component
  *
- * @description A component that displays content alongside media, with the option to reverse the image position
+ * @description A section with content beside a brand spot illustration or an image.
+ * - With `spot`: the kit's `.split` (WEB.md §7): text first, the spot beside it from 768px and centred above it on
+ *   phones.
+ * - With `imgSrc`: the site's `.media-split`, an image (a screenshot) beside the text in two equal columns. Images get
+ *   the kit's default 2px outline.
  */
 interface Props {
   /**
-   * The source URL for the image
+   * The source URL for an image (use this or `spot`)
    */
-  imgSrc: string
+  imgSrc?: string
   /**
-   * Whether to display the image on the right side instead of the left
+   * Alt text for the image; decorative by default
+   * @default ''
+   */
+  imgAlt?: string
+  /**
+   * A brand spot illustration to show instead of an image (decorative: the text beside it carries the meaning)
+   */
+  spot?: 'advise' | 'coming-soon' | 'legacy-site'
+  /**
+   * Images only: show the image on the right side instead of the left
    * @default false
    */
   reverseImg?: boolean
 }
 
-const { imgSrc, reverseImg = false }: Props = Astro.props
+const { imgSrc, imgAlt = '', spot, reverseImg = false }: Props = Astro.props
 ---
 
-<section class="my-12 md:my-18">
-  <div class="container">
-    <div class="grid grid-cols-1 gap-12 md:gap-18 md:grid-cols-2">
-      {!reverseImg ? <Media class="rounded"  src={imgSrc} /> : ''}
-      <div class="space-content flex flex-col justify-center">
-        <slot />
+<section class="section">
+  {
+    spot ? (
+      <div class="container split">
+        <div>
+          <slot />
+        </div>
+        <div class="split__art">
+          <Spot name={spot} decorative />
+        </div>
       </div>
-      {reverseImg ? <Media class="rounded-xl" src={imgSrc} /> : ''}
-    </div>
-  </div>
+    ) : (
+      <div class="container media-split">
+        <div class="media-split__media" style={reverseImg ? 'order: 1' : undefined}>
+          <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+        </div>
+        <div>
+          <slot />
+        </div>
+      </div>
+    )
+  }
 </section>

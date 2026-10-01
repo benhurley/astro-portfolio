@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets'
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import headshot from '@assets/images/headshot.jpg'
+
+const aiRange = [
+  {
+    title: 'Fully Agentic',
+    badge: 'Recommended',
+    text: 'My favorite. Claude Code with custom commands, agentic automation and workflows that take repeatable work off the table.',
+  },
+  {
+    title: 'Somewhere in Between',
+    text: 'AI as a sidekick for drafts, tests and second opinions, while the decisions and the craft stay human.',
+  },
+  {
+    title: 'AI-Free',
+    text: "Hand-written code and hand-made design, start to finish. For when there's a specific need: a policy, a client requirement, or a firm preference for keeping the robots out of it.",
+  },
+]
+---
+
+<DefaultLayout
+  title="About"
+  description="Meet Ben, the frontend specialist and principal consultant behind Ben Ventures, working anywhere from completely AI-free to fully agentic."
+>
+  <PageHeader title="About" subtitle="One frontend specialist, zero account managers." />
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Founder &amp; Principal Consultant</h2>
+        <p>
+          I started out in cloud and backend development, right up until an early consulting assignment put me on an
+          e-commerce site and pulled me over to the frontend. Turns out I liked it there, enough to make the switch for
+          good.
+        </p>
+        <p>
+          Since then, I've built frontends for a handful of NYC startups and a few household names. That work led
+          naturally into design, wireframing and UX, and along the way I've shipped dozens of websites and online tools,
+          plus a few iOS apps for good measure.
+        </p>
+        <p>
+          What you get: a true frontend specialist who also understands the full stack, and knows what it really takes
+          to build a good product and ship it fast. Don't just take my word for it; <a href="/portfolio/"
+            >the testimonials</a
+          > are in the portfolio.
+        </p>
+        <p>When I'm not working, I'm traveling with my wife or rotting at home with my two rescue cats.</p>
+      </div>
+      <div class="split__art">
+        <Image
+          src={headshot}
+          alt="Ben"
+          class="media-round headshot"
+          widths={[240, 400, 576]}
+          sizes="(min-width: 768px) 400px, 240px"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>AI-Free to Fully Agentic</h2>
+        <p class="lead">
+          I'm happiest with agentic tools, but I'm just as comfortable going completely AI-free when a project calls for
+          it. Most teams land somewhere in between, and that works too.
+        </p>
+      </div>
+      <ul class="grid">
+        {
+          aiRange.map((item) => (
+            <li>
+              <div class="card">
+                <h3>
+                  {item.title}
+                  {item.badge && <span class="badge">{item.badge}</span>}
+                </h3>
+                <p class="muted">{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="example">
+        <strong>A real example:</strong> for one of my clients, I use Claude Code commands that pull my ready-for-development
+        frontend tickets, split them into separate worktrees, complete the tasks, run adversarial code reviews and open the
+        pull requests. My job is mostly writing detailed tickets and reviewing code, which is the direction the industry is
+        heading.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose brand">
+        <h2>About the Brand</h2>
+        <p>
+          The Ben Ventures logo is the HTML bold tag, <code>&lt;b&gt;</code>. Fitting, I'm told, since I can be a little
+          bold myself. The closing bracket doubles as a v, so it also reads BV.
+        </p>
+        <p>
+          It's set in magenta, black and cyan, three of the four printing inks, because the work is half code and half
+          design. (Yellow got the day off; it handles text selection now.)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--closing">
+    <div class="container">
+      <h2 class="closing">Let's Get to Work.</h2>
+      <div class="btn-row">
+        <a
+          class="btn btn--primary"
+          href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
+          >Email Ben</a
+        >
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style>
+  .headshot {
+    width: 100%;
+    max-width: 25rem;
+    height: auto;
+  }
+
+  /* On phones the headshot stacks above the story; keep it small so the story starts on the first screen */
+  @media (max-width: 767.98px) {
+    .split__art {
+      width: 10rem;
+    }
+  }
+
+  .example {
+    margin-top: var(--space-7);
+  }
+
+  .example strong {
+    font-weight: var(--weight-medium);
+  }
+
+  /* The prose column is centred by the kit; on this page it lines up with the sections above */
+  .brand {
+    margin-inline: 0;
+  }
+
+  /* These short blocks sit under full-width cards, so they run the full width instead of the kit's 68-character
+     reading measure (WEB.md §3), which left them looking cut off on desktop */
+  .section-head .lead,
+  .example,
+  .brand,
+  .brand p {
+    max-width: none;
+  }
+
+  .closing {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+</style>

@@ -1,92 +1,40 @@
 ---
-import { Link } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
-import { Image } from 'astro:assets'
-import heroImage from '../../public/hero-image.webp'
+import Spot from './Spot.astro'
 
 /**
  * Hero Component
  *
- * @description A component that displays a hero section with a title, description, and image
+ * @description Home page hero on the kit's .hero__split: the page's one display headline and actions, with the
+ * "legacy-site" spot beside them from 1024px and below them on mobile
  */
-interface Props {
-  /**
-   * The image to display (imported asset)
-   */
-  src?: ImageMetadata
-}
-
-const { src = heroImage }: Props = Astro.props
 const heroMessages = [
   "Is Your Website Stuck in 2010? Let's Rescue It.",
-  "Website Looking Like MySpace? We Should Talk.",
+  'Website Looking Like MySpace? We Should Talk.',
 ]
 const randomMessage = heroMessages[Math.floor(Math.random() * heroMessages.length)]
 ---
 
-<section class="hero">
-  <div class="container">
-    <div class="grid grid-cols-1 items-center gap-0 md:mt-16 md:grid-cols-2">
-      <div class="image-wrapper">
-        <Image
-          src={src}
-          alt="Hero illustration"
-          widths={[200, 400, 800]}
-          class="image mx-auto h-auto w-full max-w-[60%]"
-          loading="eager"
-          quality={100}
-        />
+<section class="hero bg-grid">
+  <div class="container hero__split">
+    <div>
+      <h1 class="display">{randomMessage}</h1>
+      <div class="btn-row">
+        <a class="btn btn--magenta" href="/portfolio/">View Portfolio</a>
+        <a
+          class="btn btn--primary"
+          href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
+          >Get in Touch</a
+        >
       </div>
-      <div class="mt-16 mb-8 flex flex-col items-center gap-8 md:mt-8 md:items-center">
-        <h1 class="text-center text-[44px] md:text-center lg:text-[70px]">
-          {randomMessage}
-        </h1>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row md:mb-16">
-          <Link
-            href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
-            isButton
-            type="primary"
-            animateOnHover
-            animationType="boop"
-          >
-            <Icon aria-hidden="true" name="lucide:mail" size="1.5rem" />
-            Get In Touch
-          </Link>
-        </div>
-      </div>
+    </div>
+    <div class="hero__art">
+      <Spot name="legacy-site" decorative />
     </div>
   </div>
 </section>
 
-<style lang="scss">
-  h1 {
-    text-wrap: unset;
-  }
-
-  .image-wrapper {
-    position: relative;
-
-    @media screen and (max-width: 48rem) {
-      display: none;
-    }
-  }
-
-  .image-wrapper::before {
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    border-radius: var(--radius-l);
-    content: '';
-  }
-
-  .text-gradient {
-    background: linear-gradient(
-      315deg,
-      light-dark(var(--color-primary-300), var(--color-secondary-100)) 0%,
-      light-dark(var(--color-secondary-300), var(--color-primary-200))
-    );
-    background-clip: border-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+<style>
+  .display {
+    margin-bottom: var(--space-6);
   }
 </style>

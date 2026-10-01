@@ -4,7 +4,7 @@ import { Image } from 'astro:assets'
 /**
  * BreakoutImage Component
  *
- * @description A component for displaying a landscape image that breaks out of the container
+ * @description A component for displaying a landscape image that breaks out of the text measure
  */
 interface Props {
   /**
@@ -20,7 +20,23 @@ interface Props {
 const { src, alt = '' } = Astro.props
 ---
 
-<div class="relative -mx-4 my-8 md:-mx-8 lg:-mx-[120px]">
-  <Image src={src} alt={alt} width={1400} height={700} class="h-auto w-full rounded-lg object-cover" loading="lazy" />
-  <div class="absolute inset-0 rounded-lg shadow-inner"></div>
+<div class="breakout">
+  <Image src={src} alt={alt} width={1400} height={700} loading="lazy" />
 </div>
+
+<style>
+  .breakout {
+    margin-block: var(--space-7);
+  }
+
+  .breakout :global(img) {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 1024px) {
+    .breakout {
+      width: min(calc(100vw - 2 * var(--gutter)), var(--container-max));
+    }
+  }
+</style>

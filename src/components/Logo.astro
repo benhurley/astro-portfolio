@@ -1,38 +1,66 @@
 ---
-import { Link } from 'accessible-astro-components'
-import { Image } from 'astro:assets'
-import logo from '../assets/img/logo.png'
-
 /**
  * Logo Component
  *
- * @description Logo description
+ * @description The Ben Ventures <b> logo as inline, theme-aware SVG (colours come from the
+ * --logo-* tokens). Artwork is copied verbatim from the brand kit's web/logo/*.inline.svg;
+ * never redraw it or set it in Jost. Size it by height in CSS. It is aria-hidden: put the
+ * accessible name on the wrapping link.
  */
 interface Props {
   /**
-   * Whether to load the image eagerly or lazily
-   * @default 'eager'
+   * lockup: header · mark: footer, header below 360px · monogram: placements under 48px
+   * @default 'lockup'
    */
-  loading?: 'eager' | 'lazy'
+  variant?: 'lockup' | 'mark' | 'monogram'
+  class?: string
 }
 
-const { loading = 'eager' }: Props = Astro.props
+const { variant = 'lockup', class: className } = Astro.props
 ---
 
-<Link href="/" class="flex items-center gap-2">
-  <Image
-    src={logo}
-    alt="Ben Ventures Logo"
-    width={logo.width}
-    height={logo.height}
-    class="logo h-auto w-[88px] md:w-[128px]"
-    loading={loading}
-    quality={100}
-  />
-</Link>
-
-<style>
-  .logo {
-    filter: var(--logo-filter);
-  }
-</style>
+{
+  variant === 'lockup' && (
+    <svg
+      class={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="14.201 52 657.577 95"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <Fragment
+        set:html={`<polygon style="fill:var(--logo-open)" points="44.201,87 64,87 34,117 64,147 44.201,147 14.201,117"/><rect style="fill:var(--logo-b)" x="73" y="52" width="14" height="95"/><path style="fill:var(--logo-b)" fill-rule="evenodd" d="M73,117a30,30 0 1,0 60,0a30,30 0 1,0 -60,0ZM87,117a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z"/><polygon style="fill:var(--logo-close)" points="142,87 161.799,87 191.799,117 161.799,147 142,147 172,117"/><g transform="translate(219.799,111) scale(0.6)"><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="0" y="-35" width="14" height="95"/><path stroke="none" fill-rule="evenodd" d="M0,30a30,30 0 1,0 60,0a30,30 0 1,0 -60,0ZM14,30a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><path fill="none" stroke-width="14" d="M130,30A26,23 0 1,0 124.488,44.16"/><rect stroke="none" x="78" y="23" width="59" height="14"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="150" y="0" width="14" height="60"/><path fill="none" stroke-width="14" d="M157,27A20,20 0 0,1 197,27V60"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><polygon stroke="none" points="241.2,0 256.61,0 268.8,26.5 280.99,0 296.4,0 268.8,60"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><path fill="none" stroke-width="14" d="M366.4,30A26,23 0 1,0 360.888,44.16"/><rect stroke="none" x="314.4" y="23" width="59" height="14"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="386.4" y="0" width="14" height="60"/><path fill="none" stroke-width="14" d="M393.4,27A20,20 0 0,1 433.4,27V60"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="465.3" y="-19.25" width="14" height="79.25"/><rect stroke="none" x="453.4" y="0" width="37.8" height="14"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="544.2" y="0" width="14" height="60"/><path fill="none" stroke-width="14" d="M511.2,0V33A20,20 0 0,0 551.2,33"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><rect stroke="none" x="572.2" y="0" width="14" height="60"/><path fill="none" stroke-width="14" d="M579.2,27A20,20 0 0,1 609.798,10.039"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><path fill="none" stroke-width="14" d="M683.698,30A26,23 0 1,0 678.187,44.16"/><rect stroke="none" x="631.698" y="23" width="59" height="14"/></g><g style="fill:var(--logo-wordmark);stroke:var(--logo-wordmark)" ><path fill="none" stroke-width="14" d="M743.442,12.406A18.8,11.5 0 1,0 727.498,30A18.8,11.5 0 1,1 711.555,47.594"/></g></g>`}
+      />
+    </svg>
+  )
+}
+{
+  variant === 'mark' && (
+    <svg
+      class={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="14.201 52 177.598 95"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <Fragment
+        set:html={`<polygon style="fill:var(--logo-open)" points="44.201,87 64,87 34,117 64,147 44.201,147 14.201,117"/><rect style="fill:var(--logo-b)" x="73" y="52" width="14" height="95"/><path style="fill:var(--logo-b)" fill-rule="evenodd" d="M73,117a30,30 0 1,0 60,0a30,30 0 1,0 -60,0ZM87,117a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z"/><polygon style="fill:var(--logo-close)" points="142,87 161.799,87 191.799,117 161.799,147 142,147 172,117"/>`}
+      />
+    </svg>
+  )
+}
+{
+  variant === 'monogram' && (
+    <svg
+      class={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="73 52 118.799 95"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <Fragment
+        set:html={`<rect style="fill:var(--logo-b)" x="73" y="52" width="14" height="95"/><path style="fill:var(--logo-b)" fill-rule="evenodd" d="M73,117a30,30 0 1,0 60,0a30,30 0 1,0 -60,0ZM87,117a16,16 0 1,0 32,0a16,16 0 1,0 -32,0Z"/><polygon style="fill:var(--logo-close)" points="142,87 161.799,87 191.799,117 161.799,147 142,147 172,117"/>`}
+      />
+    </svg>
+  )
+}

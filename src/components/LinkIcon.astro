@@ -1,0 +1,22 @@
+---
+import external from '../assets/icons/external.inline.svg?raw'
+
+/**
+ * LinkIcon Component
+ *
+ * @description The kit's external-link icon (`.link-icon`, styled in base.css), copied verbatim from the brand kit's
+ * web/icons/. Put it after the link text, on the same line inside the <a>: in MDX, text on its own line gets wrapped
+ * in a <p> and knocks the icon out of line. The icon is decorative, so screen readers get the new-tab warning as text.
+ */
+interface Props {
+  /**
+   * The link opens in a new tab (target="_blank"); adds visually hidden ", opens in a new tab"
+   * @default true
+   */
+  newTab?: boolean
+}
+
+const { newTab = true } = Astro.props
+---
+
+<Fragment set:html={external} />{newTab && <span class="visually-hidden">, opens in a new tab</span>}

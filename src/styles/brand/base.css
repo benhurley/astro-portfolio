@@ -1,0 +1,825 @@
+/*
+ * Ben Ventures base styles and components (v1.17). Requires tokens.css first.
+ * Mobile first. Breakpoints: 640 / 768 / 1024 / 1280 (see tokens.css).
+ */
+
+/* ---- Foundations ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--space-4));
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+svg,
+video {
+  height: auto;
+}
+
+/* Drop the browser's default inset border. Zero specificity (:where) so the media outline
+   below can win: a plain `iframe` selector here would beat it and embeds would lose their outline. */
+:where(iframe) {
+  border: 0;
+}
+
+/* Video embeds (YouTube, Vimeo): full width, 16:9, sized by the container */
+.embed-16x9 {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Images and video in page content get the 2px outline, never a shadow.
+   :where() keeps specificity at zero so any component can override it. */
+:where(main) :where(img, video, iframe) {
+  border: var(--border-strong) solid var(--color-outline);
+  border-radius: var(--radius);
+}
+
+/* Circular art: for a SQUARE image whose artwork is a circle filling it edge to edge
+   (avatars, circular illustrations). Rounding the corners makes the 2px outline trace the art. */
+.media-round {
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-round);
+}
+
+/* Inside a card's media slot the card's own outline frames the image: no second border.
+   .media-bare opts any other image out (e.g. a logo or icon placed as an <img>). */
+.card__media :is(img, video, iframe),
+img.media-bare,
+img.spot,
+video.media-bare,
+iframe.media-bare {
+  border: 0;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-fg);
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+/* ---- Type ---------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-4);
+  font-weight: var(--weight-medium);
+  text-wrap: balance;
+}
+
+.display {
+  font-size: var(--text-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: var(--weight-medium);
+  margin: 0 0 var(--space-5);
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+}
+
+h3 {
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+}
+
+p,
+ul,
+ol {
+  margin: 0 0 var(--space-4);
+  max-width: var(--measure);
+}
+
+p {
+  text-wrap: pretty; /* avoids a lone word on the last line */
+}
+
+.specimen {
+  margin: 0;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--color-fg-muted);
+}
+
+.eyebrow {
+  display: block;
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+small,
+.text-sm {
+  font-size: var(--text-sm);
+}
+
+.muted {
+  color: var(--color-fg-muted);
+}
+
+/* ---- Links ---------------------------------------------------------------------- */
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-underline);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+/* Plain links only. Buttons and cards are links too, and their text must never change
+   colour on hover (a cyan button's text would turn cyan on its own cyan fill). */
+a:not(.btn, .card):hover {
+  color: var(--color-accent);
+}
+
+/* ---- Figures ------------------------------------------------------------------------------- */
+.figure {
+  margin: 0 0 var(--space-7);
+}
+
+.figure figcaption {
+  margin: var(--space-3) 0 0;
+}
+
+/* ---- Spot illustrations -------------------------------------------------------------------
+   Inline SVGs from web/spot/. Every colour is a token, so the art flips with the theme.
+   Drawn with the system's own outline, hard shadow and inks; see WEB.md "Spot illustrations". */
+.grid > .spot-cell {
+  grid-column: span 4;
+  margin: 0;
+}
+
+.spot {
+  display: block;
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+}
+/* spot-classes:start (generated from spot.py CLASS_CSS by the kit build; edit there, not here) */
+.spot .sp-disc { fill: var(--color-code-bg); }
+.spot .sp-fill { fill: var(--color-surface); }
+.spot .sp-tint { fill: var(--color-code-bg); }
+.spot .sp-line { stroke: var(--color-outline); stroke-width: 4; stroke-linejoin: miter; }
+.spot .sp-muted { fill: var(--color-fg-muted); }
+.spot .sp-strong { fill: var(--color-fg); }
+.spot .sp-cyan { fill: var(--bv-cyan); }
+.spot .sp-track { fill: none; stroke: var(--color-rule); stroke-width: 12; }
+.spot .sp-stroke-magenta { fill: none; stroke: var(--bv-magenta); stroke-width: 12; stroke-linecap: butt; }
+.spot .sp-stroke-strong { fill: none; stroke: var(--color-fg); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
+.spot .sp-stroke-ink { fill: none; stroke: var(--bv-ink); stroke-width: 10; stroke-linejoin: miter; stroke-linecap: butt; }
+/* spot-classes:end */
+
+/* ---- External links -------------------------------------------------------------------------
+   The link stays inline; a 20px icon sits on the text line after it, so the underline and any
+   italics flow normally. Keep the text and the icon on ONE line inside the <a> in MDX, or MDX
+   wraps the text in a <p> and knocks the icon out of line. */
+.link-icon {
+  display: inline-block; /* overrides the global svg { display: block } */
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: var(--space-1);
+  vertical-align: -0.2em;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  fill: none;
+}
+
+/* ---- Reading column ----------------------------------------------------------------------------
+   Long write-ups (project pages): a centred column capped at the reading measure. */
+.prose {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+/* ---- Code ------------------------------------------------------------------------ */
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none; /* show the characters as typed: no "->" or "<!--" ligatures */
+}
+
+:not(pre) > code {
+  font-size: 0.9em;
+  background: var(--color-code-bg);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-5);
+  overflow-x: auto;
+  background: var(--color-codeblock-bg);
+  color: var(--color-codeblock-fg);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  border: var(--border-strong) solid var(--color-outline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+
+.tok-tag { color: var(--color-syntax-tag); }
+.tok-attr { color: var(--color-syntax-attr); }
+.tok-string { color: var(--color-syntax-string); }
+.tok-comment { color: var(--color-syntax-comment); }
+
+/* ---- Layout ----------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+/* Spanning 4 columns gives full width on mobile (4 cols), half on tablet (8), a third on desktop (12) */
+.grid > .card {
+  grid-column: span 4;
+}
+
+/* Sections are separated by ONE gap of --section-space: each section pads its
+   top only, and the last block in <main> pads its bottom */
+.section {
+  padding-top: var(--section-space);
+}
+
+main > :last-child {
+  padding-bottom: var(--section-space);
+}
+
+/* A section's closing call to action (after a grid or list) is centred */
+/* A closing section ("Let's Get to Work."): heading, text and button all centred */
+.section--closing {
+  text-align: center;
+}
+
+.section--closing :is(h2, p) {
+  margin-inline: auto;
+}
+
+.section--closing .btn-row {
+  justify-content: center;
+}
+
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.stack > * + * {
+  margin-top: var(--space-4);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Skip link ---------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: var(--space-2);
+  z-index: var(--z-skip);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-fg);
+  color: var(--color-bg);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ---- Header & navigation ---------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--color-bg);
+  border-bottom: var(--border-strong) solid var(--color-outline);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  height: var(--header-h);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  text-decoration: none;
+}
+
+.site-header__logo svg {
+  height: var(--logo-h);
+  width: auto;
+}
+
+/* Full lockup by default; mark only on very narrow screens */
+.logo-compact {
+  display: none;
+}
+
+@media (max-width: 359.98px) {
+  .logo-full {
+    display: none;
+  }
+
+  .logo-compact {
+    display: block;
+  }
+}
+
+.site-nav ul {
+  display: flex;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: none;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.site-nav a[aria-current="page"] {
+  text-decoration: underline 2px var(--color-underline);
+  text-underline-offset: 0.3em;
+}
+
+.site-nav__toggle {
+  display: none;
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: 0 var(--space-2);
+  margin-right: calc(-1 * var(--space-2));
+  border: 0;
+  background: none;
+  color: inherit;
+  font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
+  cursor: pointer;
+}
+
+/* Below 768px the nav collapses behind a "Menu" button into a full-screen panel */
+@media (max-width: 767.98px) {
+  .site-nav__toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .site-nav {
+    display: none;
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: var(--z-menu);
+    padding: var(--space-5) var(--gutter);
+    background: var(--color-bg);
+    overflow-y: auto;
+  }
+
+  .site-nav[data-open] {
+    display: block;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .site-nav li {
+    border-bottom: var(--border-width) solid var(--color-rule);
+  }
+
+  .site-nav a {
+    width: 100%;
+    min-height: 3.5rem;
+    font-size: var(--text-h2);
+  }
+
+  html.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* ---- Buttons ---------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 3rem;
+  padding: 0 var(--space-5);
+  --btn-outline: var(--color-outline);
+  --btn-shadow: var(--color-shadow);
+  border: var(--border-strong) solid var(--btn-outline);
+  border-radius: var(--radius);
+  box-shadow: var(--elev-md) var(--elev-md) 0 var(--btn-shadow);
+  font: var(--weight-medium) var(--text-base) / 1 var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease);
+}
+
+/* Hover changes only the fill, one step away from the text colour so contrast rises.
+   Outline, shadow and text never change, and nothing moves. */
+
+/* Primary: cyan. .btn--cta is kept as an alias so existing markup keeps working. */
+.btn--primary,
+.btn--cta {
+  --btn-outline: var(--color-cta-outline);
+  --btn-shadow: var(--color-cta-shadow);
+  background: var(--color-cta);
+  color: var(--color-cta-fg);
+}
+
+.btn--primary:hover,
+.btn--cta:hover {
+  background: var(--color-cta-hover);
+}
+
+/* Magenta: the alternate primary, for a second call to action beside a cyan one */
+.btn--magenta {
+  --btn-outline: var(--color-alt-outline);
+  --btn-shadow: var(--color-alt-shadow);
+  background: var(--color-alt);
+  color: var(--color-alt-fg);
+}
+
+.btn--magenta:hover {
+  background: var(--color-alt-hover);
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  color: var(--color-fg);
+}
+
+.btn--secondary:hover {
+  background: var(--color-hover-tint);
+}
+
+.btn--sm {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  box-shadow: var(--elev-sm) var(--elev-sm) 0 var(--btn-shadow);
+}
+
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.btn-row--spaced {
+  margin-bottom: var(--space-7);
+}
+
+@media (max-width: 639.98px) {
+  .btn-row .btn {
+    width: 100%;
+  }
+}
+
+/* ---- Cards ------------------------------------------------------------------------------- */
+.card {
+  display: block;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: var(--border-strong) solid var(--color-outline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease);
+}
+
+/* Optional media slot: 16:10, edge to edge at the top of the card */
+.card__media {
+  aspect-ratio: 16 / 10;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
+  overflow: hidden;
+  background: var(--color-code-bg);
+  border-bottom: var(--border-strong) solid var(--color-outline);
+}
+
+/* Media is an asset: it fills the slot and never gets its own shadow or frame */
+.card__media img,
+.card__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+/* The card's title: any heading level, or anything marked .card__title */
+.card :is(h2, h3, h4, .card__title) {
+  margin-bottom: var(--space-2);
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+/* A small muted fact line: "Made with Shopify". Under the description on work cards and
+   project page headers, in place of an eyebrow above the title. */
+.meta {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+/* Linked cards: the same hover as outlined buttons. The fill tints; nothing else changes. */
+a.card:hover {
+  background: var(--color-hover-tint);
+  color: inherit;
+}
+
+/* ---- Forms --------------------------------------------------------------------------------- */
+.field {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 32rem;
+  margin-bottom: var(--space-5);
+}
+
+.field label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.field input,
+.field textarea {
+  min-height: 3rem;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-strong) solid var(--color-input-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  font: inherit;
+  font-size: max(16px, var(--text-base)); /* below 16px iOS Safari zooms the page on focus */
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--color-fg-muted);
+}
+
+/* ---- Hero ---------------------------------------------------------------------------------- */
+.hero {
+  padding-top: var(--space-8);
+}
+
+/* Text beside a spot illustration (the hero, or any section). .hero__split / .hero__art are
+   the same component under the hero's names.
+   Below 768px the spot shrinks to 160px and sits above the heading, aligned with it, so it
+   breaks up the text without pushing the copy a screen down. From 768px it sits beside the
+   text (7 : 5 columns). */
+.split,
+.hero__split {
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.split__art,
+.hero__art {
+  order: -1;
+  width: 10rem;
+  justify-self: center; /* centred above its section on phones; the text stays left-aligned */
+}
+
+@media (min-width: 768px) {
+  .split,
+  .hero__split {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--grid-gap);
+  }
+
+  .split__art,
+  .hero__art {
+    order: 0;
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+/* ---- Guiding-principle band ----------------------------------------------------------------
+   The one full-bleed coloured section allowed on a page. One statement, nothing interactive
+   except an optional link. */
+.band {
+  margin-top: var(--section-space);
+  padding-block: var(--space-6); /* 32px inside at every size: the band is a statement, not a section */
+  background: var(--color-band-bg);
+  color: var(--color-band-fg);
+}
+
+.band .eyebrow {
+  color: var(--color-band-muted);
+}
+
+.band__statement {
+  max-width: 22ch;
+  margin: 0;
+  font-size: var(--text-h1);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* One optional short supporting sentence under the statement */
+.band__note {
+  max-width: var(--measure);
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-lg);
+  color: var(--color-band-muted);
+}
+
+/* ---- Badge -----------------------------------------------------------------------------------
+   Small magenta label: "new", "case study", a status. Flat: badges are never raised. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--space-2);
+  background: var(--color-badge);
+  color: var(--color-badge-fg); /* white on deep magenta, 5.1:1 in both themes */
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+/* ---- Background grid ---------------------------------------------------------------------------
+   Faint 32px grid behind a hero. Decorative only: never behind running text longer than a
+   paragraph, never on the band. */
+.bg-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The grid is drawn on a layer behind the content, so the fade never touches the content */
+.bg-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: -1px -1px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent); /* fades out: no hard bottom edge */
+}
+
+/* A gridded hero pads its own bottom so the grid can fade; the next section
+   gives back the same amount, keeping the single --section-space gap */
+.hero.bg-grid {
+  padding-bottom: var(--space-8);
+}
+
+.hero.bg-grid + .section {
+  padding-top: max(0px, calc(var(--section-space) - var(--space-8)));
+}
+
+/* ---- Footer ---------------------------------------------------------------------------------- */
+.site-footer {
+  padding-block: var(--space-7);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.link-button {
+  min-height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline 2px var(--color-underline);
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-accent);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer svg {
+  height: 1.5rem; /* 24px: the logo's minimum size */
+  width: auto;
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- Motion ------------------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,43 +1,70 @@
 ---
-import Navigation from '../components/Navigation.astro'
-import { DarkMode, Link, SkipLink } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
+import Logo from './Logo.astro'
 
 /**
  * Header Component
  *
- * @description A component that displays the header of the website
+ * @description Sticky site header with a permanent 2px bottom edge: logo home link and main navigation. Below
+ * 768px the navigation collapses behind a "Menu" text button into a full-screen panel (docs/brand/WEB.md §7).
  */
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/portfolio/', label: 'Portfolio' },
+  { href: '/about/', label: 'About' },
+]
+
+const path = Astro.url.pathname
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')))
 ---
 
-<header>
-  <SkipLink />
-  <Navigation>
-    <li class="menu-item">
-      <Link href="/">Home</Link>
-    </li>
-    <li class="menu-item">
-      <Link href="/portfolio/">Portfolio</Link>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <DarkMode>
-        <Icon aria-hidden="true" name="lucide:moon" slot="light" />
-        <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
-      </DarkMode>
-    </li>
-  </Navigation>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="/" aria-label="Ben Ventures, home">
+      <Logo variant="lockup" class="logo-full" />
+      <Logo variant="mark" class="logo-compact" />
+    </a>
+    <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {
+          links.map(({ href, label }) => (
+            <li>
+              <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<style lang="scss" is:global>
-  header {
-    .type-icon {
-      display: block;
-      margin-inline: -7px;
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.site-nav__toggle')
+  const nav = document.getElementById('site-nav')
 
-      svg {
-        inline-size: 30px;
-        block-size: 30px;
-      }
+  if (toggle && nav) {
+    const setOpen = (open: boolean, moveFocus = false) => {
+      toggle.setAttribute('aria-expanded', String(open))
+      toggle.textContent = open ? 'Close' : 'Menu'
+      nav.toggleAttribute('data-open', open)
+      document.documentElement.classList.toggle('menu-open', open)
+      if (open && moveFocus) nav.querySelector('a')?.focus()
     }
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true', true))
+    nav.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) setOpen(false)
+    })
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false)
+        toggle.focus()
+      }
+    })
+    matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+      if (event.matches) setOpen(false)
+    })
   }
-</style>
+</script>
