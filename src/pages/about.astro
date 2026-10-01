@@ -131,6 +131,13 @@ const aiRange = [
     height: auto;
   }
 
+  /* On phones the headshot stacks above the story; keep it small so the story starts on the first screen */
+  @media (max-width: 767.98px) {
+    .split__art {
+      width: 10rem;
+    }
+  }
+
   .example {
     margin-top: var(--space-7);
   }
