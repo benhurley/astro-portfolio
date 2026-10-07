@@ -354,8 +354,13 @@ ul.grid {
   padding-bottom: var(--section-space);
 }
 
-/* 6. Dark-mode cards sit a step lighter than the page (#2C2827), so they read as raised panels. The kit (1.15) makes
-   the surface the same Ink as the page. Text on it: fg 12.9:1, muted 5.7:1. */
+/* 6. Cards sit a visible step off the page in both themes, so they read as raised panels: white in light mode (1.13:1
+   against Paper; the kit's #FBF9F4 is 1.07:1) and #2C2827 in dark (1.12:1; the kit makes it the same Ink as the
+   page). Text on white: fg 16.3:1, muted 6.05:1. On #2C2827: fg 12.9:1, muted 5.7:1. */
+:root {
+  --color-surface: #ffffff;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --color-surface: #2c2827;
