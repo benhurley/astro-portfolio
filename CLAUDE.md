@@ -22,7 +22,9 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
   coloured buttons drop the outline for a deep shade of their own fill). Never white or light shadows. Spots are flat.
 - If Ben wants something the kit doesn't allow, add it as a labelled, numbered override block at the end of
   `site.css` and list it for the kit maintainers; delete it once a kit update covers it. Open at v1.17: phone spots 240px (kit
-  160px), hero spot hidden on phones, hero buttons side by side on phones, card grids gap 32px, section gap 48 / 64px (kit 64 / 96).
+  160px), hero spot hidden on phones, hero buttons side by side on phones, card grids gap 32px, section gap 48 / 64px (kit 64 / 96),
+  lighter dark-mode cards (#2C2827), no header bottom edge, and yellow on the closing heading (text in dark, a
+  highlighter stroke in light; never yellow text on Paper).
 - Copy: Title Case for headings, buttons, nav and link labels (major words capitalised; a, an, the, and, or, to, in,
   of, on, for, with lowercase unless first). Running text (descriptions, leads, the band note) stays sentence case.
   Badges are Title Case too ("Guiding Principle", "Latest"); eyebrows stay lowercase mono. WEB.md §3 says sentence case; Ben prefers Title Case.

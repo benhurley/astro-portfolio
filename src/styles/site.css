@@ -353,3 +353,47 @@ ul.grid {
 .hero.bg-grid {
   padding-bottom: var(--section-space);
 }
+
+/* 6. Dark-mode cards sit a step lighter than the page (#2C2827), so they read as raised panels. The kit (1.15) makes
+   the surface the same Ink as the page. Text on it: fg 12.9:1, muted 5.7:1. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-surface: #2c2827;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-surface: #2c2827;
+}
+
+/* 7. No bottom edge on the site header. The kit (1.13) draws a 2px outline line under it at all times. */
+.site-header {
+  border-bottom: 0;
+}
+
+/* 8. The closing "Let's Get to Work." heading gets the reserved yellow. In dark mode the text is yellow (13.9:1 on
+   Ink). Yellow text on Paper is 1.04:1, so in light mode the Ink text gets a yellow highlighter stroke behind it
+   instead (Ink on yellow 13.9:1). The kit only allows yellow for text selection. */
+.section--closing h2 {
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(transparent 58%, var(--bv-yellow) 58%, var(--bv-yellow) 92%, transparent 92%);
+  padding-inline: var(--space-1);
+}
+
+.section--closing .btn-row {
+  margin-top: var(--space-6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .section--closing h2 {
+    background-image: none;
+    color: var(--bv-yellow);
+  }
+}
+
+:root[data-theme='dark'] .section--closing h2 {
+  background-image: none;
+  color: var(--bv-yellow);
+}
