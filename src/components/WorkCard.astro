@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
+import BrowserFrame from './BrowserFrame.astro'
 
 /**
  * WorkCard Component
  *
  * @description A whole-card link to a project: media slot, title (with an optional badge), muted description, and a
- * small "Made with …" line for the platform. The image fills the card's 16:10 media slot and has no frame or shadow
- * of its own.
+ * small "Made with …" line for the platform. The screenshot sits in a brand BrowserFrame inside the card's 16:10
+ * media slot.
  */
 interface Props {
   href: string
@@ -33,7 +34,9 @@ const { href, title, description, platform, image, badge, headingLevel: Heading 
   <div class="card__media">
     {
       image ? (
-        <Image src={image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 400px, 100vw" loading="lazy" />
+        <BrowserFrame variant="card">
+          <Image src={image} alt="" widths={[400, 800]} sizes="(min-width: 1024px) 400px, 100vw" loading="lazy" />
+        </BrowserFrame>
       ) : (
         <span class="card__placeholder">{title}</span>
       )

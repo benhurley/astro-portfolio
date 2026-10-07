@@ -39,6 +39,9 @@ Astro 5 static site for Ben Ventures (benvent.com), deployed on Netlify from `ma
 - Brand colour per the kit (WEB.md §1.6): cyan = primary buttons, link underlines, focus; magenta = `.btn--magenta`
   (only beside a primary, one per view) and `.badge` (one per item: the band label, and project `badge` frontmatter
   such as `Latest`); yellow = text selection only. Eyebrows stay muted.
+- Client screenshots on cards and the home Spotlight go inside `<BrowserFrame>` (an outlined window with the three ink
+  dots on a tinted backdrop), so other brands read as exhibits on the Ben Ventures page. Project pages keep their
+  own full-bleed banners and galleries.
 - Logo: `src/components/Logo.astro` (`variant="lockup|mark|monogram"`). Never redraw it or set it in type.
 - Icons: Lucide through `astro-icon` (`<Icon name="lucide:…" aria-hidden="true" size="1.25rem" />`), used sparingly;
   `site.css` squares off the line caps.
