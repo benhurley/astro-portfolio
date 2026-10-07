@@ -48,14 +48,22 @@ const aiRange = [
         </p>
         <p>When I'm not working, I'm traveling with my wife or rotting at home with my two rescue cats.</p>
       </div>
-      <div class="split__art">
+      <div class="split__art portrait">
+        <!-- The headshot as the "b" in the logo's <b>: the brackets are the logo's own shapes and colours -->
+        <svg class="portrait__bracket" viewBox="14.201 87 49.799 60" aria-hidden="true" focusable="false">
+          <polygon style="fill:var(--logo-open)" points="44.201,87 64,87 34,117 64,147 44.201,147 14.201,117"></polygon>
+        </svg>
         <Image
           src={headshot}
           alt="Ben"
           class="media-round headshot"
           widths={[240, 400, 576]}
-          sizes="(min-width: 768px) 400px, 240px"
+          sizes="(min-width: 768px) 400px, 160px"
         />
+        <svg class="portrait__bracket" viewBox="142 87 49.799 60" aria-hidden="true" focusable="false">
+          <polygon style="fill:var(--logo-close)" points="142,87 161.799,87 191.799,117 161.799,147 142,147 172,117"
+          ></polygon>
+        </svg>
       </div>
     </div>
   </section>
@@ -118,16 +126,44 @@ const aiRange = [
 </DefaultLayout>
 
 <style>
+  /* The headshot between the logo's brackets, so it reads as the "b" in <b> */
+  .portrait {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
   .headshot {
-    width: 100%;
-    max-width: 25rem;
+    flex: 0 1 25rem;
+    min-width: 0;
     height: auto;
   }
 
-  /* On phones the headshot stacks above the story; keep it small so the story starts on the first screen */
+  .portrait__bracket {
+    flex: none;
+    width: 2rem;
+    height: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .portrait {
+      gap: var(--space-5);
+    }
+
+    .portrait__bracket {
+      width: 3rem;
+    }
+  }
+
+  /* On phones the portrait stacks above the story; keep the photo small so the story starts on the first screen */
   @media (max-width: 767.98px) {
-    .split__art {
-      width: 10rem;
+    .split__art.portrait {
+      width: auto;
+    }
+
+    .headshot {
+      flex-basis: 10rem;
     }
   }
 
