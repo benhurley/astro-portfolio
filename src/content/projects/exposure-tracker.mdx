@@ -1,7 +1,7 @@
 ---
 title: IPSDI Exposure Tracker
 platform: Ionic
-isFeatured: true
+isFeatured: false
 description: A secure way to record exposures, since firefighting isn't getting any easier.
 sortOrder: 2
 featuredImage: "exposure-tracker.png"
@@ -10,7 +10,7 @@ featuredImage: "exposure-tracker.png"
 import BlockQuote from "@components/BlockQuote.astro";
 import BreakoutImage from "@components/BreakoutImage.astro";
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
+import LinkIcon from '@components/LinkIcon.astro'
 
 ## Project Overview
 
@@ -26,57 +26,53 @@ We built the product using **Ionic React**, allowing us to deploy the same appli
 
 The app also integrates live analytics data from **IPSDI Analytics** via API. I designed an interface that automatically suggests incidents using existing exposure data, reducing user input and speeding up documentation (examples below).
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-  <a href="#img1" class="cursor-zoom-in">
+<div class="gallery">
+  <a href="#img1" class="gallery__link">
     <Image
       src="/projects/exposure-tracker/project-image-1.png"
       alt="Exposure Tracker dashboard showing incident suggestions"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border"
+      class="gallery__img"
     />
   </a>
-  <a href="#img2" class="cursor-zoom-in">
+  <a href="#img2" class="gallery__link">
     <Image
       src="/projects/exposure-tracker/project-image-2.png"
       alt="Exposure entry flow with auto-saved fields"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border"
+      class="gallery__img"
     />
   </a>
-  <a href="#img3" class="cursor-zoom-in">
+  <a href="#img3" class="gallery__link">
     <Image
       src="/projects/exposure-tracker/project-image-3.png"
       alt="Incident detail view with linked exposure data"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border"
+      class="gallery__img"
     />
   </a>
-  <a href="#img4" class="cursor-zoom-in">
+  <a href="#img4" class="gallery__link">
     <Image
       src="/projects/exposure-tracker/project-image-4.png"
       alt="Mobile view of the Exposure Tracker app"
       width={1200}
       height={600}
-      class="h-[250px] w-full rounded-lg object-cover border"
+      class="gallery__img"
     />
   </a>
 </div>
 
 The new apps launched in November of 2025 and are actively helping firefighters and first responders self-document their exposures.
 
-<div class="mt-8">
+<div class="link-row">
   <a
     href="https://i-psdi.org/exposure"
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-2 external-link"
-  >
-    More about Exposure Tracker
-    <Icon name="lucide:external-link" size="1.25rem" />
-  </a>
+  >More About Exposure Tracker <LinkIcon /></a>
 </div>
 
 ## Press & Podcasts
@@ -85,29 +81,23 @@ In January 2026, Chief John Oates joined the Better Every Shift Podcast to expla
 
 The episode highlights how the **IPSDI Exposure Tracker** allows firefighters to independently document fireground exposures, traumatic calls, hazmat incidents, and other unique situations outside of departmental systems.
 
-<div class="mt-6 aspect-video">
+<div class="video">
   <iframe
-    src="https://www.youtube.com/embed/y2BSxccic8Y"
+    class="embed-16x9"
+    src="https://www.youtube-nocookie.com/embed/y2BSxccic8Y"
     title="IPSDI Exposure Tracker on the Better Every Shift Podcast"
     loading="lazy"
     allowfullscreen
-    class="h-full w-full rounded-lg"
   ></iframe>
 </div>
 
-<p class="text-sm text-neutral-500 mt-2">
-  <div class="pt-2">
-  <a 
+<div class="link-row">
+  <a
     href="https://www.firerescue1.com/fire-department-management/its-time-to-track-your-incidents-chief-oates-explains-how-and-why"
-    target="_blank" 
+    target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-2 external-link"
-  >
-      Press Release on <em>FireRescue1</em>
-    <Icon name="lucide:external-link" size="1.25rem" />
-  </a>
+  >Press Release on <em>FireRescue1</em> <LinkIcon /></a>
 </div>
-</p>
 
 ## Testimonial
 

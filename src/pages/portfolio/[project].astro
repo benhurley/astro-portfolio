@@ -2,7 +2,6 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import SocialShares from '@components/SocialShares.astro'
-import { Heading } from 'accessible-astro-components'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 
@@ -11,16 +10,10 @@ export async function getStaticPaths() {
 
   return projects
     .sort((a, b) => a.data.sortOrder - b.data.sortOrder)
-    .map((project, index) => {
-      const projectWithImage = {
-        ...project,
-      }
-
-      return {
-        params: { project: project.id.replace(/\.mdx?$/, '') },
-        props: { project: projectWithImage },
-      }
-    })
+    .map((project) => ({
+      params: { project: project.id.replace(/\.mdx?$/, '') },
+      props: { project },
+    }))
 }
 
 interface Props {
@@ -35,83 +28,43 @@ const projectImageCount = 4 // Or detect this dynamically if needed
 const projectImages = Array.from({ length: projectImageCount }, (_, i) => ({
   id: `img${i + 1}`,
   src: `/projects/${project.id}/project-image-${i + 1}.png`,
-  alt: `Project image ${i + 1}`
+  alt: `Project image ${i + 1}`,
 }))
-
 ---
 
-<DefaultLayout title={project.data.title} description={project.data.description} url={`/portfolio/${project.id}`}>
+<DefaultLayout title={project.data.title} description={project.data.description} url={`/portfolio/${project.id}/`}>
   <PageHeader
     title={project.data.title}
     subtitle={project.data.description}
-    bgType="bordered"
+    meta={`Made with ${project.data.platform}`}
     featuredImage={`/projects/${project.id}/banner.png`}
   />
-  <section class="my-12">
-    <div class="narrow space-content container">
-      <Content />
-    </div>
-  </section>
-  <section class="my-12">
-    <div class="narrow space-content container">
-      <Heading level="h2">Share this project</Heading>
-      <SocialShares />
-    </div>
-  </section>
 
-  <!-- Dynamic lightbox modals -->
-  {projectImages.map((image) => (
-    <div id={image.id} class="lightbox">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img src={image.src} alt={image.alt} />
+  <!-- Lightboxes for the gallery images (opened with #imgN links). Kept before the sections so the last
+       section stays main's last child and gets the kit's closing padding. -->
+  {
+    projectImages.map((image) => (
+      <div id={image.id} class="lightbox">
+        <a href="#_" class="lightbox__close">
+          Close
+        </a>
+        <img src={image.src} alt={image.alt} loading="lazy" />
+      </div>
+    ))
+  }
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <Content />
+      </div>
     </div>
-  ))}
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <h2>Share This Project</h2>
+        <SocialShares text={project.data.title} />
+      </div>
+    </div>
+  </section>
 </DefaultLayout>
-
-<style lang="scss" is:global>
-  .narrow {
-    margin-inline: auto;
-    max-width: 65ch;
-  }
-
-  .lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.9);
-    width: 100%;
-    height: 100%;
-
-    &:target {
-      display: flex;
-    }
-
-    img {
-      max-width: 90%;
-      max-height: 90vh;
-      object-fit: contain;
-    }
-  }
-
-  .lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    cursor: pointer;
-    color: white;
-    font-size: 40px;
-    text-decoration: none;
-
-    &:hover {
-      color: #ccc;
-    }
-  }
-
-  .cursor-zoom-in {
-    cursor: zoom-in;
-  }
-</style>

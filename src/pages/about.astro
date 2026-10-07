@@ -1,0 +1,189 @@
+---
+import { Image } from 'astro:assets'
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import headshot from '@assets/images/headshot.jpg'
+
+const aiRange = [
+  {
+    title: 'Fully Agentic',
+    badge: 'Recommended',
+    text: 'My favorite. Claude Code with custom commands, agentic automation and workflows that take repeatable work off the table.',
+  },
+  {
+    title: 'Somewhere in Between',
+    text: 'AI as a sidekick for drafts, tests and second opinions, while the decisions and the craft stay human.',
+  },
+  {
+    title: 'AI-Free',
+    text: "Hand-written code and hand-made design, start to finish. For when there's a specific need: a policy, a client requirement, or a firm preference for keeping the robots out of it.",
+  },
+]
+---
+
+<DefaultLayout
+  title="About"
+  description="Meet Ben, the frontend specialist and principal consultant behind Ben Ventures, working anywhere from completely AI-free to fully agentic."
+>
+  <PageHeader title="About" />
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Founder &amp; Principal Consultant</h2>
+        <p>
+          I started my career in cloud and backend development, right up until a consulting assignment put me on an
+          e-commerce site and pulled me over to the frontend. Turns out I liked it enough to switch for good.
+        </p>
+        <p>
+          Since then, I've built frontends for popular brands and startups, branched naturally into design, wireframing
+          and UX, and shipped dozens of websites and apps along the way (including this one!).
+        </p>
+        <p>
+          What you get: a true frontend specialist who also understands the full stack, and knows what it really takes
+          to build a good product and ship it fast. Don't just take my word for it; see my <a href="/portfolio/"
+            >testimonials</a
+          >.
+        </p>
+        <p>When I'm not working, I'm traveling with my wife or rotting at home with my two rescue cats.</p>
+      </div>
+      <div class="split__art portrait">
+        <!-- The headshot as the "b" in the logo's <b>: the brackets are the logo's own shapes and colours -->
+        <svg class="portrait__bracket" viewBox="14.201 87 49.799 60" aria-hidden="true" focusable="false">
+          <polygon style="fill:var(--logo-open)" points="44.201,87 64,87 34,117 64,147 44.201,147 14.201,117"></polygon>
+        </svg>
+        <Image
+          src={headshot}
+          alt="Ben"
+          class="media-round headshot"
+          widths={[240, 400, 576]}
+          sizes="(min-width: 768px) 400px, 160px"
+        />
+        <svg class="portrait__bracket" viewBox="142 87 49.799 60" aria-hidden="true" focusable="false">
+          <polygon style="fill:var(--logo-close)" points="142,87 161.799,87 191.799,117 161.799,147 142,147 172,117"
+          ></polygon>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>AI-Free to Fully Agentic</h2>
+        <p class="lead">
+          I'm happiest with agentic tools, but I'm just as comfortable going completely AI-free when a project calls for
+          it. Most teams land somewhere in between, and that works too.
+        </p>
+      </div>
+      <ul class="grid">
+        {
+          aiRange.map((item) => (
+            <li>
+              <div class="card">
+                <h3>
+                  {item.title}
+                  {item.badge && <span class="badge">{item.badge}</span>}
+                </h3>
+                <p class="muted">{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose brand">
+        <h2>About the Brand</h2>
+        <p>
+          The Ben Ventures logo is the HTML bold tag, <code>&lt;b&gt;</code>. The closing bracket doubles as a v, so the
+          mark also reads BV.
+        </p>
+        <p>
+          The colors come from print: magenta, black and cyan are three of the four CMYK process inks, a nod to work
+          that's half code and half design. The fourth, yellow, is saved for emphasis, like the call to action at the
+          bottom of this page.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--closing">
+    <div class="container">
+      <h2 class="closing">Let's Get to Work.</h2>
+      <div class="btn-row">
+        <a
+          class="btn btn--primary"
+          href="mailto:ben@benvent.com?subject=Project%20Inquiry&body=Hi%20Ben%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A"
+          >Email Ben</a
+        >
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style>
+  /* The headshot between the logo's brackets, so it reads as the "b" in <b> */
+  .portrait {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .headshot {
+    flex: 0 1 25rem;
+    min-width: 0;
+    height: auto;
+  }
+
+  .portrait__bracket {
+    flex: none;
+    width: 2rem;
+    height: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .portrait {
+      gap: var(--space-5);
+    }
+
+    .portrait__bracket {
+      width: 3rem;
+    }
+  }
+
+  /* On phones the portrait stacks above the story; keep the photo small so the story starts on the first screen */
+  @media (max-width: 767.98px) {
+    .split__art.portrait {
+      width: auto;
+    }
+
+    .headshot {
+      flex-basis: 10rem;
+    }
+  }
+
+  /* The prose column is centred by the kit; on this page it lines up with the sections above */
+  .brand {
+    margin-inline: 0;
+  }
+
+  /* These short blocks sit under full-width cards, so they run the full width instead of the kit's 68-character
+     reading measure (WEB.md §3), which left them looking cut off on desktop */
+  .section-head .lead,
+  .brand,
+  .brand p {
+    max-width: none;
+  }
+
+  .closing {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+</style>

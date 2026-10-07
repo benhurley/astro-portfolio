@@ -14,37 +14,66 @@ interface Props {
    */
   description: string
   /**
-   * The URL of the page
+   * The URL (or path) of the page
    */
-  url: string
+  url: string | URL
   /**
-   * The image path for social sharing
+   * The image path for social sharing (the brand kit's og-image.png by default: 2400 × 1260 PNG)
    */
   image: string
+  /**
+   * Alt text for the social image
+   * @default the brand kit og-image description
+   */
+  imageAlt?: string
   /**
    * The author of the page
    */
   author?: string
 }
 
-const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
+const {
+  title,
+  description,
+  url,
+  image,
+  imageAlt = 'The Ben Ventures logo, the HTML bold tag, beside the words ben ventures',
+  author = 'Ben',
+} = Astro.props
 
-let subtitle = 'Ben Ventures'
+// Title format: "Page name · Ben Ventures" (docs/brand/WEB.md §9)
+const siteName = 'Ben Ventures'
+const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`
+const pageUrl = new URL(url, Astro.site)
+const imageUrl = new URL(image, Astro.site)
 ---
 
 <!-- general meta -->
-<meta name="title" content={`${title} - ${subtitle}`} />
+<meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={author} />
+<link rel="canonical" href={pageUrl} />
 
-<!-- open graph -->
-<meta property="og:title" content={`${title} - ${subtitle}`} />
-<meta property="og:description" content={description} />
+<!-- open graph (iMessage, Slack, LinkedIn, Facebook). Keep attributes quoted: scrapers are strict -->
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={url} />
-<meta property="og:image" content={`${Astro.site}${image}`} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:secure_url" content={imageUrl} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1260" />
+<meta property="og:image:alt" content={imageAlt} />
 
-<!-- twitter card -->
+<!-- twitter / x card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <!-- page title -->
-<title>{title} - {subtitle}</title>
+<title>{fullTitle}</title>

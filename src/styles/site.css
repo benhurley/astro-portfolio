@@ -1,0 +1,404 @@
+/*
+ * Site-specific components, built only from the brand tokens in ./brand/tokens.css.
+ * Load order: fonts.css → brand/tokens.css → brand/base.css → this file.
+ * Breakpoints (min-width): sm 640 · md 768 · lg 1024 · xl 1280. Keep in sync with brand/tokens.css.
+ *
+ * Depth, section spacing, image outlines, the band (and its note), badge, background grid, spot splits, the
+ * reading column, the closing section, .meta and .link-icon all come from base.css (docs/brand/WEB.md); this file
+ * only adds site-specific components on top.
+ */
+
+/* ---- Page frame: footer sits at the bottom on short pages ---------------------------- */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+main:focus {
+  outline: none; /* the skip link target; focus is programmatic only */
+}
+
+/* ---- Icons: outline set with square caps and mitred joins, to match the logo's cuts --- */
+svg[data-icon] {
+  display: inline-block;
+  flex-shrink: 0;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+/* ---- Section heading block ------------------------------------------------------- */
+.section-head {
+  margin-bottom: var(--space-6);
+}
+
+.section-head h2 {
+  margin-bottom: 0;
+}
+
+.section-head .lead {
+  margin: var(--space-3) 0 0;
+}
+
+/* Lists laid out on the brand grid: each item spans 4 columns (1 / 2 / 3 per row) */
+ul.grid {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  list-style: none;
+}
+
+.grid > li {
+  display: flex;
+  grid-column: span 4;
+}
+
+.grid > li > .card {
+  flex: 1;
+}
+
+/* ---- Work card: on the portfolio page the title is an h2, sized like the kit's h3 card titles ---------- */
+.work-card__title {
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+}
+
+/* ---- Guiding-principle band: a badge label above the kit's statement ---- */
+.band .badge {
+  margin-bottom: var(--space-4);
+}
+
+/* A badge after a card title sits a little away from it */
+.card :is(h2, h3) .badge {
+  vertical-align: middle;
+  margin-left: var(--space-2);
+}
+
+/* ---- Media split: a screenshot beside text, two equal columns from 768px. (Spots use the kit's .split.) ---- */
+.media-split {
+  display: grid;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.media-split__media img {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .media-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+}
+
+/* ---- Page header and breadcrumbs ------------------------------------------------------ */
+/* The first section's top padding supplies the gap below the header (one shared gap, WEB.md §4) */
+.page-header {
+  padding-top: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .page-header {
+    padding-top: var(--space-5);
+  }
+}
+
+.page-header .lead {
+  margin-bottom: 0;
+}
+
+.page-header__banner {
+  margin-bottom: var(--space-5);
+  aspect-ratio: 24 / 5;
+  width: 100%;
+  min-height: 10rem;
+  object-fit: cover;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.breadcrumbs li + li::before {
+  margin-right: var(--space-2);
+  content: '/';
+  font-family: var(--font-mono);
+}
+
+/* Keep the 44px tap target (WEB.md §11) but let it overlap the space around the row, so the crumbs don't push the
+   title down */
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  margin-block: calc((var(--text-sm) * 1.6 - var(--tap-min)) / 2);
+  min-height: var(--tap-min);
+}
+
+.breadcrumbs [aria-current='page'] {
+  color: var(--color-fg);
+}
+
+/* ---- Long-form content (project write-ups) -------------------------------------------- */
+/* .prose (the centred reading column) is the kit's; these are the write-up's inner rhythm */
+.prose h2 {
+  margin-top: var(--space-8);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+/* The section gap is the whole gap: the last thing in a section (a title, a testimonial) adds no margin of its own */
+:is(.page-header, .section) .container > :last-child,
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose strong {
+  font-weight: var(--weight-medium);
+}
+
+.gallery {
+  display: grid;
+  gap: var(--space-4);
+  margin-block: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.gallery__link {
+  display: block;
+  cursor: zoom-in;
+}
+
+.gallery__img {
+  aspect-ratio: 2 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Spacing around an embed; the iframe itself is the kit's .embed-16x9 (outline from base.css) */
+.video {
+  margin-block: var(--space-6) var(--space-4);
+}
+
+.link-row {
+  margin-block: var(--space-6);
+}
+
+/* ---- Quote --------------------------------------------------------------------------- */
+.quote {
+  margin: var(--space-6) 0;
+  border-left: var(--border-strong) solid var(--color-outline);
+  padding-left: var(--space-5);
+}
+
+.quote__text {
+  margin: 0;
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+}
+
+.quote__text p:last-child {
+  margin-bottom: 0;
+}
+
+.quote__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  color: var(--color-fg-muted);
+  font-style: normal;
+  font-size: var(--text-sm);
+}
+
+/* Round and outlined by the kit's .media-round */
+.quote__avatar {
+  width: var(--space-7);
+  height: var(--space-7);
+}
+
+/* ---- Lightbox (CSS :target) -------------------------------------------------------------- */
+.lightbox {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-menu);
+  inset: 0;
+  background: var(--color-codeblock-bg);
+  padding: var(--space-8) var(--gutter);
+  color: var(--color-codeblock-fg);
+}
+
+.lightbox:target {
+  display: flex;
+}
+
+.lightbox img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.lightbox__close {
+  display: inline-flex;
+  position: absolute;
+  top: var(--space-4);
+  right: var(--gutter);
+  align-items: center;
+  min-height: var(--tap-min);
+  color: inherit;
+  font-weight: var(--weight-medium);
+}
+
+/* ---- Pagination -------------------------------------------------------------------------- */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.pagination p {
+  margin: 0;
+}
+
+/* ---- Footer extras ------------------------------------------------------------------------- */
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}
+
+.site-footer__logo {
+  color: inherit;
+}
+
+/* ============================================================================================
+ * Site overrides to brand kit v1.17 (Ben's calls). If they stick, add them to the kit's base.css and WEB.md,
+ * re-copy, and delete this block.
+ * ========================================================================================== */
+
+/* 1. Spots on phones are 240px (15rem), not the kit's 160px (10rem). */
+@media (max-width: 767.98px) {
+  .split__art {
+    width: 15rem;
+  }
+
+  /* 2. The hero spot stays hidden on phones: Ben wants the headline and buttons alone there. The kit (1.16) shows
+     it at 160px above the headline. From 768px it sits beside the headline, as the kit has it. */
+  .hero__art {
+    display: none;
+  }
+}
+
+/* 3. The hero's two buttons sit side by side on phones, splitting the width with a 16px gap, instead of the kit's
+   full-width stack (WEB.md §7, Buttons: "below 640px, buttons in a .btn-row go full width"). Side padding drops
+   to 12px so both labels fit on one line down to 320px. */
+@media (max-width: 639.98px) {
+  .hero .btn-row {
+    flex-wrap: nowrap;
+    gap: var(--space-4);
+  }
+
+  .hero .btn-row .btn {
+    flex: 1 1 0;
+    padding-inline: var(--space-3);
+    width: auto;
+  }
+}
+
+/* 4. Card grids gap 32px (--space-6) at every size, not --grid-gap (16 / 24px). The cards' 6px hard shadow sits
+   inside the gap, so the kit's value left only 10px visible between stacked cards on phones (18px on desktop);
+   this leaves 26px. */
+ul.grid {
+  gap: var(--space-6);
+}
+
+/* 5. The gap between sections is 48px on phones and 64px from 1024px, not the kit's 64 / 96px. Set on the token, so
+   section padding, the space above the band and the page's closing padding all follow. */
+:root {
+  --section-space: var(--space-7);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-space: var(--space-8);
+  }
+}
+
+/* The gridded hero's bottom padding is a fixed 64px in the kit (room for the grid to fade); tie it to the gap so the
+   space under the hero shrinks with everything else. The next section's top padding stays 0. */
+.hero.bg-grid {
+  padding-bottom: var(--section-space);
+}
+
+/* 6. Cards sit a visible step off the page in both themes, so they read as raised panels: white in light mode (1.13:1
+   against Paper; the kit's #FBF9F4 is 1.07:1) and #2C2827 in dark (1.12:1; the kit makes it the same Ink as the
+   page). Text on white: fg 16.3:1, muted 6.05:1. On #2C2827: fg 12.9:1, muted 5.7:1. */
+:root {
+  --color-surface: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-surface: #2c2827;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-surface: #2c2827;
+}
+
+/* 7. No bottom edge on the site header. The kit (1.13) draws a 2px outline line under it at all times. */
+.site-header {
+  border-bottom: 0;
+}
+
+/* 8. The closing "Let's Get to Work." heading gets the reserved yellow. In dark mode the text is yellow (13.9:1 on
+   Ink). Yellow text on Paper is 1.04:1, so in light mode the Ink text gets a yellow highlighter stroke behind it
+   instead (Ink on yellow 13.9:1). The kit only allows yellow for text selection. */
+.section--closing h2 {
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(transparent 58%, var(--bv-yellow) 58%, var(--bv-yellow) 92%, transparent 92%);
+  padding-inline: var(--space-1);
+}
+
+.section--closing .btn-row {
+  margin-top: var(--space-6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .section--closing h2 {
+    background-image: none;
+    color: var(--bv-yellow);
+  }
+}
+
+:root[data-theme='dark'] .section--closing h2 {
+  background-image: none;
+  color: var(--bv-yellow);
+}

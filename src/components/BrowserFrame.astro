@@ -1,0 +1,111 @@
+---
+/**
+ * BrowserFrame Component
+ *
+ * @description Presents a client screenshot inside a browser window drawn in the brand's spot style: an outlined
+ * window with the three ink dots (magenta, yellow, cyan) in its title bar, on a tinted backdrop. The client's work
+ * stays unaltered; the frame makes it an exhibit on the Ben Ventures page rather than the page itself. Flat, like the
+ * spots: no shadow on the window or the screenshot (WEB.md §6).
+ */
+interface Props {
+  /**
+   * 'card': fills a card's 16:10 media slot, the window running off the bottom edge.
+   * 'standalone': a padded, fully enclosed window for a screenshot beside text.
+   * @default 'standalone'
+   */
+  variant?: 'card' | 'standalone'
+}
+
+const { variant = 'standalone' } = Astro.props
+---
+
+<div class:list={['browser-frame', `browser-frame--${variant}`]}>
+  <div class="browser-frame__window">
+    <div class="browser-frame__bar" aria-hidden="true">
+      <span class="browser-frame__dot browser-frame__dot--magenta"></span>
+      <span class="browser-frame__dot browser-frame__dot--yellow"></span>
+      <span class="browser-frame__dot browser-frame__dot--cyan"></span>
+    </div>
+    <div class="browser-frame__screen">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .browser-frame {
+    display: flex;
+    background: var(--color-code-bg);
+  }
+
+  .browser-frame--card {
+    padding: var(--space-4) var(--space-4) 0;
+    height: 100%;
+  }
+
+  .browser-frame--standalone {
+    border: var(--border-strong) solid var(--color-outline);
+    padding: var(--space-5);
+  }
+
+  .browser-frame__window {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border: var(--border-strong) solid var(--color-outline);
+    background: var(--color-surface);
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .browser-frame--card .browser-frame__window {
+    border-bottom: 0;
+  }
+
+  .browser-frame__bar {
+    display: flex;
+    flex: none;
+    gap: var(--space-1);
+    border-bottom: var(--border-strong) solid var(--color-outline);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .browser-frame__dot {
+    border: var(--border-width) solid var(--color-outline);
+    border-radius: var(--radius-round);
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+
+  .browser-frame__dot--magenta {
+    background: var(--bv-magenta);
+  }
+
+  .browser-frame__dot--yellow {
+    background: var(--bv-yellow);
+  }
+
+  .browser-frame__dot--cyan {
+    background: var(--bv-cyan);
+  }
+
+  .browser-frame__screen {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* The screenshot fills the window from the top, unframed (the window is the frame) */
+  .browser-frame__screen :global(img) {
+    display: block;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .browser-frame--standalone .browser-frame__screen :global(img) {
+    height: auto;
+  }
+</style>
